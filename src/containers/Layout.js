@@ -31,12 +31,12 @@ function Layout() {
                   <Route
                     key={i}
                     exact={true}
-                    path={`/app${route.path}`}
+                    path={`/${route.path}`}
                     element={<route.component />}
                   />
                 ) : null
               })}
-              <Route path="/app" element={<Navigate to="/app/dashboard" />} />
+              <Route path="/" element={<Navigate to="dashboard" />} />
               <Route element={<Page404 />} />
             </Routes>
           </Suspense>

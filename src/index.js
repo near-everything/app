@@ -5,17 +5,21 @@ import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
 import { store } from "./app/store";
+import { firebase } from "./app/firebase";
 import * as serviceWorker from "./serviceWorker";
 import ThemedSuspense from "./components/ThemedSuspense";
+import { DatabaseProvider } from "./context/DatabaseContext";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Suspense fallback={ThemedSuspense}>
-        <App />
-      </Suspense>
+      <DatabaseProvider value={firebase}>
+        <Suspense fallback={<ThemedSuspense />}>
+          <App />
+        </Suspense>
+      </DatabaseProvider>
     </Provider>
   </React.StrictMode>
 );
