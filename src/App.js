@@ -1,10 +1,9 @@
-import React, { lazy } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import React, { lazy, useEffect, useRef } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
+// import { getAuth } from "firebase/auth";
+
+// import { firebase } from "./app/firebase";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
@@ -12,7 +11,11 @@ const CreateAccount = lazy(() => import("./pages/CreateAccount"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
 function App() {
-  // const [user] = useAuthState(auth);
+  // let auth = useRef(null);
+
+  // useEffect(() => {
+  //   auth.current = getAuth(firebase);
+  // }, [])
 
   return (
     <>
