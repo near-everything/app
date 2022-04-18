@@ -34,7 +34,7 @@ function Login() {
       // verifier.verify().then(() => setRecaptcha(verifier));
       setRecaptcha(verifier);
     }
-  });
+  }, [recaptcha, auth]);
 
   return (
     <>
@@ -49,7 +49,6 @@ function PhoneNumberVerification({ recaptcha }) {
   const [invited, setInvited] = useState(false);
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [code, setCode] = useState("");
-  const dispatch = useDispatch();
 
   const firebase = useClient();
   const auth = getAuth(firebase);
@@ -88,13 +87,9 @@ function PhoneNumberVerification({ recaptcha }) {
   // Step 3 - Verify SMS code
   const verifyCode = async () => {
     await confirmationResult.confirm(code).then((result) => {
-      // User signed in successfully.
-      const user = result.user;
-      dispatch(setUser(user.uid))
       navigate('/');
     }).catch((error) => {
-      // User couldn't sign in (bad verification code?)
-      console.log("loser")
+      recaptcha.reset(window.recaptchaWidgetId);
       console.log(error);
     });
   };

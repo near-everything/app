@@ -1,17 +1,25 @@
-import React, { lazy, useEffect, useRef } from "react";
+import React, { lazy } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
 
-import { firebase } from "./app/firebase";
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
-import { useSelector } from "react-redux";
-import { selectUser } from "./features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, setUser } from "./features/auth/authSlice";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
 
 function App() {
+  const dispatch = useDispatch();
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      dispatch(setUser(user.uid))
+    } else {
+      dispatch(setUser(null))
+    }
+  })
+
   return (
     <>
       <Router>
@@ -29,7 +37,7 @@ function App() {
   );
 }
 
-function PrivateRoute({ children }) {
+function PrivateRoute() {
   const user = useSelector(selectUser);
   return user ? <Outlet /> : <Navigate to="/login" />;
 }
