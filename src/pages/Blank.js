@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { doc, setDoc, collection, getFirestore } from "firebase/firestore"; 
-import {
-  getAuth
-} from "firebase/auth";
+import { doc, setDoc, collection, getFirestore } from "firebase/firestore";
+
 import { useClient } from "../context/DatabaseContext";
 import PageTitle from "../components/Typography/PageTitle";
 
 function Blank() {
+  const [selectedImage, setSelectedImage] = useState([]);
   const [input, setInput] = useState("");
   const firebase = useClient();
-  const auth = getAuth(firebase);
   const firestore = getFirestore(firebase);
 
   const insertListing = async () => {
     await setDoc(doc(collection(firestore, "items"), input), {
-      name: input
+      name: input,
     });
   };
 
@@ -22,6 +20,35 @@ function Blank() {
     <>
       <PageTitle>Blank</PageTitle>
       <div className="flex flex-col">
+        {selectedImage &&
+          selectedImage.map((it, index) => {
+            return (
+                <img alt="not found" width={"250px"} src={it} key={index} />
+            );
+          })}
+        <button className="text-white" onClick={() => setSelectedImage([])}>
+          Remove
+        </button>
+        <br />
+        <label htmlFor="upload-photo" className="cursor-pointer text-white">
+          Browse...
+        </label>
+        <input
+          type="file"
+          name="photo"
+          id="upload-photo"
+          className="absolute opacity-0 -z-10"
+          onChange={(event) => {
+            if (event.target.files.length > 0) {
+              const len = event.target.files.length;
+              for (let i = 0; i < len; i++) {
+                const url = URL.createObjectURL(event.target.files[i]);
+                setSelectedImage([...selectedImage, url]);
+              }
+            }
+          }}
+          multiple
+        />
         <input
           type="text"
           className="form-input px-4 py-3 rounded my-2"

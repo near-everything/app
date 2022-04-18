@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   getAuth,
   RecaptchaVerifier,
@@ -9,6 +9,8 @@ import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
 
 import { useClient } from "../context/DatabaseContext";
 import { GithubIcon, TwitterIcon } from "../icons";
+import { useDispatch } from "react-redux";
+import { setUser } from "../features/auth/authSlice";
 
 function Login() {
   const [recaptcha, setRecaptcha] = useState(null);
@@ -25,8 +27,12 @@ function Login() {
         },
         auth
       );
+      verifier.render().then((widgetId) => {
+        window.recaptchaWidgetId = widgetId;
+      });
 
-      verifier.verify().then(() => setRecaptcha(verifier));
+      // verifier.verify().then(() => setRecaptcha(verifier));
+      setRecaptcha(verifier);
     }
   });
 
@@ -43,10 +49,12 @@ function PhoneNumberVerification({ recaptcha }) {
   const [invited, setInvited] = useState(false);
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [code, setCode] = useState("");
+  const dispatch = useDispatch();
 
   const firebase = useClient();
   const auth = getAuth(firebase);
   const firestore = getFirestore(firebase);
+  let navigate = useNavigate();
 
   const phoneNumber = `+1${digits}`;
 
@@ -63,7 +71,12 @@ function PhoneNumberVerification({ recaptcha }) {
         }
       });
     }
-  }, [phoneNumber]);
+  }, [phoneNumber, firestore]);
+
+  useEffect(() => {
+    recaptcha.verify()
+  }, [recaptcha])
+  
 
   // Step 2 - Sign in
   const signIn = async () => {
@@ -74,13 +87,15 @@ function PhoneNumberVerification({ recaptcha }) {
 
   // Step 3 - Verify SMS code
   const verifyCode = async () => {
-    const result = await confirmationResult.confirm(code).then((result) => {
+    await confirmationResult.confirm(code).then((result) => {
       // User signed in successfully.
       const user = result.user;
-      console.log(user)
+      dispatch(setUser(user.uid))
+      navigate('/');
     }).catch((error) => {
       // User couldn't sign in (bad verification code?)
       console.log("loser")
+      console.log(error);
     });
   };
 
@@ -131,22 +146,6 @@ function PhoneNumberVerification({ recaptcha }) {
                   </button>
                 </>
               )}
-              <p className="mt-4">
-                <Link
-                  className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                  to="/forgot-password"
-                >
-                  Forgot your password?
-                </Link>
-              </p>
-              <p className="mt-1">
-                <Link
-                  className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                  to="/create-account"
-                >
-                  Create account
-                </Link>
-              </p>
             </div>
           </main>
         </div>

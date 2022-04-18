@@ -1,6 +1,8 @@
 import React, { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
 
 import "./index.css";
 import App from "./App";
@@ -10,16 +12,20 @@ import * as serviceWorker from "./serviceWorker";
 import ThemedSuspense from "./components/ThemedSuspense";
 import { DatabaseProvider } from "./context/DatabaseContext";
 
+const persistor = persistStore(store);
+
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <DatabaseProvider value={firebase}>
-        <Suspense fallback={<ThemedSuspense />}>
-          <App />
-        </Suspense>
-      </DatabaseProvider>
+      <PersistGate loading={<ThemedSuspense />} persistor={persistor}>
+        <DatabaseProvider value={firebase}>
+          <Suspense fallback={<ThemedSuspense />}>
+            <App />
+          </Suspense>
+        </DatabaseProvider>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

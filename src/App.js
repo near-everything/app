@@ -1,38 +1,37 @@
 import React, { lazy, useEffect, useRef } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
-// import { getAuth } from "firebase/auth";
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-// import { firebase } from "./app/firebase";
+import { firebase } from "./app/firebase";
+import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/auth/authSlice";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
-const CreateAccount = lazy(() => import("./pages/CreateAccount"));
-const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
 function App() {
-  // let auth = useRef(null);
-
-  // useEffect(() => {
-  //   auth.current = getAuth(firebase);
-  // }, [])
-
   return (
     <>
       <Router>
         <AccessibleNavigationAnnouncer />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/create-account" element={<CreateAccount />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-
           {/* Private route */}
-          <Route path="/*" element={<Layout />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/*" element={<Layout />} />
+          </Route>
           {/* <Route path="/" render={() => <Navigate to="/login" />} /> */}
         </Routes>
       </Router>
     </>
   );
+}
+
+function PrivateRoute({ children }) {
+  const user = useSelector(selectUser);
+  return user ? <Outlet /> : <Navigate to="/login" />;
 }
 // function SendInvites({ user }) {
 //   const query = firestore.collection('invites').where('sender', '==', user.uid);
