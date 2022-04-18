@@ -30,7 +30,6 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/*" element={<Layout />} />
           </Route>
-          {/* <Route path="/" render={() => <Navigate to="/login" />} /> */}
         </Routes>
       </Router>
     </>

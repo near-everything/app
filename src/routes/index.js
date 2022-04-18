@@ -2,8 +2,9 @@ import { lazy } from 'react'
 
 // use lazy for better code splitting, a.k.a. load faster
 const Dashboard = lazy(() => import('../pages/Dashboard'))
+const Create = lazy(() => import('../pages/Create'))
+const Invite = lazy(() => import('../pages/Invite'))
 const Page404 = lazy(() => import('../pages/404'))
-const Blank = lazy(() => import('../pages/Blank'))
 
 /**
  * ⚠ These are internal routes!
@@ -21,12 +22,16 @@ const routes = [
     component: Dashboard, // view rendered
   },
   {
-    path: '/404',
-    component: Page404,
+    path: '/create',
+    component: Create,
   },
   {
-    path: '/blank',
-    component: Blank,
+    path: '/invite',
+    component: Invite,
+  },
+  {
+    path: '/404',
+    component: Page404,
   },
 ]
 

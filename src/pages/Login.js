@@ -5,12 +5,11 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
-import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc } from "firebase/firestore";
 
 import { useClient } from "../context/DatabaseContext";
 import { GithubIcon, TwitterIcon } from "../icons";
-import { useDispatch } from "react-redux";
-import { setUser } from "../features/auth/authSlice";
+import { db } from "../app/firebase";
 
 function Login() {
   const [recaptcha, setRecaptcha] = useState(null);
@@ -52,7 +51,6 @@ function PhoneNumberVerification({ recaptcha }) {
 
   const firebase = useClient();
   const auth = getAuth(firebase);
-  const firestore = getFirestore(firebase);
   let navigate = useNavigate();
 
   const phoneNumber = `+1${digits}`;
@@ -60,7 +58,7 @@ function PhoneNumberVerification({ recaptcha }) {
   // Step 1 - Verify Invite
   useEffect(() => {
     if (phoneNumber.length === 12) {
-      const col = collection(firestore, "invites");
+      const col = collection(db, "invites");
       const ref = doc(col, phoneNumber);
       getDoc(ref).then((it) => {
         if (it.exists()) {
@@ -70,7 +68,7 @@ function PhoneNumberVerification({ recaptcha }) {
         }
       });
     }
-  }, [phoneNumber, firestore]);
+  }, [phoneNumber]);
 
   useEffect(() => {
     recaptcha.verify()

@@ -4,7 +4,7 @@ import { doc, setDoc, collection, getFirestore } from "firebase/firestore";
 import { useClient } from "../context/DatabaseContext";
 import PageTitle from "../components/Typography/PageTitle";
 
-function Blank() {
+function Create() {
   const [selectedImage, setSelectedImage] = useState([]);
   const [input, setInput] = useState("");
   const firebase = useClient();
@@ -18,7 +18,7 @@ function Blank() {
 
   return (
     <>
-      <PageTitle>Blank</PageTitle>
+      <PageTitle>Create</PageTitle>
       <div className="flex flex-col">
         {selectedImage &&
           selectedImage.map((it, index) => {
@@ -67,7 +67,7 @@ function Blank() {
   );
 }
 
-export default Blank;
+export default Create;
 
 // function SendInvites({ user }) {
 //   const query = firestore.collection('invites').where('sender', '==', user.uid);
