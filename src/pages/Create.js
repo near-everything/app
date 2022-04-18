@@ -1,19 +1,29 @@
 import React, { useState } from "react";
-import { doc, setDoc, collection, getFirestore } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 
-import { useClient } from "../context/DatabaseContext";
 import PageTitle from "../components/Typography/PageTitle";
+import { db } from "../app/firebase";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/auth/authSlice";
 
 function Create() {
   const [selectedImage, setSelectedImage] = useState([]);
   const [input, setInput] = useState("");
-  const firebase = useClient();
-  const firestore = getFirestore(firebase);
+  const itemsRef = collection(db, 'items');
+  const user = useSelector(selectUser)
 
   const insertListing = async () => {
-    await setDoc(doc(collection(firestore, "items"), input), {
-      name: input,
-    });
+    try {
+      await addDoc(itemsRef, {
+        name: input,
+        createdBy: user,
+        createdTimestamp: Timestamp.now(),
+        updatedTimestamp: Timestamp.now(),
+        isValidated: false
+      });
+    } catch(e) {
+      console.log(e)
+    }
   };
 
   return (

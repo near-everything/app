@@ -16,7 +16,7 @@ function Invite() {
 
   const sendInvite = async () => {
     try {
-      await setDoc(doc(db, "invites", phoneNumber), {
+      await setDoc(doc(invitesRef, phoneNumber), {
         sender: user,
         createdTimestamp: Timestamp.now()
       })
@@ -36,13 +36,9 @@ function Invite() {
   }, [invitesRef, user])
 
   return (
-    <div>
-      <h1>Invite your BFFs</h1>
-      {invites?.map((data, index) => (
-        <p key={index} className="text-white">You invited {data?.id}</p>
-      ))}
-
-      {invites?.length < 2 && (
+    <>
+    <PageTitle>Invites</PageTitle>
+    {invites?.length < 2 && (
         <>
         <input
           type="text"
@@ -59,9 +55,10 @@ function Invite() {
         </button>
         </>
       )}
-
-      {/* {/* <button onClick={() => auth.signOut()}>Sign Out</button> */}
-    </div>
+      {invites?.map((data, index) => (
+        <p key={index} className="text-white">You invited {data?.id}</p>
+      ))}
+  </>
   );
 }
 
