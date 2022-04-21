@@ -1,48 +1,54 @@
+import {
+  collection, limit, query
+} from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { db } from "../app/firebase";
+import Avatar from "../components/Avatar";
+import Badge from "../components/Badge";
+import InfoCard from "../components/Cards/InfoCard";
+import CTA from "../components/CTA";
+import Pagination from "../components/Pagination";
+import RoundIcon from "../components/RoundIcon";
+import Table from "../components/Table";
+import TableBody from "../components/TableBody";
+import TableCell from "../components/TableCell";
+import TableContainer from "../components/TableContainer";
+import TableFooter from "../components/TableFooter";
+import TableHeader from "../components/TableHeader";
+import TableRow from "../components/TableRow";
+import PageTitle from "../components/Typography/PageTitle";
+import { useItems } from "../hooks/useItems";
+import { CartIcon, ChatIcon, MoneyIcon, PeopleIcon } from "../icons";
+import response from "../utils/demo/tableData";
 
-import React, { useState, useEffect } from 'react'
 
-import CTA from '../components/CTA'
-import InfoCard from '../components/Cards/InfoCard'
-import PageTitle from '../components/Typography/PageTitle'
-import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from '../icons'
-import RoundIcon from '../components/RoundIcon'
-import response from '../utils/demo/tableData'
 
-import TableContainer from '../components/TableContainer'
-import Table from '../components/Table'
-import TableBody from '../components/TableBody'
-import TableCell from '../components/TableCell'
-import TableFooter from '../components/TableFooter'
-import TableHeader from '../components/TableHeader'
-import TableRow from '../components/TableRow'
 
-import Avatar from '../components/Avatar'
-import Badge from '../components/Badge'
-import Pagination from '../components/Pagination'
 
 function Dashboard() {
-  const [page, setPage] = useState(1)
-  const [data, setData] = useState([])
+  const [page, setPage] = useState(1);
+  const { isLoading, items } = useItems(query(collection(db, "items"), limit(20)));
 
   // pagination setup
-  const resultsPerPage = 10
-  const totalResults = response.length
+  const resultsPerPage = 10;
+  const totalResults = response.length;
 
   // pagination change control
   function onPageChange(p) {
-    setPage(p)
+    setPage(p);
+    // items.fetchNextPage();
   }
 
   // on page change, load new sliced data
   // here you would make another server request for new data
-  useEffect(() => {
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage))
-  }, [page])
+  // useEffect(() => {
+  //   items.fetchNextPage();
+  // }, [items]);
 
   return (
     <>
       <PageTitle>Dashboard</PageTitle>
-      
+
       <CTA />
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
@@ -94,28 +100,37 @@ function Dashboard() {
             </tr>
           </TableHeader>
           <TableBody>
-            {data.map((user, i) => (
-              <TableRow key={i}>
-                <TableCell>
-                  <div className="flex items-center text-sm">
-                    <Avatar className="hidden mr-3 md:block" src={user.avatar} alt="User image" />
-                    <div>
-                      <p className="font-semibold">{user.name}</p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">{user.job}</p>
+            {!isLoading &&
+              items.map((item, i) => (
+                <TableRow key={i}>
+                  <TableCell>
+                    <div className="flex items-center text-sm">
+                      <Avatar
+                        className="hidden mr-3 md:block"
+                        src={item.avatar}
+                        alt="item image"
+                      />
+                      <div>
+                        <p className="font-semibold">{item.name}</p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                          {item.job}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span className="text-sm">$ {user.amount}</span>
-                </TableCell>
-                <TableCell>
-                  <Badge type={user.status}>{user.status}</Badge>
-                </TableCell>
-                <TableCell>
-                  <span className="text-sm">{new Date(user.date).toLocaleDateString()}</span>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">$ {item.amount}</span>
+                  </TableCell>
+                  <TableCell>
+                    <Badge type={item.status}>{item.status}</Badge>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">
+                      {new Date(item.date).toLocaleDateString()}
+                    </span>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
         <TableFooter>
@@ -128,7 +143,7 @@ function Dashboard() {
         </TableFooter>
       </TableContainer>
     </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;
