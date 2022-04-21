@@ -73,7 +73,7 @@ function CSSTransition({
   )
 }
 
-const Transition = React.forwardRef(function Transition({ show, appear, ...rest }) {
+const Transition = function Transition({ show, appear, ...rest }) {
   const { parent } = useContext(transitionContext)
   const isInitialRender = useIsInitialRender()
   const isChild = show === undefined
@@ -94,6 +94,6 @@ const Transition = React.forwardRef(function Transition({ show, appear, ...rest 
         <CSSTransition appear={appear} show={show} {...rest} />
       </transitionContext.Provider>
     )
-})
+}
 
 export default Transition

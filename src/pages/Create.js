@@ -12,7 +12,7 @@ function Create() {
       <div className="flex flex-col">
         <div>
           <Insert />
-          <List />
+          {/* <List /> */}
         </div>
       </div>
     </>
