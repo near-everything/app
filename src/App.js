@@ -5,13 +5,14 @@ import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnno
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, setUser } from "./features/auth/authSlice";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { firebase } from "./app/firebase";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
 
 function App() {
   const dispatch = useDispatch();
-  const auth = getAuth();
+  const auth = getAuth(firebase);
   onAuthStateChanged(auth, (user) => {
     if (user) {
       dispatch(setUser(user.uid))
@@ -40,38 +41,5 @@ function PrivateRoute() {
   const user = useSelector(selectUser);
   return user ? <Outlet /> : <Navigate to="/login" />;
 }
-// function SendInvites({ user }) {
-//   const query = firestore.collection('invites').where('sender', '==', user.uid);
-//   const [invites] = useCollectionData(query);
-
-//   const [digits, setDigits] = useState('');
-//   const phoneNumber = `+1${digits}`;
-
-//   const sendInvite = async () => {
-//     const inviteRef = firestore.collection('invites').doc(phoneNumber);
-//     await inviteRef.set({
-//       phoneNumber,
-//       sender: user.uid,
-//     });
-//   };
-
-//   return (
-//     <div>
-//       <h1>Invite your BFFs</h1>
-//       {invites?.map((data) => (
-//         <p>You invited {data?.phoneNumber}</p>
-//       ))}
-
-//       {invites?.length < 2 && (
-//         <>
-//           <input value={digits} onChange={(e) => setDigits(e.target.value)} />
-//           <button onClick={sendInvite}>Send Invite</button>
-//         </>
-//       )}
-
-//       <button onClick={() => auth.signOut()}>Sign Out</button>
-//     </div>
-//   );
-// }
 
 export default App;

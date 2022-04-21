@@ -8,9 +8,23 @@ import { selectUser } from "../features/auth/authSlice";
 
 function Create() {
   const [selectedImage, setSelectedImage] = useState([]);
+  const [selected, setSelected] = useState([]);
   const [input, setInput] = useState("");
-  const itemsRef = collection(db, 'items');
-  const user = useSelector(selectUser)
+  const itemsRef = collection(db, "items");
+  const user = useSelector(selectUser);
+  // This should be stored in DB
+  const categories = [
+    {
+      name: 'one',
+      id: 1,
+      isSelected: true
+   }, 
+   {
+      name: 'two',
+      id: 2,
+      isSelected: false,
+   }
+  ]
 
   const insertListing = async () => {
     try {
@@ -19,10 +33,18 @@ function Create() {
         createdBy: user,
         createdTimestamp: Timestamp.now(),
         updatedTimestamp: Timestamp.now(),
-        isValidated: false
+        isValidated: false,
       });
-    } catch(e) {
-      console.log(e)
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleSelected = (id) => {
+    if (selected.includes(id)) {
+      setSelected((prevSelected) => prevSelected.filter((s) => s !== id));
+    } else {
+      setSelected((prevSelected) => [...prevSelected, id]);
     }
   };
 
@@ -30,11 +52,23 @@ function Create() {
     <>
       <PageTitle>Create</PageTitle>
       <div className="flex flex-col">
+        <div>
+          {categories.map((category) => (
+            <button
+              type="button"
+              key={category.id}
+              onClick={() => handleSelected(category.id)}
+              className={
+                selected.includes(category.id) ? 'bg-red-500' : 'bg-blue-500'
+              }
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
         {selectedImage &&
           selectedImage.map((it, index) => {
-            return (
-                <img alt="not found" width={"250px"} src={it} key={index} />
-            );
+            return <img alt="not found" width={"250px"} src={it} key={index} />;
           })}
         <button className="text-white" onClick={() => setSelectedImage([])}>
           Remove

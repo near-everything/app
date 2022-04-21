@@ -7,14 +7,12 @@ import {
 } from "firebase/auth";
 import { collection, doc, getDoc } from "firebase/firestore";
 
-import { useClient } from "../context/DatabaseContext";
 import { GithubIcon, TwitterIcon } from "../icons";
-import { db } from "../app/firebase";
+import { db, firebase } from "../app/firebase";
 
 function Login() {
   const [recaptcha, setRecaptcha] = useState(null);
   const element = useRef(null);
-  const firebase = useClient();
   const auth = getAuth(firebase);
 
   useEffect(() => {
@@ -49,7 +47,6 @@ function PhoneNumberVerification({ recaptcha }) {
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [code, setCode] = useState("");
 
-  const firebase = useClient();
   const auth = getAuth(firebase);
   let navigate = useNavigate();
 
