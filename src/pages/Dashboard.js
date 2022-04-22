@@ -21,10 +21,6 @@ import { useItems } from "../hooks/useItems";
 import { CartIcon, ChatIcon, MoneyIcon, PeopleIcon } from "../icons";
 import response from "../utils/demo/tableData";
 
-
-
-
-
 function Dashboard() {
   const [page, setPage] = useState(1);
   const { isLoading, items } = useItems(query(collection(db, "items"), limit(20)));
