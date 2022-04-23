@@ -1,37 +1,62 @@
 import React, { useState } from "react";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  Timestamp,
+  snapshotEqual,
+} from "firebase/firestore";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  uploadBytes,
+} from "firebase/storage";
 
-import { db } from "../app/firebase";
+import { db, st } from "../app/firebase";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/auth/authSlice";
 import PageTitle from "../components/Typography/PageTitle";
 import { categories, subcategories } from "../utils/categories";
 import ImageUpload from "../components/ImageUpload";
 
+const metadata = {
+  contentType: "image/jpeg",
+};
+
 function Create() {
   const [category, setCategory] = useState(null);
   const [subcategory, setSubcategory] = useState(null);
   const [brand, setBrand] = useState("");
-  // const [selected, setSelected] = useState([]);
+  const [selectedImage, setSelectedImage] = useState([]);
 
   const itemsRef = collection(db, "items");
   const user = useSelector(selectUser);
 
-  // This should be stored in DB
-
   const insertListing = async () => {
+    // const urls = await createUrls();
+    let urls = [];
+    for (const img of selectedImage) {
+      const storageRef = ref(st, `images/${user}/${img.name}`);
+      const snapshot = await uploadBytes(storageRef, img);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      urls.push(downloadURL);
+    }
+    
     try {
       await addDoc(itemsRef, {
         category: category,
         subcategory: subcategory,
         brand: brand,
         createdBy: user,
+        media: urls,
         createdTimestamp: Timestamp.now(),
         updatedTimestamp: Timestamp.now(),
         isValidated: false,
       });
     } catch (e) {
       console.log(e);
+    } finally {
+      setBrand("complete")
     }
   };
 
@@ -47,7 +72,10 @@ function Create() {
     <>
       <PageTitle>Create</PageTitle>
       <div className="flex flex-col">
-        <ImageUpload />
+        <ImageUpload
+          selectedImage={selectedImage}
+          setSelectedImage={setSelectedImage}
+        />
         <select
           onChange={(e) => setCategory(e.target.value)}
           className="form-select px-4 py-3 rounded my-2"

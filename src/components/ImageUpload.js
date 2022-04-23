@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
-function ImageUpload() {
-  const [selectedImage, setSelectedImage] = useState([]);
-
+function ImageUpload({ selectedImage, setSelectedImage } ) {
   return (
     <div className="flex mt-8">
       <div className="rounded shadow-xl bg-gray-50 lg:w-1/2">

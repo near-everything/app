@@ -103,7 +103,7 @@ function Dashboard() {
                     <div className="flex items-center text-sm">
                       <Avatar
                         className="hidden mr-3 md:block"
-                        src={item.avatar}
+                        src={item.url}
                         alt="item image"
                       />
                       <div>
