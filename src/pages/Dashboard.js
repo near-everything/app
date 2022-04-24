@@ -6,6 +6,7 @@ import { db } from "../app/firebase";
 import Avatar from "../components/Avatar";
 import Badge from "../components/Badge";
 import InfoCard from "../components/Cards/InfoCard";
+import Delete from "../components/Create/Delete";
 import CTA from "../components/CTA";
 import Pagination from "../components/Pagination";
 import RoundIcon from "../components/RoundIcon";
@@ -89,10 +90,11 @@ function Dashboard() {
         <Table>
           <TableHeader>
             <tr>
-              <TableCell>Client</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Date</TableCell>
+              <TableCell>Item</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell>Subcategory</TableCell>
+              <TableCell>Created Timestamp</TableCell>
+              <TableCell>Delete</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
@@ -115,14 +117,19 @@ function Dashboard() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm">$ {item.amount}</span>
+                    <span className="text-sm">$ {item.category}</span>
                   </TableCell>
                   <TableCell>
-                    <Badge type={item.status}>{item.status}</Badge>
+                    <Badge type={item.status}>{item.subcategory}</Badge>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm">
-                      {new Date(item.date).toLocaleDateString()}
+                      {new Date(item.createdTimestamp).toLocaleDateString()}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">
+                    <Delete id={item.id} />
                     </span>
                   </TableCell>
                 </TableRow>

@@ -19,10 +19,6 @@ import PageTitle from "../components/Typography/PageTitle";
 import { categories, subcategories } from "../utils/categories";
 import ImageUpload from "../components/ImageUpload";
 
-const metadata = {
-  contentType: "image/jpeg",
-};
-
 function Create() {
   const [category, setCategory] = useState(null);
   const [subcategory, setSubcategory] = useState(null);
