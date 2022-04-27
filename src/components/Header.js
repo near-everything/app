@@ -6,12 +6,12 @@ function Header() {
   const { mode, toggleMode } = useContext(DarkModeContext);
   return (
     <header className="z-40 py-4 bg-white shadow-bottom dark:bg-gray-800">
-      <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+      <div className="container flex items-center justify-between h-full px-6 mx-auto text-green-600 dark:text-green-300">
         <ul className="flex items-center flex-shrink-0 space-x-6">
           {/* <!-- Theme toggler --> */}
           <li className="flex">
             <button
-              className="rounded-md focus:outline-none focus:shadow-outline-purple"
+              className="rounded-md focus:outline-none focus:shadow-outline-green"
               onClick={toggleMode}
               aria-label="Toggle color mode"
             >

@@ -97,7 +97,7 @@ const theme =  {
     danger: 'text-red-700 bg-red-100 dark:text-red-100 dark:bg-red-700',
     warning: 'text-orange-700 bg-orange-100 dark:text-white dark:bg-orange-600',
     neutral: 'text-gray-700 bg-gray-100 dark:text-gray-100 dark:bg-gray-700',
-    primary: 'text-purple-700 bg-purple-100 dark:text-white dark:bg-purple-600',
+    primary: 'text-green-700 bg-green-100 dark:text-white dark:bg-green-600',
   },
   // Backdrop
   backdrop: {
@@ -108,7 +108,7 @@ const theme =  {
   textarea: {
     base: 'block w-full text-sm dark:text-gray-300 rounded-md focus:outline-none',
     active:
-      'focus:border-purple-400 border-gray-300 dark:border-gray-600 dark:focus:border-gray-600 dark:bg-gray-700 dark:focus:ring-gray-300 focus:ring focus:ring-purple-300',
+      'focus:border-green-400 border-gray-300 dark:border-gray-600 dark:focus:border-gray-600 dark:bg-gray-700 dark:focus:ring-gray-300 focus:ring focus:ring-green-300',
     disabled: 'cursor-not-allowed opacity-50 bg-gray-300 dark:bg-gray-800',
     valid:
       'border-green-600 dark:bg-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring focus:ring-green-200 dark:focus:ring-green-200',
@@ -119,7 +119,7 @@ const theme =  {
   select: {
     base: 'block w-full text-sm dark:text-gray-300 focus:outline-none rounded-md',
     active:
-      'focus:border-purple-400 border-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:ring focus:ring-purple-300 dark:focus:ring-gray-300 dark:focus:border-gray-600',
+      'focus:border-green-400 border-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:ring focus:ring-green-300 dark:focus:ring-gray-300 dark:focus:border-gray-600',
     select: 'leading-5',
     disabled: 'cursor-not-allowed opacity-50 bg-gray-300 dark:bg-gray-800',
     valid:
@@ -138,16 +138,16 @@ const theme =  {
   input: {
     base: 'block w-full text-sm focus:outline-none dark:text-gray-300 leading-5 rounded-md',
     active:
-      'focus:border-purple-400 border-gray-300 dark:border-gray-600 focus:ring focus:ring-purple-300 dark:focus:border-gray-600 dark:focus:ring-gray-300 dark:bg-gray-700',
+      'focus:border-green-400 border-gray-300 dark:border-gray-600 focus:ring focus:ring-green-300 dark:focus:border-gray-600 dark:focus:ring-gray-300 dark:bg-gray-700',
     disabled: 'cursor-not-allowed opacity-50 bg-gray-300 dark:bg-gray-800',
     valid:
       'border-green-600 dark:bg-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring focus:ring-green-200 dark:focus:ring-green-200',
     invalid:
       'border-red-600 dark:bg-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring focus:ring-red-200 dark:focus:ring-red-200',
     radio:
-      'text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:ring focus:ring-purple-300 focus:ring-offset-0 dark:focus:ring-gray-300',
+      'text-green-600 form-radio focus:border-green-400 focus:outline-none focus:ring focus:ring-green-300 focus:ring-offset-0 dark:focus:ring-gray-300',
     checkbox:
-      'text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:ring focus:ring-purple-300 focus:ring-offset-0 rounded dark:focus:ring-gray-300',
+      'text-green-600 form-checkbox focus:border-green-400 focus:outline-none focus:ring focus:ring-green-300 focus:ring-offset-0 rounded dark:focus:ring-gray-300',
   },
   // HelperText
   helperText: {
@@ -191,8 +191,8 @@ const theme =  {
       right: 'ml-2 -mr-1',
     },
     primary: {
-      base: 'text-white bg-purple-600 border border-transparent',
-      active: 'active:bg-purple-600 hover:bg-purple-700 focus:ring focus:ring-purple-300',
+      base: 'text-white bg-green-600 border border-transparent',
+      active: 'active:bg-green-600 hover:bg-green-700 focus:ring focus:ring-green-300',
       disabled: 'opacity-50 cursor-not-allowed',
     },
     outline: {
