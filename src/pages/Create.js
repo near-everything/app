@@ -1,43 +1,38 @@
-import React, { useState } from "react";
-import {
-  collection,
-  addDoc,
-  Timestamp,
-  snapshotEqual,
-} from "firebase/firestore";
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-  uploadBytes,
-} from "firebase/storage";
-
-import { db, st } from "../app/firebase";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import React, { Suspense, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/auth/authSlice";
+import { db, st } from "../app/firebase";
+import Button from "../components/Button";
+import FileUpload from "../components/FileUpload";
+import Input from "../components/Input";
+import Select from "../components/Select";
+import ThemedSuspense from "../components/ThemedSuspense";
 import PageTitle from "../components/Typography/PageTitle";
+import { selectUser } from "../features/auth/authSlice";
 import { categories, subcategories } from "../utils/categories";
-import ImageUpload from "../components/ImageUpload";
 
 function Create() {
   const [category, setCategory] = useState(null);
   const [subcategory, setSubcategory] = useState(null);
   const [brand, setBrand] = useState("");
-  const [selectedImage, setSelectedImage] = useState([]);
+  const [files, setFiles] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const itemsRef = collection(db, "items");
   const user = useSelector(selectUser);
 
   const insertListing = async () => {
+    setLoading(true);
     // const urls = await createUrls();
     let urls = [];
-    for (const img of selectedImage) {
+    for (const img of files) {
       const storageRef = ref(st, `images/${user}/${img.name}`);
       const snapshot = await uploadBytes(storageRef, img);
       const downloadURL = await getDownloadURL(snapshot.ref);
       urls.push(downloadURL);
     }
-    
+
     try {
       await addDoc(itemsRef, {
         category: category,
@@ -52,7 +47,7 @@ function Create() {
     } catch (e) {
       console.log(e);
     } finally {
-      setBrand("complete")
+      setLoading(false);
     }
   };
 
@@ -63,51 +58,52 @@ function Create() {
   //     setSelected((prevSelected) => [...prevSelected, id]);
   //   }
   // };
+  if (loading) {
+    return <ThemedSuspense />;
+  }
 
   return (
     <>
-      <PageTitle>Create</PageTitle>
+      <PageTitle>collect</PageTitle>
       <div className="flex flex-col">
-        <ImageUpload
-          selectedImage={selectedImage}
-          setSelectedImage={setSelectedImage}
+        <FileUpload
+          onChange={(event) => {
+            if (event.target.files.length > 0) {
+              setFiles([...files, ...event.target.files]);
+            }
+          }}
         />
-        <select
-          onChange={(e) => setCategory(e.target.value)}
-          className="form-select px-4 py-3 rounded my-2"
-        >
-          <option value="">category</option>
-          {categories.map((c) => (
-            <option key={c.id} value={c.value}>
-              {c.name}
-            </option>
-          ))}
-        </select>
-        <select
-          onChange={(e) => setSubcategory(e.target.value)}
-          className="form-select px-4 py-3 rounded my-2"
-        >
-          <option value="">subcategory</option>
-          {category &&
-            subcategories[category].map((c) => (
-              <option key={c.id} value={c.value}>
-                {c.name}
-              </option>
+        <div className="flex flex-row mt-4">
+          {files.length > 0 &&
+            files.map((file, index) => (
+              <img
+                key={index}
+                alt="not found"
+                src={URL.createObjectURL(file)}
+                className="w-32 m-2"
+              />
             ))}
-        </select>
-        <input
-          type="text"
-          className="form-input px-4 py-3 rounded my-2"
+        </div>
+        <br />
+        <Select
+          placeholder="category"
+          onChange={(e) => setCategory(e.target.value)}
+          options={categories}
+        />
+        <br />
+        <Select
+          placeholder="subcategory"
+          onChange={(e) => setSubcategory(e.target.value)}
+          options={category ? subcategories[category] : []}
+        />
+        <br />
+        <Input
           placeholder="brand"
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
         />
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={insertListing}
-        >
-          Submit
-        </button>
+        <br />
+        <Button onClick={insertListing}>Submit</Button>
       </div>
     </>
   );

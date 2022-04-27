@@ -1,29 +1,16 @@
-import React, { useContext, Suspense, useEffect, lazy } from 'react'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import routes from '../routes'
+import React, { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import Header from "../components/Header";
+import ThemedSuspense from "../components/ThemedSuspense";
+import Main from "../containers/Main";
+import routes from "../routes";
 
-import Main from '../containers/Main'
-import ThemedSuspense from '../components/ThemedSuspense'
-import Sidebar from '../components/Sidebar'
-import { SidebarContext } from '../context/SidebarContext'
-import Header from '../components/Header'
 
-const Page404 = lazy(() => import('../pages/404'))
+const Page404 = lazy(() => import("../pages/404"));
 
 function Layout() {
-  const { isSidebarOpen, closeSidebar } = useContext(SidebarContext)
-  let location = useLocation()
-
-  useEffect(() => {
-    closeSidebar()
-  }, [location])
-
   return (
-    <div
-      className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${isSidebarOpen && 'overflow-hidden'}`}
-    >
-      <Sidebar />
-
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col flex-1 w-full">
         <Header />
         <Main>
@@ -37,16 +24,15 @@ function Layout() {
                     path={`/${route.path}`}
                     element={<route.component />}
                   />
-                ) : null
+                ) : null;
               })}
-              <Route path="/" element={<Navigate to="dashboard" />} />
               <Route element={<Page404 />} />
             </Routes>
           </Suspense>
         </Main>
       </div>
     </div>
-  )
+  );
 }
 
-export default Layout
+export default Layout;
