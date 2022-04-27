@@ -9,6 +9,8 @@ import { collection, doc, getDoc } from "firebase/firestore";
 
 import { GithubIcon, TwitterIcon } from "../icons";
 import { db, firebase } from "../app/firebase";
+import Button from "../components/Button";
+import Input from "../components/Input";
 
 function Login() {
   const [recaptcha, setRecaptcha] = useState(null);
@@ -27,8 +29,6 @@ function Login() {
       verifier.render().then((widgetId) => {
         window.recaptchaWidgetId = widgetId;
       });
-
-      // verifier.verify().then(() => setRecaptcha(verifier));
       setRecaptcha(verifier);
     }
   }, [recaptcha, auth]);
@@ -68,9 +68,8 @@ function PhoneNumberVerification({ recaptcha }) {
   }, [phoneNumber]);
 
   useEffect(() => {
-    recaptcha.verify()
-  }, [recaptcha])
-  
+    recaptcha.verify();
+  }, [recaptcha]);
 
   // Step 2 - Sign in
   const signIn = async () => {
@@ -81,12 +80,15 @@ function PhoneNumberVerification({ recaptcha }) {
 
   // Step 3 - Verify SMS code
   const verifyCode = async () => {
-    await confirmationResult.confirm(code).then((result) => {
-      navigate('/');
-    }).catch((error) => {
-      recaptcha.reset(window.recaptchaWidgetId);
-      console.log(error);
-    });
+    await confirmationResult
+      .confirm(code)
+      .then((result) => {
+        navigate("/");
+      })
+      .catch((error) => {
+        recaptcha.reset(window.recaptchaWidgetId);
+        console.log(error);
+      });
   };
 
   return (
@@ -98,42 +100,31 @@ function PhoneNumberVerification({ recaptcha }) {
               <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
                 Login
               </h1>
-              <input
-                className="inputField"
+              <Input
                 type="tel"
                 value={digits}
                 onChange={(e) => setDigits(e.target.value)}
               />
-              <button
-                className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${
-                  !invited ? "hidden" : ""
-                }`}
+              <Button
+                className={`${!invited ? "hidden" : ""}`}
                 aria-live="polite"
                 onClick={signIn}
               >
                 Submit
-              </button>
-              {invited ? (
-                <p className="success">You are one of the cool kids! 👋</p>
-              ) : (
-                <p className="danger">This phone number is not cool 😞</p>
-              )}
-
+              </Button>
               {confirmationResult && (
                 <>
-                  <input
-                    className="inputField"
+                  <Input
                     type="number"
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
                   />
-                  <button
+                  <Button
                     onClick={verifyCode}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     aria-live="polite"
                   >
                     Verify Code
-                  </button>
+                  </Button>
                 </>
               )}
             </div>
