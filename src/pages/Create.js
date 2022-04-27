@@ -103,7 +103,7 @@ function Create() {
           onChange={(e) => setBrand(e.target.value)}
         />
         <br />
-        <Button onClick={insertListing}>Submit</Button>
+        <Button onClick={insertListing} disabled={!category || !subcategory || files.length == 0}>Submit</Button>
       </div>
     </>
   );
