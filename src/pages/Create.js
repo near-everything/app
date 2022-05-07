@@ -10,7 +10,12 @@ import Input from "../components/Input";
 import Select from "../components/Select";
 import ThemedSuspense from "../components/ThemedSuspense";
 import { selectUser } from "../features/auth/authSlice";
-import { categories, conditions, sizes, subcategories } from "../utils/categories";
+import {
+  categories,
+  conditions,
+  sizes,
+  subcategories,
+} from "../utils/categories";
 
 function Create() {
   const [category, setCategory] = useState(null);
@@ -20,6 +25,7 @@ function Create() {
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [description, setDescription] = useState("");
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -40,8 +46,9 @@ function Create() {
     setSize("");
     setCondition("");
     setQuantity(1);
+    setDescription("");
     setFiles([]);
-  }
+  };
 
   const insertListing = async () => {
     setLoading(true);
@@ -62,6 +69,7 @@ function Create() {
         condition: condition,
         material: material,
         size: size,
+        description: description,
         quantity: quantity === "" ? 1 : quantity,
         createdBy: user,
         media: urls,
@@ -143,15 +151,27 @@ function Create() {
         />
         <br />
         {category === "ca" ? (
-          <>
-            <Select
-              placeholder="size"
-              onChange={(e) => setSize(e.target.value)}
-              options={sizes}
-            />
-            <br />
-          </>
+          subcategory === "tops" ? (
+            <>
+              <Select
+                placeholder="size"
+                onChange={(e) => setSize(e.target.value)}
+                options={sizes[subcategory]}
+              />
+              <br />
+            </>
+          ) : (
+            <>
+              <Input
+                placeholder="size"
+                value={size}
+                onChange={(e) => setSize(e.target.value)}
+              />
+              <br />
+            </>
+          )
         ) : null}
+
         <Input
           placeholder="material"
           value={material}
@@ -162,6 +182,12 @@ function Create() {
           placeholder="condition"
           onChange={(e) => setCondition(e.target.value)}
           options={conditions}
+        />
+        <br />
+        <Input
+          placeholder="any more info"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
         <br />
         <Input

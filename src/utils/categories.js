@@ -125,35 +125,37 @@ export const conditions = [
   },
 ];
 
-export const sizes = [
-  {
-    id: "1",
-    value: "xs",
-    name: "XS",
-  },
-  {
-    id: "2",
-    value: "s",
-    name: "S",
-  },
-  {
-    id: "3",
-    value: "m",
-    name: "M",
-  },
-  {
-    id: "4",
-    value: "l",
-    name: "L",
-  },
-  {
-    id: "5",
-    value: "xl",
-    name: "XL",
-  },
-  {
-    id: "6",
-    value: "xll",
-    name: "XLL",
-  },
-];
+export const sizes = {
+  tops: [
+    {
+      id: "1",
+      value: "xs",
+      name: "XS",
+    },
+    {
+      id: "2",
+      value: "s",
+      name: "S",
+    },
+    {
+      id: "3",
+      value: "m",
+      name: "M",
+    },
+    {
+      id: "4",
+      value: "l",
+      name: "L",
+    },
+    {
+      id: "5",
+      value: "xl",
+      name: "XL",
+    },
+    {
+      id: "6",
+      value: "xll",
+      name: "XLL",
+    },
+  ],
+};
