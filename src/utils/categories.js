@@ -14,6 +14,11 @@ export const categories = [
     value: "electronics",
     name: "electronics"
   },
+  {
+    id: "4",
+    value: "other",
+    name: "other"
+  },
 ]
 
 export const subcategories = {
@@ -76,6 +81,13 @@ export const subcategories = {
       id: "33",
       value: "tva",
       name: "tv, video, & audio"
+    }
+  ],
+  other: [
+    {
+      id: "41",
+      value: "other",
+      name: "other"
     }
   ]
 }
