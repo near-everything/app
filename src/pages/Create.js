@@ -10,14 +10,16 @@ import Input from "../components/Input";
 import Select from "../components/Select";
 import ThemedSuspense from "../components/ThemedSuspense";
 import { selectUser } from "../features/auth/authSlice";
-import { categories, conditions, subcategories } from "../utils/categories";
+import { categories, conditions, sizes, subcategories } from "../utils/categories";
 
 function Create() {
   const [category, setCategory] = useState(null);
   const [subcategory, setSubcategory] = useState(null);
   const [brand, setBrand] = useState("");
+  const [material, setMaterial] = useState("");
+  const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(1);
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -29,6 +31,17 @@ function Create() {
       return old.filter((value, i) => i !== index);
     });
   };
+
+  const resetFields = () => {
+    setCategory(null);
+    setSubcategory(null);
+    setBrand("");
+    setMaterial("");
+    setSize("");
+    setCondition("");
+    setQuantity(1);
+    setFiles([]);
+  }
 
   const insertListing = async () => {
     setLoading(true);
@@ -47,6 +60,8 @@ function Create() {
         subcategory: subcategory === "" ? "other" : subcategory,
         brand: brand,
         condition: condition,
+        material: material,
+        size: size,
         quantity: quantity === "" ? 1 : quantity,
         createdBy: user,
         media: urls,
@@ -58,6 +73,7 @@ function Create() {
       console.log(e);
     } finally {
       setLoading(false);
+      resetFields();
     }
   };
 
@@ -120,16 +136,32 @@ function Create() {
             <br />
           </>
         )}
-        <Select
-          placeholder="condition"
-          onChange={(e) => setCondition(e.target.value)}
-          options={conditions}
-        />
-        <br />
         <Input
           placeholder="brand"
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
+        />
+        <br />
+        {category === "ca" ? (
+          <>
+            <Select
+              placeholder="size"
+              onChange={(e) => setSize(e.target.value)}
+              options={sizes}
+            />
+            <br />
+          </>
+        ) : null}
+        <Input
+          placeholder="material"
+          value={material}
+          onChange={(e) => setMaterial(e.target.value)}
+        />
+        <br />
+        <Select
+          placeholder="condition"
+          onChange={(e) => setCondition(e.target.value)}
+          options={conditions}
         />
         <br />
         <Input
