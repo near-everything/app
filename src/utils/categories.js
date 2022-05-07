@@ -79,3 +79,36 @@ export const subcategories = {
     }
   ]
 }
+
+export const conditions = [
+  {
+    id: "1",
+    value: "n",
+    name: "new"
+  },
+  {
+    id: "2",
+    value: "ln",
+    name: "like new"
+  },
+  {
+    id: "3",
+    value: "r",
+    name: "refurbished"
+  },
+  {
+    id: "4",
+    value: "vg",
+    name: "very good"
+  },
+  {
+    id: "5",
+    value: "g",
+    name: "good"
+  },
+  {
+    id: "6",
+    value: "p",
+    name: "poor"
+  }
+]

@@ -5,7 +5,6 @@ import { DarkModeContext } from "./DarkMode";
 const Button = React.forwardRef(function Button(props, ref) {
   const {
     tag = "button",
-    // Fix https://github.com/estevanmaito/windmill-react-ui/issues/7
     type = tag === "button" ? "button" : undefined,
     disabled = false,
     size = "regular",

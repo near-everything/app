@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { MoonIcon, SunIcon } from "../icons";
 import { DarkModeContext } from "./DarkMode";
 
@@ -7,6 +8,12 @@ function Header() {
   return (
     <header className="z-40 py-4 bg-white shadow-bottom dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-green-600 dark:text-green-300">
+        <Link
+          className="text-lg font-bold text-gray-800 dark:text-gray-200"
+          to="/"
+        >
+          collect
+        </Link>
         <ul className="flex items-center flex-shrink-0 space-x-6">
           {/* <!-- Theme toggler --> */}
           <li className="flex">

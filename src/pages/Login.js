@@ -1,16 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   getAuth,
   RecaptchaVerifier,
-  signInWithPhoneNumber,
+  signInWithPhoneNumber
 } from "firebase/auth";
 import { collection, doc, getDoc } from "firebase/firestore";
-
-import { GithubIcon, TwitterIcon } from "../icons";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { db, firebase } from "../app/firebase";
 import Button from "../components/Button";
 import Input from "../components/Input";
+
 
 function Login() {
   const [recaptcha, setRecaptcha] = useState(null);
@@ -95,40 +94,47 @@ function PhoneNumberVerification({ recaptcha }) {
     <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
       <div className="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
         <div className="flex flex-col overflow-y-auto md:flex-row">
-          <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+          <div className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div className="w-full">
               <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
                 Login
               </h1>
-              <Input
-                type="tel"
-                value={digits}
-                onChange={(e) => setDigits(e.target.value)}
-              />
-              <Button
-                className={`${!invited ? "hidden" : ""}`}
-                aria-live="polite"
-                onClick={signIn}
-              >
-                Submit
-              </Button>
+              <div className="flex flex-row">
+                <Input
+                  type="tel"
+                  value={digits}
+                  placeholder="XXX-XXX-XXXX"
+                  onChange={(e) => setDigits(e.target.value)}
+                />
+                <Button
+                  className={`mx-2 ${invited ? "" : "hidden"}`}
+                  disabled={!invited}
+                  aria-live="polite"
+                  onClick={signIn}
+                >
+                  Submit
+                </Button>
+              </div>
+              <br />
               {confirmationResult && (
-                <>
+                <div className="flex flex-row">
                   <Input
-                    type="number"
+                    type="text"
                     value={code}
+                    placeholder="XXXXXX"
                     onChange={(e) => setCode(e.target.value)}
                   />
                   <Button
+                    className="mx-2"
                     onClick={verifyCode}
                     aria-live="polite"
                   >
-                    Verify Code
+                    Verify
                   </Button>
-                </>
+                </div>
               )}
             </div>
-          </main>
+          </div>
         </div>
       </div>
     </div>

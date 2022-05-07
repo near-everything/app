@@ -1,41 +1,41 @@
-import React, { useContext } from 'react'
-import classNames from 'classnames'
-import { DarkModeContext } from './DarkMode'
+import React, { useContext } from "react";
+import classNames from "classnames";
+import { DarkModeContext } from "./DarkMode";
 
 const Input = React.forwardRef(function Input(props, ref) {
-  const { valid, disabled, className, type = 'text', ...other } = props
+  const { valid, disabled, className, type = "text", ...other } = props;
 
   const {
     theme: { input },
-  } = useContext(DarkModeContext)
+  } = useContext(DarkModeContext);
 
-  const baseStyle = input.base
-  const activeStyle = input.active
-  const disabledStyle = input.disabled
-  const validStyle = input.valid
-  const invalidStyle = input.invalid
-  const radioStyle = input.radio
-  const checkStyle = input.checkbox
+  const baseStyle = input.base;
+  const activeStyle = input.active;
+  const disabledStyle = input.disabled;
+  const validStyle = input.valid;
+  const invalidStyle = input.invalid;
+  const radioStyle = input.radio;
+  const checkStyle = input.checkbox;
 
   function hasValidation(valid) {
-    return valid !== undefined
+    return valid !== undefined;
   }
 
   function validationStyle(valid) {
     if (hasValidation(valid)) {
-      return valid ? validStyle : invalidStyle
+      return valid ? validStyle : invalidStyle;
     }
-    return ''
+    return "";
   }
 
   function typeStyle(type) {
     switch (type) {
-      case 'radio':
-        return radioStyle
-      case 'checkbox':
-        return checkStyle
+      case "radio":
+        return radioStyle;
+      case "checkbox":
+        return checkStyle;
       default:
-        return baseStyle
+        return baseStyle;
     }
   }
 
@@ -47,9 +47,17 @@ const Input = React.forwardRef(function Input(props, ref) {
     !hasValidation(valid) && disabled && disabledStyle,
     validationStyle(valid),
     className
-  )
+  );
 
-  return <input className={cls} type={type} ref={ref} disabled={disabled} {...other} />
-})
+  return (
+    <input
+      className={cls}
+      type={type}
+      ref={ref}
+      disabled={disabled}
+      {...other}
+    />
+  );
+});
 
-export default Input
+export default Input;

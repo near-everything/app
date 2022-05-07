@@ -1,26 +1,34 @@
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { db, st } from "../app/firebase";
 import Button from "../components/Button";
+import ImageCard from "../components/Cards/ImageCard";
 import FileUpload from "../components/FileUpload";
 import Input from "../components/Input";
 import Select from "../components/Select";
 import ThemedSuspense from "../components/ThemedSuspense";
-import PageTitle from "../components/Typography/PageTitle";
 import { selectUser } from "../features/auth/authSlice";
-import { categories, subcategories } from "../utils/categories";
+import { categories, conditions, subcategories } from "../utils/categories";
 
 function Create() {
   const [category, setCategory] = useState(null);
   const [subcategory, setSubcategory] = useState(null);
   const [brand, setBrand] = useState("");
+  const [condition, setCondition] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const itemsRef = collection(db, "items");
   const user = useSelector(selectUser);
+
+  const removeFile = (index) => {
+    setFiles((old) => {
+      return old.filter((value, i) => i !== index);
+    });
+  };
 
   const insertListing = async () => {
     setLoading(true);
@@ -38,6 +46,8 @@ function Create() {
         category: category,
         subcategory: subcategory,
         brand: brand,
+        condition: condition,
+        quantity: quantity,
         createdBy: user,
         media: urls,
         createdTimestamp: Timestamp.now(),
@@ -64,23 +74,22 @@ function Create() {
 
   return (
     <>
-      <PageTitle>collect</PageTitle>
-      <div className="flex flex-col">
+      <div className="flex flex-col my-6">
         <FileUpload
           onChange={(event) => {
             if (event.target.files.length > 0) {
               setFiles([...files, ...event.target.files]);
+              event.target.value = null;
             }
           }}
         />
         <div className="flex flex-row mt-4">
           {files.length > 0 &&
             files.map((file, index) => (
-              <img
-                key={index}
-                alt="not found"
-                src={URL.createObjectURL(file)}
-                className="w-32 m-2"
+              <ImageCard
+                index={index}
+                media={URL.createObjectURL(file)}
+                removeImage={removeFile}
               />
             ))}
         </div>
@@ -97,13 +106,33 @@ function Create() {
           options={category ? subcategories[category] : []}
         />
         <br />
+        <Select
+          placeholder="condition"
+          onChange={(e) => setCondition(e.target.value)}
+          options={conditions}
+        />
+        <br />
         <Input
           placeholder="brand"
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
         />
         <br />
-        <Button onClick={insertListing} disabled={!category || !subcategory || files.length == 0}>Submit</Button>
+        <Input
+          placeholder="quantity"
+          value={quantity}
+          type="number"
+          onChange={(e) => setQuantity(e.target.value)}
+        />
+        <br />
+        <Button
+          onClick={insertListing}
+          disabled={
+            !category || !subcategory || files.length === 0 || files.length > 10
+          }
+        >
+          Submit
+        </Button>
       </div>
     </>
   );
