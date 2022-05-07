@@ -44,10 +44,10 @@ function Create() {
     try {
       await addDoc(itemsRef, {
         category: category,
-        subcategory: subcategory,
+        subcategory: subcategory === "" ? "other" : subcategory,
         brand: brand,
         condition: condition,
-        quantity: quantity,
+        quantity: quantity === "" ? 1 : quantity,
         createdBy: user,
         media: urls,
         createdTimestamp: Timestamp.now(),
@@ -100,12 +100,26 @@ function Create() {
           options={categories}
         />
         <br />
-        <Select
-          placeholder="subcategory"
-          onChange={(e) => setSubcategory(e.target.value)}
-          options={category ? subcategories[category] : []}
-        />
-        <br />
+        {category && subcategories[category].length > 1 ? (
+          <>
+            <Select
+              placeholder="subcategory"
+              onChange={(e) => setSubcategory(e.target.value)}
+              options={category ? subcategories[category] : []}
+            />
+            <br />
+          </>
+        ) : (
+          <>
+            <Select
+              placeholder="subcategory"
+              onChange={(e) => setSubcategory(e.target.value)}
+              options={category ? subcategories[category] : []}
+              disabled
+            />
+            <br />
+          </>
+        )}
         <Select
           placeholder="condition"
           onChange={(e) => setCondition(e.target.value)}
