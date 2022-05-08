@@ -1,7 +1,12 @@
 import { lazy } from "react";
 
 // use lazy for better code splitting, a.k.a. load faster
-const Collect = lazy(() => import("../pages/Collect"));
+const Media = lazy(() => import("../features/collect/Media"));
+const Category = lazy(() => import("../features/collect/Category"));
+const Subcategory = lazy(() => import("../features/collect/Subcategory"));
+const Extra = lazy(() => import("../features/collect/Extra"));
+const Review = lazy(() => import("../features/collect/Review"));
+const Complete = lazy(() => import("../features/collect/Complete"));
 const Page404 = lazy(() => import("../pages/404"));
 
 /**
@@ -16,11 +21,31 @@ const Page404 = lazy(() => import("../pages/404"));
  */
 const routes = [
   {
-    path: "/",
-    component: Collect,
+    path: "/media",
+    component: Media,
   },
   {
-    path: "/404",
+    path: "/category",
+    component: Category,
+  },
+  {
+    path: "/subcategory",
+    component: Subcategory,
+  },
+  {
+    path: "/extra",
+    component: Extra,
+  },
+  {
+    path: "/review",
+    component: Review,
+  },
+  {
+    path: "/complete",
+    component: Complete,
+  },
+  {
+    path: "*",
     component: Page404,
   },
 ];

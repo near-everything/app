@@ -1,5 +1,10 @@
 export const categories = [
   {
+    id: "4",
+    value: "other",
+    name: "other",
+  },
+  {
     id: "1",
     value: "ca",
     name: "clothing & accessories",
@@ -13,11 +18,6 @@ export const categories = [
     id: "3",
     value: "electronics",
     name: "electronics",
-  },
-  {
-    id: "4",
-    value: "other",
-    name: "other",
   },
 ];
 

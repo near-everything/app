@@ -1,211 +1,30 @@
-import { addDoc, collection, Timestamp } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { db, st } from "../app/firebase";
-import Button from "../components/Button";
-import ImageCard from "../components/Cards/ImageCard";
-import FileUpload from "../components/FileUpload";
-import Input from "../components/Input";
-import Select from "../components/Select";
+import React, { Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
 import ThemedSuspense from "../components/ThemedSuspense";
-import { selectUser } from "../features/auth/authSlice";
-import {
-  categories,
-  conditions,
-  sizes,
-  subcategories,
-} from "../utils/categories";
+import Layout from "../containers/Layout";
+import routes from "../routes";
+import Main from "./Main";
 
 function Collect() {
-  const [category, setCategory] = useState(null);
-  const [subcategory, setSubcategory] = useState(null);
-  const [brand, setBrand] = useState("");
-  const [material, setMaterial] = useState("");
-  const [size, setSize] = useState("");
-  const [condition, setCondition] = useState("");
-  const [quantity, setQuantity] = useState(1);
-  const [description, setDescription] = useState("");
-  const [files, setFiles] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const itemsRef = collection(db, "items");
-  const user = useSelector(selectUser);
-
-  const removeFile = (index) => {
-    setFiles((old) => {
-      return old.filter((value, i) => i !== index);
-    });
-  };
-
-  const resetFields = () => {
-    setCategory(null);
-    setSubcategory(null);
-    setBrand("");
-    setMaterial("");
-    setSize("");
-    setCondition("");
-    setQuantity(1);
-    setDescription("");
-    setFiles([]);
-  };
-
-  const insertListing = async () => {
-    setLoading(true);
-    // const urls = await createUrls();
-    let urls = [];
-    for (const img of files) {
-      const storageRef = ref(st, `images/${user}/${Timestamp.now()}`);
-      const snapshot = await uploadBytes(storageRef, img);
-      const downloadURL = await getDownloadURL(snapshot.ref);
-      urls.push(downloadURL);
-    }
-
-    try {
-      await addDoc(itemsRef, {
-        category: category,
-        subcategory: subcategory === "" ? "other" : subcategory,
-        brand: brand,
-        condition: condition,
-        material: material,
-        size: size,
-        description: description,
-        quantity: quantity === "" ? 1 : quantity,
-        createdBy: user,
-        media: urls,
-        createdTimestamp: Timestamp.now(),
-        updatedTimestamp: Timestamp.now(),
-        isValidated: false,
-      });
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setLoading(false);
-      resetFields();
-    }
-  };
-
-  // const handleSelected = (id) => {
-  //   if (selected.includes(id)) {
-  //     setSelected((prevSelected) => prevSelected.filter((s) => s !== id));
-  //   } else {
-  //     setSelected((prevSelected) => [...prevSelected, id]);
-  //   }
-  // };
-  if (loading) {
-    return <ThemedSuspense />;
-  }
-
   return (
     <>
-      <div className="flex flex-col my-6">
-        <FileUpload
-          onChange={(event) => {
-            if (event.target.files.length > 0) {
-              setFiles([...files, ...event.target.files]);
-              event.target.value = null;
-            }
-          }}
-        />
-        <div className="flex flex-row mt-4">
-          {files.length > 0 &&
-            files.map((file, index) => (
-              <ImageCard
-                key={index}
-                index={index}
-                media={URL.createObjectURL(file)}
-                removeImage={removeFile}
-              />
-            ))}
-        </div>
-        <br />
-        <Select
-          placeholder="category"
-          onChange={(e) => setCategory(e.target.value)}
-          options={categories}
-        />
-        <br />
-        {category && subcategories[category].length > 1 ? (
-          <>
-            <Select
-              placeholder="subcategory"
-              onChange={(e) => setSubcategory(e.target.value)}
-              options={category ? subcategories[category] : []}
-            />
-            <br />
-          </>
-        ) : (
-          <>
-            <Select
-              placeholder="subcategory"
-              onChange={(e) => setSubcategory(e.target.value)}
-              options={category ? subcategories[category] : []}
-              disabled
-            />
-            <br />
-          </>
-        )}
-        <Input
-          placeholder="brand"
-          value={brand}
-          onChange={(e) => setBrand(e.target.value)}
-        />
-        <br />
-        {category === "ca" ? (
-          subcategory === "tops" ? (
-            <>
-              <Select
-                placeholder="size"
-                onChange={(e) => setSize(e.target.value)}
-                options={sizes[subcategory]}
-              />
-              <br />
-            </>
-          ) : (
-            <>
-              <Input
-                placeholder="size"
-                value={size}
-                onChange={(e) => setSize(e.target.value)}
-              />
-              <br />
-            </>
-          )
-        ) : null}
-        <Input
-          placeholder="material"
-          value={material}
-          onChange={(e) => setMaterial(e.target.value)}
-        />
-        <br />
-        <Select
-          placeholder="condition"
-          onChange={(e) => setCondition(e.target.value)}
-          options={conditions}
-        />
-        <br />
-        <Input
-          placeholder="any more info"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <br />
-        <Input
-          placeholder="quantity"
-          value={quantity}
-          type="number"
-          onChange={(e) => setQuantity(e.target.value)}
-        />
-        <br />
-        <Button
-          onClick={insertListing}
-          disabled={
-            !category || !subcategory || files.length === 0 || files.length > 10
-          }
-        >
-          Submit
-        </Button>
-      </div>
+      <Suspense fallback={<ThemedSuspense />}>
+        <Routes>
+          <Route index element={<Main />} />
+          <Route element={<Layout />}>
+            {routes.map((route, i) => {
+              return route.component ? (
+                <Route
+                  key={i}
+                  exact={true}
+                  path={`/${route.path}`}
+                  element={<route.component />}
+                />
+              ) : null;
+            })}
+          </Route>
+        </Routes>
+      </Suspense>
     </>
   );
 }

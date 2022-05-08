@@ -6,10 +6,12 @@ import thunk from 'redux-thunk';
 
 import counterReducer from '../features/counter/counterSlice';
 import authReducer from '../features/auth/authSlice';
+import collectReducer from '../features/collect/collectSlice';
 
 const reducers = combineReducers({
   counter: counterReducer,
-  auth: authReducer
+  auth: authReducer,
+  collect: collectReducer
 });
 
 const persistConfig = {
