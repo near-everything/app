@@ -1,19 +1,14 @@
 import React from "react";
-import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Select from "../../components/Select";
-import { setSubcategory } from "./collectSlice";
+import Button from "../../components/Button";
 import { subcategories } from "../../utils/categories";
+import { setSubcategory } from "./collectSlice";
 
 function Subcategory() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const category = useSelector((state) => state.collect.category);
-  const subcategory = useSelector((state) => state.collect.subcategory);
-  const { register, handleSubmit } = useForm({
-    defaultValues: { subcategory },
-  });
 
   const onSubmit = (data) => {
     dispatch(setSubcategory(data.subcategory));
@@ -22,14 +17,21 @@ function Subcategory() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Select
-          label="subcategory"
-          {...register("subcategory")}
-          options={category ? subcategories[category] : []}
-        />
-        <button>Next</button>
-      </form>
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
+        {category &&
+          subcategories[category].map((category, index) => {
+            return (
+              <Button
+                key={index}
+                className="flex grow m-2"
+                onClick={() => onSubmit(category)}
+              >
+                {category.name}
+              </Button>
+            );
+          })}
+      </div>
+      <button>Next</button>
     </>
   );
 }
