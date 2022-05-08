@@ -17,7 +17,7 @@ import {
   subcategories,
 } from "../utils/categories";
 
-function Create() {
+function Collect() {
   const [category, setCategory] = useState(null);
   const [subcategory, setSubcategory] = useState(null);
   const [brand, setBrand] = useState("");
@@ -55,7 +55,7 @@ function Create() {
     // const urls = await createUrls();
     let urls = [];
     for (const img of files) {
-      const storageRef = ref(st, `images/${user}/${img.name}`);
+      const storageRef = ref(st, `images/${user}/${Timestamp.now()}`);
       const snapshot = await uploadBytes(storageRef, img);
       const downloadURL = await getDownloadURL(snapshot.ref);
       urls.push(downloadURL);
@@ -111,6 +111,7 @@ function Create() {
           {files.length > 0 &&
             files.map((file, index) => (
               <ImageCard
+                key={index}
                 index={index}
                 media={URL.createObjectURL(file)}
                 removeImage={removeFile}
@@ -171,7 +172,6 @@ function Create() {
             </>
           )
         ) : null}
-
         <Input
           placeholder="material"
           value={material}
@@ -210,4 +210,4 @@ function Create() {
   );
 }
 
-export default Create;
+export default Collect;
