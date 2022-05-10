@@ -9,9 +9,9 @@ export function fetchCount(amount = 1) {
   );
 }
 
-export async function storeImages(images, user) {
+export async function storeImages(item, user) {
   let urls = [];
-  for (const img of images) {
+  for (const img of item.media) {
     const storageRef = ref(st, `images/${user}/${Timestamp.now()}`);
     const snapshot = await uploadBytes(storageRef, img);
     const downloadURL = await getDownloadURL(snapshot.ref);
@@ -21,12 +21,16 @@ export async function storeImages(images, user) {
 }
 
 export async function insertItem(item, user) {
+  const urls = await storeImages(item, user);
   const itemsRef = collection(db, "items");
-  return await addDoc(itemsRef, {
-    ...item,
-    createdBy: user,
-    createdTimestamp: Timestamp.now(),
-    updatedTimestamp: Timestamp.now(),
-    isValidated: false,
+  return new Promise((resolve, reject) => {
+    addDoc(itemsRef, {
+      ...item,
+      media: urls,
+      createdBy: user,
+      createdTimestamp: Timestamp.now(),
+      updatedTimestamp: Timestamp.now(),
+      isValidated: false,
+    }).then(resolve());
   });
 }

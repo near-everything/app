@@ -11,7 +11,7 @@ function Subcategory() {
   const category = useSelector((state) => state.collect.category);
 
   const onSubmit = (data) => {
-    dispatch(setSubcategory(data.subcategory));
+    dispatch(setSubcategory(data.value));
     navigate("/extra");
   };
 
@@ -19,14 +19,14 @@ function Subcategory() {
     <>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
         {category &&
-          subcategories[category].map((category, index) => {
+          subcategories[category].map((subcategory, index) => {
             return (
               <Button
                 key={index}
                 className="flex grow m-2"
-                onClick={() => onSubmit(category)}
+                onClick={() => onSubmit(subcategory)}
               >
-                {category.name}
+                {subcategory.name}
               </Button>
             );
           })}

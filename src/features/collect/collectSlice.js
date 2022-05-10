@@ -19,15 +19,12 @@ const initialState = {
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
-export const insert = createAsyncThunk(
-  "collect/insert",
-  async (item, user) => {
-    // const urls = await storeImages(media, user);
-    const response = await insertItem(item, user);
-    // The value we return becomes the `fulfilled` action payload
-    return response.data;
-  }
-);
+export const insert = createAsyncThunk("collect/insert", async (data) => {
+  const { item, user }  = data;
+  const response = await insertItem(item, user);
+  // The value we return becomes the `fulfilled` action payload
+  return response;
+});
 
 export const collectSlice = createSlice({
   name: "collect",
@@ -60,9 +57,7 @@ export const collectSlice = createSlice({
     setMedia: (state, action) => {
       state.media = action.payload;
     },
-    resetCollect: (state) => {
-      state = initialState;
-    }
+    resetCollect: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -75,6 +70,17 @@ export const collectSlice = createSlice({
   },
 });
 
-export const { setCategory, setSubcategory, setBrand, setCondition, setMaterial, setSize, setDescription, setQuantity, setMedia, resetCollect } = collectSlice.actions;
+export const {
+  setCategory,
+  setSubcategory,
+  setBrand,
+  setCondition,
+  setMaterial,
+  setSize,
+  setDescription,
+  setQuantity,
+  setMedia,
+  resetCollect,
+} = collectSlice.actions;
 
 export default collectSlice.reducer;
