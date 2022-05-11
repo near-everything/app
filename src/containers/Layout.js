@@ -1,35 +1,16 @@
-import React, { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
-import Header from "../components/Header";
+import React, { Suspense } from "react";
+import { Outlet } from "react-router-dom";
 import ThemedSuspense from "../components/ThemedSuspense";
-import Main from "../containers/Main";
-import routes from "../routes";
-
-
-const Page404 = lazy(() => import("../pages/404"));
 
 function Layout() {
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="flex h-full bg-gray-50 dark:bg-black text-black dark:text-white">
       <div className="flex flex-col flex-1 w-full">
-        <Header />
-        <Main>
+        <main className="container mx-auto h-screen overflow-y-auto px-6 py-8">
           <Suspense fallback={<ThemedSuspense />}>
-            <Routes>
-              {routes.map((route, i) => {
-                return route.component ? (
-                  <Route
-                    key={i}
-                    exact={true}
-                    path={`/${route.path}`}
-                    element={<route.component />}
-                  />
-                ) : null;
-              })}
-              <Route element={<Page404 />} />
-            </Routes>
+            <Outlet />
           </Suspense>
-        </Main>
+        </main>
       </div>
     </div>
   );

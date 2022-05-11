@@ -3,7 +3,16 @@ import classNames from "classnames";
 import { DarkModeContext } from "./DarkMode";
 
 const Input = React.forwardRef(function Input(props, ref) {
-  const { valid, disabled, className, type = "text", ...other } = props;
+  const {
+    valid,
+    disabled,
+    className,
+    type = "text",
+    label,
+    register = null,
+    required,
+    ...other
+  } = props;
 
   const {
     theme: { input },
@@ -50,13 +59,20 @@ const Input = React.forwardRef(function Input(props, ref) {
   );
 
   return (
-    <input
-      className={cls}
-      type={type}
-      ref={ref}
-      disabled={disabled}
-      {...other}
-    />
+    <>
+      <label>{label}</label>
+      {register ? (
+        <input
+          className={cls}
+          type={type}
+          ref={ref}
+          {...register(label, { required })}
+          {...other}
+        />
+      ) : (
+        <input className={cls} type={type} ref={ref} {...other} />
+      )}
+    </>
   );
 });
 

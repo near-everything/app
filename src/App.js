@@ -7,7 +7,7 @@ import { selectUser, setUser } from "./features/auth/authSlice";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { firebase } from "./app/firebase";
 
-const Layout = lazy(() => import("./containers/Layout"));
+const Collect = lazy(() => import("./pages/Collect"));
 const Login = lazy(() => import("./pages/Login"));
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           {/* Private route */}
           <Route element={<PrivateRoute />}>
-            <Route path="/*" element={<Layout />} />
+            <Route path="/*" element={<Collect />} />
           </Route>
         </Routes>
       </Router>

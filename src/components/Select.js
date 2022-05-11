@@ -3,28 +3,41 @@ import React, { useContext } from "react";
 import { DarkModeContext } from "./DarkMode";
 
 const Select = React.forwardRef(function Select(props, ref) {
-  const { valid, children, className, multiple, disabled, placeholder, options, ...other } = props
+  const {
+    valid,
+    children,
+    className,
+    multiple,
+    disabled,
+    placeholder,
+    options,
+    onChange,
+    onBlur,
+    name,
+    label,
+    ...other
+  } = props;
 
   const {
     theme: { select },
-  } = useContext(DarkModeContext)
+  } = useContext(DarkModeContext);
 
-  const baseStyle = select.base
-  const activeStyle = select.active
-  const validStyle = select.valid
-  const invalidStyle = select.invalid
-  const disabledStyle = select.disabled
-  const selectStyle = select.select
+  const baseStyle = select.base;
+  const activeStyle = select.active;
+  const validStyle = select.valid;
+  const invalidStyle = select.invalid;
+  const disabledStyle = select.disabled;
+  const selectStyle = select.select;
 
   function hasValidation(valid) {
-    return valid !== undefined
+    return valid !== undefined;
   }
 
   function validationStyle(valid) {
     if (hasValidation(valid)) {
-      return valid ? validStyle : invalidStyle
+      return valid ? validStyle : invalidStyle;
     }
-    return ''
+    return "";
   }
 
   const cls = classNames(
@@ -36,18 +49,28 @@ const Select = React.forwardRef(function Select(props, ref) {
     validationStyle(valid),
     !multiple && selectStyle,
     className
-  )
+  );
 
   return (
-    <select className={cls} ref={ref} disabled={disabled} multiple={!!multiple} {...other}>
-      <option value="">{placeholder}</option>
-      {options.map((o) => (
-        <option key={o.id} value={o.value}>
-          {o.name}
-        </option>
-      ))}
-    </select>
+    <>
+      <label>{label}</label>
+      <select
+        name={name}
+        className={cls}
+        ref={ref}
+        onChange={onChange}
+        onBlur={onBlur}
+        // multiple={!!multiple}
+        {...other}
+      >
+        {options.map((o) => (
+          <option key={o.id} value={o.value}>
+            {o.name}
+          </option>
+        ))}
+      </select>
+    </>
   );
 });
 
-export default Select
+export default Select;
