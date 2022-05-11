@@ -27,7 +27,7 @@ function Media() {
   return (
     <>
       <Header title={"Media"} pageNumber={"1"} />
-      <div className="flex flex-col justify-between h-full">
+      <div className="flex flex-col justify-between h-full pt-4">
         <div>
           <FileUpload
             onChange={(event) => {
