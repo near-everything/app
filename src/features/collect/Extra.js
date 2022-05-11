@@ -10,9 +10,11 @@ import {
   setQuantity,
   setSize,
 } from "./collectSlice";
-import Input from "../../components/Input"
-import Select from "../../components/Select"
+import Input from "../../components/Input";
+import Select from "../../components/Select";
 import { conditions } from "../../utils/categories";
+import Button from "../../components/Button";
+import Header from "../../components/Header";
 
 function Extra() {
   const dispatch = useDispatch();
@@ -40,18 +42,25 @@ function Extra() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Input label="brand" register={register} />
-        <Input label="material" register={register} />
-        <Input label="size" register={register} />
-        <Select
-          label="condition"
-          {...register("condition")}
-          options={conditions}
-        />
-        <Input label="description" register={register} />
-        <Input label={"quantity"} type="number" register={register} />
-        <button>Next</button>
+      <Header pageNumber={"4"} />
+      <form
+        id="extra"
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col justify-between h-full w-full"
+      >
+        <div>
+          <Input label="brand" register={register} />
+          <Input label="material" register={register} />
+          <Input label="size" register={register} />
+          <Select
+            label="condition"
+            {...register("condition")}
+            options={conditions}
+          />
+          <Input label="description" register={register} />
+          <Input label={"quantity"} type="number" register={register} />
+        </div>
+        <Button form="extra" type="submit">Next</Button>
       </form>
     </>
   );

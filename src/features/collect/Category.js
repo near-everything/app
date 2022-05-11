@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
+import Header from "../../components/Header";
 import { categories } from "../../utils/categories";
 import { setCategory } from "./collectSlice";
 
@@ -16,6 +17,7 @@ function Category() {
 
   return (
     <>
+      <Header title={"Category"} pageNumber={"2"} />
       <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
         {categories &&
           categories.map((category, index) => {

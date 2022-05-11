@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
+import Header from "../../components/Header";
 import { subcategories } from "../../utils/categories";
 import { setSubcategory } from "./collectSlice";
 
@@ -17,6 +18,7 @@ function Subcategory() {
 
   return (
     <>
+      <Header title={"Subcategory"} pageNumber={"3"} />
       <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
         {category &&
           subcategories[category].map((subcategory, index) => {
@@ -31,7 +33,6 @@ function Subcategory() {
             );
           })}
       </div>
-      <button>Next</button>
     </>
   );
 }
