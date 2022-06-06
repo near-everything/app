@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
-import { subcategories } from "../../utils/categories";
 import { setSubcategory } from "./collectSlice";
 
 function Subcategory() {
@@ -12,7 +11,7 @@ function Subcategory() {
   const category = useSelector((state) => state.collect.category);
 
   const onSubmit = (data) => {
-    dispatch(setSubcategory(data.value));
+    dispatch(setSubcategory(data));
     navigate("/extra");
   };
 
@@ -21,7 +20,7 @@ function Subcategory() {
       <Header title={"Subcategory"} pageNumber={"3"} />
       <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
         {category &&
-          subcategories[category].map((subcategory, index) => {
+          category.subcategories.map((subcategory, index) => {
             return (
               <Button
                 key={index}

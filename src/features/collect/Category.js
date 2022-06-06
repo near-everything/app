@@ -1,17 +1,32 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
-import { categories } from "../../utils/categories";
 import { setCategory } from "./collectSlice";
 
 function Category() {
+  const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    getAllCategories();
+  }, []);
+
+  const getAllCategories = () => {
+    axios
+      .get("http://192.168.1.23:8080/category/raw/")
+      .then((res) => {
+        const allCategories = res.data.categories;
+        setCategories(allCategories);
+      })
+      .catch((err) => console.error(err));
+  };
+
   const onSubmit = (data) => {
-    dispatch(setCategory(data.value));
+    dispatch(setCategory(data));
     navigate("/subcategory");
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
@@ -28,20 +28,17 @@ function Review() {
         <div className="flex flex-row mt-4">
           {media.length > 0 &&
             media.map((file, index) => (
-              <ImageCard
-                key={index}
-                index={index}
-                media={file}
-              />
+              <ImageCard key={index} index={index} media={file} />
             ))}
         </div>
         <div>
           <p>
-            <span className="font-semibold">Catergory:</span> {item.category}
+            <span className="font-semibold">Category:</span>{" "}
+            {item.category.name}
           </p>
           <p>
             <span className="font-semibold">Subcategory:</span>{" "}
-            {item.subcategory}
+            {item.subcategory.name}
           </p>
           <p>
             <span className="font-semibold">Brand:</span> {item.brand}
@@ -63,7 +60,9 @@ function Review() {
             {item.description}
           </p>
         </div>
-        <Button className="" onClick={onSubmit}>Submit</Button>
+        <Button className="" onClick={onSubmit}>
+          Submit
+        </Button>
       </div>
     </>
   );
