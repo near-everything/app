@@ -19,10 +19,9 @@ function Main() {
         <MainHeader />
         <main className="h-full overflow-y-auto">
           <Link to="/media">
-            <div className="flex justify-center items-center h-full text-center ">
-              collect everything
-              <br />
-              (click anywhere to begin)
+            <div className="flex flex-col justify-center items-center h-full text-center">
+              <p className="font-bold text-7xl font-sans text-green-600">collect</p>
+              <p className="text-4xl font-light">EVERYTHING</p>
             </div>
           </Link>
         </main>

@@ -5,7 +5,7 @@ const FileUpload = React.forwardRef(function FileUpload(props, ref) {
   const { ...other } = props;
 
   return (
-    <label className="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
+    <label className="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-300 hover:border-gray-400">
       <div className="flex flex-col items-center justify-center pt-7">
         <ImageIcon />
         <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">

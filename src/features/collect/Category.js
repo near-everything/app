@@ -17,7 +17,7 @@ function Category() {
 
   const getAllCategories = () => {
     axios
-      .get("http://192.168.1.23:8080/category/raw/")
+      .get("http://192.168.1.23:8080/category/")
       .then((res) => {
         const allCategories = res.data.categories;
         setCategories(allCategories);
