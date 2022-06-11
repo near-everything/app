@@ -26,9 +26,9 @@ function Media() {
 
   return (
     <>
-      <Header title={"Media"} pageNumber={"1"} />
-      <div className="flex flex-col justify-between h-full pt-4">
-        <div>
+      <div className="flex flex-col justify-between h-full">
+        <Header className="flex flex-1" title={"Media"} pageNumber={"1"} />
+        <div className="flex flex-1 p-6 flex-col">
           <FileUpload
             onChange={(event) => {
               if (event.target.files.length > 0) {
@@ -52,7 +52,16 @@ function Media() {
               ))}
           </div>
         </div>
-        <Button className="flex justify-self-end" onClick={onSubmit} disabled={files.length === 0 || files.length > 10}>Next &#x2192;</Button>
+        <div className="flex">
+          <div className="w-1/2"></div>
+          <Button
+            className="w-1/2 h-16"
+            onClick={onSubmit}
+            disabled={files.length === 0 || files.length > 10}
+          >
+            &#x2192;
+          </Button>
+        </div>
       </div>
     </>
   );

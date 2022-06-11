@@ -6,7 +6,7 @@ function Layout() {
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-black text-black dark:text-white">
       <div className="flex flex-col flex-1 w-full">
-        <main className="container mx-auto h-full overflow-y-auto px-6 pt-8 pb-36">
+        <main className="container mx-auto h-full overflow-y-auto">
           <Suspense fallback={<ThemedSuspense />}>
             <Outlet />
           </Suspense>

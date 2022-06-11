@@ -23,46 +23,56 @@ function Review() {
 
   return (
     <>
-      <Header title={"Review"} pageNumber={"5"} />
       <div className="flex flex-col justify-between h-full">
-        <div className="flex flex-row mt-4">
-          {media.length > 0 &&
-            media.map((file, index) => (
-              <ImageCard key={index} index={index} media={file} />
-            ))}
+        <Header className="flex flex-1" title={"Review"} pageNumber={"5"} />
+        <div className="flex flex-1 p-6 flex-col">
+          <div className="flex flex-col h-full">
+            <div className="flex flex-row mb-4">
+              {media.length > 0 &&
+                media.map((file, index) => (
+                  <ImageCard key={index} index={index} media={file} />
+                ))}
+            </div>
+            <div>
+              <p>
+                <span className="font-semibold">Category:</span>{" "}
+                {item.category.name}
+              </p>
+              <p>
+                <span className="font-semibold">Subcategory:</span>{" "}
+                {item.subcategory.name}
+              </p>
+              <p>
+                <span className="font-semibold">Brand:</span> {item.brand}
+              </p>
+              <p>
+                <span className="font-semibold">Condition:</span>{" "}
+                {item.condition}
+              </p>
+              <p>
+                <span className="font-semibold">Material:</span> {item.material}
+              </p>
+              <p>
+                <span className="font-semibold">Size:</span> {item.size}
+              </p>
+              <p>
+                <span className="font-semibold">Quantity:</span> {item.quantity}
+              </p>
+              <p>
+                <span className="font-semibold">Description:</span>{" "}
+                {item.description}
+              </p>
+            </div>
+          </div>
         </div>
-        <div>
-          <p>
-            <span className="font-semibold">Category:</span>{" "}
-            {item.category.name}
-          </p>
-          <p>
-            <span className="font-semibold">Subcategory:</span>{" "}
-            {item.subcategory.name}
-          </p>
-          <p>
-            <span className="font-semibold">Brand:</span> {item.brand}
-          </p>
-          <p>
-            <span className="font-semibold">Condition:</span> {item.condition}
-          </p>
-          <p>
-            <span className="font-semibold">Material:</span> {item.material}
-          </p>
-          <p>
-            <span className="font-semibold">Size:</span> {item.size}
-          </p>
-          <p>
-            <span className="font-semibold">Quantity:</span> {item.quantity}
-          </p>
-          <p>
-            <span className="font-semibold">Description:</span>{" "}
-            {item.description}
-          </p>
+        <div className="flex">
+          <Button
+            className="w-full h-16"
+            onClick={onSubmit}
+          >
+            Submit
+          </Button>
         </div>
-        <Button className="" onClick={onSubmit}>
-          Submit
-        </Button>
       </div>
     </>
   );

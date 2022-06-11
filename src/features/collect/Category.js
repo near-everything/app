@@ -32,20 +32,22 @@ function Category() {
 
   return (
     <>
-      <Header title={"Category"} pageNumber={"2"} />
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
-        {categories &&
-          categories.map((category, index) => {
-            return (
-              <Button
-                key={index}
-                className="flex grow m-2"
-                onClick={() => onSubmit(category)}
-              >
-                {category.name}
-              </Button>
-            );
-          })}
+      <div className="flex flex-col justify-between h-full">
+        <Header className="flex flex-1" title={"Category"} pageNumber={"2"} />
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
+          {categories &&
+            categories.map((category, index) => {
+              return (
+                <Button
+                  key={index}
+                  className="flex grow rounded-none"
+                  onClick={() => onSubmit(category)}
+                >
+                  {category.name}
+                </Button>
+              );
+            })}
+        </div>
       </div>
     </>
   );

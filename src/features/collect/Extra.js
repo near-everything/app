@@ -42,26 +42,37 @@ function Extra() {
 
   return (
     <>
-      <Header pageNumber={"4"} />
-      <form
-        id="extra"
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-between h-full w-full"
-      >
-        <div>
-          <Input label="brand" register={register} />
-          <Input label="material" register={register} />
-          <Input label="size" register={register} />
-          <Select
-            label="condition"
-            {...register("condition")}
-            options={conditions}
-          />
-          <Input label="description" register={register} />
-          <Input label={"quantity"} type="number" register={register} />
-        </div>
-        <Button form="extra" type="submit">Next</Button>
-      </form>
+      <div className="flex flex-col justify-between h-full">
+        <Header className="flex flex-1" pageNumber={"4"} />
+        <form
+          id="extra"
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col justify-between h-full w-full"
+        >
+          <div>
+            <Input label="brand" register={register} />
+            <Input label="material" register={register} />
+            <Input label="size" register={register} />
+            <Select
+              label="condition"
+              {...register("condition")}
+              options={conditions}
+            />
+            <Input label="description" register={register} />
+            <Input label={"quantity"} type="number" register={register} />
+          </div>
+          <div className="flex">
+            <div className="w-1/2"></div>
+            <Button
+              className="w-1/2 h-16 bg-gray-200 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-800 rounded-none"
+              form="extra"
+              type="submit"
+            >
+              &#x2192;
+            </Button>
+          </div>
+        </form>
+      </div>
     </>
   );
 }
