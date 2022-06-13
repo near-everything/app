@@ -5,12 +5,7 @@ const initialState = {
   status: "idle",
   category: null,
   subcategory: null,
-  brand: "",
-  condition: "",
-  material: "",
-  size: "",
-  description: "",
-  quantity: 1,
+  attributes: {},
   media: [],
 };
 
@@ -36,23 +31,8 @@ export const collectSlice = createSlice({
     setSubcategory: (state, action) => {
       state.subcategory = action.payload;
     },
-    setBrand: (state, action) => {
-      state.brand = action.payload;
-    },
-    setCondition: (state, action) => {
-      state.condition = action.payload;
-    },
-    setMaterial: (state, action) => {
-      state.material = action.payload;
-    },
-    setSize: (state, action) => {
-      state.size = action.payload;
-    },
-    setDescription: (state, action) => {
-      state.description = action.payload;
-    },
-    setQuantity: (state, action) => {
-      state.quantity = action.payload;
+    setAttributes: (state, action) => {
+      state.attributes = action.payload;
     },
     setMedia: (state, action) => {
       state.media = action.payload;
@@ -73,12 +53,7 @@ export const collectSlice = createSlice({
 export const {
   setCategory,
   setSubcategory,
-  setBrand,
-  setCondition,
-  setMaterial,
-  setSize,
-  setDescription,
-  setQuantity,
+  setAttributes,
   setMedia,
   resetCollect,
 } = collectSlice.actions;

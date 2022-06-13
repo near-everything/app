@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
@@ -8,12 +9,33 @@ import { selectUser } from "../auth/authSlice";
 import { insert, resetCollect } from "./collectSlice";
 
 function Review() {
-  const media = useSelector((state) => state.collect.media);
+  const [characteristics, setCharacteristics] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const subcategory = useSelector((state) => state.collect.subcategory);
+  const media = useSelector((state) => state.collect.media);
+  const attributes = useSelector((state) => state.collect.attributes);
   const item = useSelector((state) => state.collect);
-
   const user = useSelector(selectUser);
+
+  useEffect(() => {
+    getAttributes();
+  }, []);
+
+  const getAttributes = () => {
+    axios
+      .get(
+        `http://192.168.1.23:8080/characteristic/?subcategory_id=${subcategory.id}`
+      )
+      .then((res) => {
+        const characteristics = res.data.characteristics;
+        if (characteristics.length > 0) {
+          setCharacteristics(characteristics[0].attributes);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
+
 
   const onSubmit = () => {
     dispatch(insert({ item, user }));
@@ -42,26 +64,11 @@ function Review() {
                 <span className="font-semibold">Subcategory:</span>{" "}
                 {item.subcategory.name}
               </p>
-              <p>
-                <span className="font-semibold">Brand:</span> {item.brand}
-              </p>
-              <p>
-                <span className="font-semibold">Condition:</span>{" "}
-                {item.condition}
-              </p>
-              <p>
-                <span className="font-semibold">Material:</span> {item.material}
-              </p>
-              <p>
-                <span className="font-semibold">Size:</span> {item.size}
-              </p>
-              <p>
-                <span className="font-semibold">Quantity:</span> {item.quantity}
-              </p>
-              <p>
-                <span className="font-semibold">Description:</span>{" "}
-                {item.description}
-              </p>
+              {characteristics && characteristics.map((char) => (
+                <p key={char.id}>
+                  <span className="font-semibold">{char.name}:</span> {attributes[char.name]}
+                </p>
+              ))}
             </div>
           </div>
         </div>

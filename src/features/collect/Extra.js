@@ -1,42 +1,45 @@
-import React from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  setBrand,
-  setCondition,
-  setDescription,
-  setMaterial,
-  setQuantity,
-  setSize,
-} from "./collectSlice";
-import Input from "../../components/Input";
-import Select from "../../components/Select";
-import { conditions } from "../../utils/categories";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
+import Input from "../../components/Input";
+import {
+  setAttributes
+} from "./collectSlice";
 
 function Extra() {
+  const [characteristics, setCharacteristics] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const brand = useSelector((state) => state.collect.brand);
-  const material = useSelector((state) => state.collect.material);
-  const size = useSelector((state) => state.collect.size);
-  const condition = useSelector((state) => state.collect.condition);
-  const description = useSelector((state) => state.collect.description);
-  const quantity = useSelector((state) => state.collect.quantity);
+  const subcategory = useSelector((state) => state.collect.subcategory);
+  const attributes = useSelector((state) => state.collect.attributes);
   const { register, handleSubmit } = useForm({
-    defaultValues: { brand, material, size, condition, description, quantity },
+    defaultValues: attributes
   });
 
+  useEffect(() => {
+    getAttributes();
+  }, []);
+
+  const getAttributes = () => {
+    axios
+      .get(
+        `http://192.168.1.23:8080/characteristic/?subcategory_id=${subcategory.id}`
+      )
+      .then((res) => {
+        const characteristics = res.data.characteristics;
+        if (characteristics.length > 0) {
+          setCharacteristics(characteristics[0].attributes);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
+
   const onSubmit = (data) => {
-    dispatch(setBrand(data.brand));
-    dispatch(setMaterial(data.material));
-    dispatch(setSize(data.size));
-    dispatch(setCondition(data.condition));
-    dispatch(setMaterial(data.material));
-    dispatch(setDescription(data.description));
-    dispatch(setQuantity(data.quantity));
+    dispatch(setAttributes(data));
     navigate("/review");
   };
 
@@ -50,16 +53,10 @@ function Extra() {
           className="flex flex-col justify-between h-full w-full"
         >
           <div>
-            <Input label="brand" register={register} />
-            <Input label="material" register={register} />
-            <Input label="size" register={register} />
-            <Select
-              label="condition"
-              {...register("condition")}
-              options={conditions}
-            />
-            <Input label="description" register={register} />
-            <Input label={"quantity"} type="number" register={register} />
+            {characteristics &&
+              characteristics.map((attr) => (
+                <Input key={attr.id} label={attr.name} register={register} />
+              ))}
           </div>
           <div className="flex">
             <div className="w-1/2"></div>
