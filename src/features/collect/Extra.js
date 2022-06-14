@@ -6,9 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import Input from "../../components/Input";
-import {
-  setAttributes
-} from "./collectSlice";
+import { setAttributes } from "./collectSlice";
 
 function Extra() {
   const [characteristics, setCharacteristics] = useState([]);
@@ -17,26 +15,26 @@ function Extra() {
   const subcategory = useSelector((state) => state.collect.subcategory);
   const attributes = useSelector((state) => state.collect.attributes);
   const { register, handleSubmit } = useForm({
-    defaultValues: attributes
+    defaultValues: attributes,
   });
 
   useEffect(() => {
-    getAttributes();
-  }, []);
+    async function getAttributes() {
+      await axios
+        .get(
+          `http://192.168.1.23:8080/characteristic/?subcategory_id=${subcategory.id}`
+        )
+        .then((res) => {
+          const characteristics = res.data.characteristics;
+          if (characteristics.length > 0) {
+            setCharacteristics(characteristics[0].attributes);
+          }
+        })
+        .catch((err) => console.error(err));
+    }
 
-  const getAttributes = () => {
-    axios
-      .get(
-        `http://192.168.1.23:8080/characteristic/?subcategory_id=${subcategory.id}`
-      )
-      .then((res) => {
-        const characteristics = res.data.characteristics;
-        if (characteristics.length > 0) {
-          setCharacteristics(characteristics[0].attributes);
-        }
-      })
-      .catch((err) => console.error(err));
-  };
+    getAttributes();
+  }, [subcategory]);
 
   const onSubmit = (data) => {
     dispatch(setAttributes(data));

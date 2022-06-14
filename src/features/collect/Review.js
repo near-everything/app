@@ -19,23 +19,21 @@ function Review() {
   const user = useSelector(selectUser);
 
   useEffect(() => {
+    async function getAttributes() {
+      await axios
+        .get(
+          `http://192.168.1.23:8080/characteristic/?subcategory_id=${subcategory.id}`
+        )
+        .then((res) => {
+          const characteristics = res.data.characteristics;
+          if (characteristics.length > 0) {
+            setCharacteristics(characteristics[0].attributes);
+          }
+        })
+        .catch((err) => console.error(err));
+    };
     getAttributes();
-  }, []);
-
-  const getAttributes = () => {
-    axios
-      .get(
-        `http://192.168.1.23:8080/characteristic/?subcategory_id=${subcategory.id}`
-      )
-      .then((res) => {
-        const characteristics = res.data.characteristics;
-        if (characteristics.length > 0) {
-          setCharacteristics(characteristics[0].attributes);
-        }
-      })
-      .catch((err) => console.error(err));
-  };
-
+  }, [subcategory]);
 
   const onSubmit = () => {
     dispatch(insert({ item, user }));
