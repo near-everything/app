@@ -12,7 +12,7 @@ const FileUpload = React.forwardRef(function FileUpload(props, ref) {
           add photos
         </p>
       </div>
-      <input type="file" className="opacity-0" multiple ref={ref} {...other} />
+      <input type="file" accept="image/*" className="opacity-0" multiple ref={ref} {...other} />
     </label>
   );
 });

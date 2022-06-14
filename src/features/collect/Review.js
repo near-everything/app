@@ -52,7 +52,7 @@ function Review() {
             <div className="flex flex-row mb-4">
               {media.length > 0 &&
                 media.map((file, index) => (
-                  <ImageCard key={index} index={index} media={file} />
+                  <ImageCard key={index} index={index} media={file.url} />
                 ))}
             </div>
             <div>

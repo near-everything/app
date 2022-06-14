@@ -33,7 +33,7 @@ function Media() {
             onChange={(event) => {
               if (event.target.files.length > 0) {
                 const urls = Array.from(event.target.files).map((file) =>
-                  URL.createObjectURL(file)
+                  ({ data: file, url: URL.createObjectURL(file) })
                 );
                 setFiles([...files, ...urls]);
                 event.target.value = null;
@@ -46,7 +46,7 @@ function Media() {
                 <ImageCard
                   key={index}
                   index={index}
-                  media={file}
+                  media={file.url}
                   removeImage={removeFile}
                 />
               ))}

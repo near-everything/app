@@ -13,7 +13,7 @@ export async function storeImages(item, user) {
   let urls = [];
   for (const img of item.media) {
     const storageRef = ref(st, `images/${user}/${Timestamp.now()}`);
-    const snapshot = await uploadBytes(storageRef, img);
+    const snapshot = await uploadBytes(storageRef, img.data);
     const downloadURL = await getDownloadURL(snapshot.ref);
     urls.push(downloadURL);
   }
