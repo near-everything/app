@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +7,6 @@ import Input from "../../components/Input";
 import { setAttributes } from "./collectSlice";
 
 function Extra() {
-  const [characteristics, setCharacteristics] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const subcategory = useSelector((state) => state.collect.subcategory);
@@ -17,24 +14,6 @@ function Extra() {
   const { register, handleSubmit } = useForm({
     defaultValues: attributes,
   });
-
-  useEffect(() => {
-    async function getAttributes() {
-      await axios
-        .get(
-          `http://192.168.1.23:8080/characteristic/?subcategory_id=${subcategory.id}`
-        )
-        .then((res) => {
-          const characteristics = res.data.characteristics;
-          if (characteristics.length > 0) {
-            setCharacteristics(characteristics[0].attributes);
-          }
-        })
-        .catch((err) => console.error(err));
-    }
-
-    getAttributes();
-  }, [subcategory]);
 
   const onSubmit = (data) => {
     dispatch(setAttributes(data));
@@ -51,8 +30,9 @@ function Extra() {
           className="flex flex-col justify-between h-full w-full"
         >
           <div>
-            {characteristics &&
-              characteristics.map((attr) => (
+            {subcategory &&
+              subcategory.attributes &&
+              subcategory.attributes.map((attr) => (
                 <Input key={attr.id} label={attr.name} register={register} />
               ))}
           </div>

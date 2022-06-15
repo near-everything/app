@@ -1,28 +1,13 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import { setCategory } from "./collectSlice";
 
 function Category() {
-  const [categories, setCategories] = useState([]);
+  const labels = useSelector((state) => state.labels.schema);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function getAllCategories() {
-      await axios
-        .get("http://192.168.1.23:8080/category/")
-        .then((res) => {
-          const allCategories = res.data.categories;
-          setCategories(allCategories);
-        })
-        .catch((err) => console.error(err));
-    };
-    getAllCategories();
-  }, []);
 
   const onSubmit = (data) => {
     dispatch(setCategory(data));
@@ -34,8 +19,8 @@ function Category() {
       <div className="flex flex-col justify-between h-full">
         <Header className="flex flex-1" title={"Category"} pageNumber={"2"} />
         <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
-          {categories &&
-            categories.map((category, index) => {
+          {labels && labels.categories &&
+            labels.categories.map((category, index) => {
               return (
                 <Button
                   key={index}

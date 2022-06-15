@@ -7,11 +7,13 @@ import thunk from 'redux-thunk';
 import counterReducer from '../features/counter/counterSlice';
 import authReducer from '../features/auth/authSlice';
 import collectReducer from '../features/collect/collectSlice';
+import labelsReducer from '../features/labels/labelsSlice';
 
 const reducers = combineReducers({
   counter: counterReducer,
   auth: authReducer,
-  collect: collectReducer
+  collect: collectReducer,
+  labels: labelsReducer
 });
 
 const persistConfig = {
