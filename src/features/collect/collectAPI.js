@@ -25,7 +25,9 @@ export async function insertItem(item, user) {
   const itemsRef = collection(db, "items");
   return new Promise((resolve, reject) => {
     addDoc(itemsRef, {
-      ...item,
+      category: item.category,
+      subcategory: item.subcategory,
+      attributes: item.attributes,
       media: urls,
       createdBy: user,
       createdTimestamp: Timestamp.now(),

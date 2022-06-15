@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCount, insertItem, storeImages } from "./collectAPI";
+import { insertItem } from "./collectAPI";
 
 const initialState = {
   status: "idle",
@@ -15,7 +15,7 @@ const initialState = {
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
 export const insert = createAsyncThunk("collect/insert", async (data) => {
-  const { item, user }  = data;
+  const { item, user } = data;
   const response = await insertItem(item, user);
   // The value we return becomes the `fulfilled` action payload
   return response;

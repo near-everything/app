@@ -6,7 +6,7 @@ import Button from "../../components/Button";
 import ImageCard from "../../components/Cards/ImageCard";
 import Header from "../../components/Header";
 import { selectUser } from "../auth/authSlice";
-import { insert, resetCollect } from "./collectSlice";
+import { insert } from "./collectSlice";
 
 function Review() {
   const [characteristics, setCharacteristics] = useState([]);
@@ -37,7 +37,6 @@ function Review() {
 
   const onSubmit = () => {
     dispatch(insert({ item, user }));
-    dispatch(resetCollect());
     navigate("/complete");
   };
 
