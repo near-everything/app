@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Suspense, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+import { API_URL } from "../app/api";
 import ThemedSuspense from "../components/ThemedSuspense";
 import Layout from "../containers/Layout";
 import { setLabels } from "../features/labels/labelsSlice";
@@ -14,7 +15,7 @@ function Collect() {
   useEffect(() => {
     async function getAllLabels() {
       await axios
-        .get("http://192.168.1.23:8080/category/")
+        .get(API_URL + "/category/")
         .then((res) => {
           const allLabels = res.data;
           dispatch(setLabels(allLabels));

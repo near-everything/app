@@ -49,6 +49,10 @@ function Review() {
                     {attributes[char.name]}
                   </p>
                 ))}
+              <p>
+                <span className="font-semibold">Quantity:</span>{" "}
+                {attributes['quantity']}
+              </p>
             </div>
           </div>
         </div>

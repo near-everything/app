@@ -13,6 +13,7 @@ function Extra() {
   const attributes = useSelector((state) => state.collect.attributes);
   const { register, handleSubmit } = useForm({
     defaultValues: attributes,
+    quantity: 1,
   });
 
   const onSubmit = (data) => {
@@ -35,6 +36,7 @@ function Extra() {
               subcategory.attributes.map((attr) => (
                 <Input key={attr.id} label={attr.name} register={register} />
               ))}
+            <Input label="quantity" register={register} />
           </div>
           <div className="flex">
             <div className="w-1/2"></div>

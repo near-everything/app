@@ -25,13 +25,15 @@ export async function insertItem(item, user) {
   const itemsRef = collection(db, "items");
   return new Promise((resolve, reject) => {
     addDoc(itemsRef, {
-      category: item.category,
-      subcategory: item.subcategory,
+      category: item.category.name,
+      subcategory: item.subcategory.name,
       attributes: item.attributes,
       media: urls,
+      quantity: item.attributes.quantity,
       createdBy: user,
       createdTimestamp: Timestamp.now(),
       updatedTimestamp: Timestamp.now(),
+      status: "NEW",
       isValidated: false,
     }).then(resolve());
   });
