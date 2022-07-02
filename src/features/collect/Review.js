@@ -2,7 +2,7 @@ import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useCreateItem } from "../../app/api";
+import { useCreateItem } from "./collectApi";
 import { st } from "../../app/firebase";
 import AttributeField from "../../components/AttributeField";
 import Button from "../../components/Button";

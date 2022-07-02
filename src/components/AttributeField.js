@@ -1,5 +1,5 @@
 import React from "react";
-import { useAttributeById } from "../app/api";
+import { useAttributeById } from "../features/collect/collectApi";
 
 const AttributeField = React.forwardRef(function AttributeField(props, ref) {
   const { attributeId, value } = props;

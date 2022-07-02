@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useCategories } from "../../app/api";
+import { useCategories } from "./collectApi";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import { setCategory } from "./collectSlice";

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSubcategoriesByCategoryId } from "../../app/api";
+import { useSubcategoriesByCategoryId } from "./collectApi";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import { setSubcategory } from "./collectSlice";
