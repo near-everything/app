@@ -9,8 +9,10 @@ import Button from "../../components/Button";
 import ImageCard from "../../components/Cards/ImageCard";
 import Header from "../../components/Header";
 import { selectUser } from "../auth/authSlice";
+import { useState } from "react";
 
 function Review() {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const category = useSelector((state) => state.collect.category);
   const subcategory = useSelector((state) => state.collect.subcategory);
@@ -31,6 +33,7 @@ function Review() {
   };
 
   const onSubmit = async () => {
+    setLoading(true);
     const urls = await storeImages(media, user);
     createItem.mutate({
       category_id: category.id,
@@ -50,28 +53,35 @@ function Review() {
         <Header className="flex flex-1" title={"Review"} pageNumber={"5"} />
         <div className="flex flex-1 p-6 flex-col">
           <div className="flex flex-col h-full">
-            <div className="flex flex-row mb-4">
-              {media.length > 0 &&
-                media.map((file, index) => (
-                  <ImageCard key={index} index={index} media={file.url} />
-                ))}
-            </div>
-            <div>
-              <p>
-                <span className="font-semibold">Category:</span> {category.name}
-              </p>
-              <p>
-                <span className="font-semibold">Subcategory:</span>{" "}
-                {subcategory.name}
-              </p>
-              {Object.entries(attributes)?.map(([key, value]) => (
-                <AttributeField key={key} value={value} attributeId={key} />
-              ))}
-            </div>
+            {loading ? (
+              <>Submitting...</>
+            ) : (
+              <>
+                <div className="flex flex-row mb-4">
+                  {media.length > 0 &&
+                    media.map((file, index) => (
+                      <ImageCard key={index} index={index} media={file.url} />
+                    ))}
+                </div>
+                <div>
+                  <p>
+                    <span className="font-semibold">Category:</span>{" "}
+                    {category.name}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Subcategory:</span>{" "}
+                    {subcategory.name}
+                  </p>
+                  {Object.entries(attributes)?.map(([key, value]) => (
+                    <AttributeField key={key} value={value} attributeId={key} />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="flex">
-          <Button className="w-full h-16" onClick={onSubmit}>
+          <Button className="w-full h-16" onClick={onSubmit} disabled={loading}>
             Submit
           </Button>
         </div>
