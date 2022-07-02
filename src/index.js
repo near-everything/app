@@ -1,21 +1,20 @@
 import React, { Suspense } from "react";
 import ReactDom from "react-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import App from "./App";
+import { queryClient } from "./app/api";
 import { store } from "./app/store";
 import DarkModeProvider from "./components/DarkMode";
 import ThemedSuspense from "./components/ThemedSuspense";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import { ReactQueryDevtools } from 'react-query/devtools'
-
 
 const persistor = persistStore(store);
-const queryClient = new QueryClient();
 
 ReactDom.render(
   <React.StrictMode>

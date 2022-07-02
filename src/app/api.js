@@ -1,7 +1,8 @@
 import { gql, request } from "graphql-request";
-import { useMutation, useQuery } from "react-query";
+import { QueryClient, useMutation, useQuery } from "react-query";
 
 export const API_URL = process.env.REACT_APP_EVERYTHING_API_URL;
+export const queryClient = new QueryClient();
 
 export function useCategoryById(categoryId) {
   return useQuery("categoryById", async () => {
@@ -113,8 +114,8 @@ export function useCreateItem() {
     await request(
       API_URL,
       gql`
-        mutation customCreateItem($input: CustomCreateItemInput!) {
-          customCreateItem(input: $input) {
+        mutation createItem($input: CreateItemInput!) {
+          createItem(input: $input) {
             item {
               id
             }
