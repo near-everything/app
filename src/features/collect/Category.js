@@ -1,13 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useCategories } from "../../app/api";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import { setCategory } from "./collectSlice";
 
 function Category() {
-  const labels = useSelector((state) => state.labels.schema);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { data, isLoading, isError } = useCategories();
 
   const onSubmit = (data) => {
     dispatch(setCategory(data));
@@ -18,20 +19,25 @@ function Category() {
     <>
       <div className="flex flex-col justify-between h-full">
         <Header className="flex flex-1" title={"Category"} pageNumber={"2"} />
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
-          {labels && labels.categories &&
-            labels.categories.map((category, index) => {
+        {isLoading ? (
+          "Loading..."
+        ) : isError ? (
+          "Error"
+        ) : (
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
+            {data?.map((category, index) => {
               return (
                 <Button
                   key={index}
                   className="flex grow rounded-none"
-                  onClick={() => onSubmit(category)}
+                  onClick={() => onSubmit(category.node)}
                 >
-                  {category.name}
+                  {category.node.name}
                 </Button>
               );
             })}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );

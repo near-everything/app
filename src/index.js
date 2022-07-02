@@ -11,6 +11,7 @@ import ThemedSuspense from "./components/ThemedSuspense";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 
 const persistor = persistStore(store);
@@ -25,6 +26,7 @@ ReactDom.render(
             <Suspense fallback={<ThemedSuspense />}>
               <QueryClientProvider client={queryClient}>
                 <App />
+                <ReactQueryDevtools initialIsOpen={false} />
               </QueryClientProvider>
             </Suspense>
           </PersistGate>
