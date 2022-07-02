@@ -12,7 +12,9 @@ const AttributeField = React.forwardRef(function AttributeField(props, ref) {
         "Error"
       ) : (
         <>
-          <span className="font-semibold">{data.name}:</span> {value}
+          <p>
+            <span className="font-semibold">{data.name}:</span> {value}
+          </p>
         </>
       )}
     </>

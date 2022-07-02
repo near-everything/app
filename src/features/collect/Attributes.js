@@ -40,14 +40,12 @@ function Attributes() {
           >
             <div>
               {data?.map((attr) => (
-                <>
-                  {attr.node.attributeByAttributeId.name}
-                  <Input
-                    key={attr.node.attributeByAttributeId.id}
-                    label={`${attr.node.attributeByAttributeId.id}`}
-                    register={register}
-                  />
-                </>
+                <Input
+                  key={attr.node.attributeByAttributeId.id}
+                  label={attr.node.attributeByAttributeId.name}
+                  fieldName={`${attr.node.attributeByAttributeId.id}`}
+                  register={register}
+                />
               ))}
             </div>
             <div className="flex">

@@ -2,7 +2,7 @@ import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAttributesBySubcategoryId, useCreateItem } from "../../app/api";
+import { useCreateItem } from "../../app/api";
 import { st } from "../../app/firebase";
 import AttributeField from "../../components/AttributeField";
 import Button from "../../components/Button";
@@ -16,9 +16,6 @@ function Review() {
   const subcategory = useSelector((state) => state.collect.subcategory);
   const media = useSelector((state) => state.collect.media);
   const attributes = useSelector((state) => state.collect.attributes);
-  const { data, isLoading, isError } = useAttributesBySubcategoryId(
-    subcategory.id
-  );
   const user = useSelector(selectUser);
   const createItem = useCreateItem();
 
@@ -67,17 +64,9 @@ function Review() {
                 <span className="font-semibold">Subcategory:</span>{" "}
                 {subcategory.name}
               </p>
-              {isLoading ? (
-                "Loading..."
-              ) : isError ? (
-                "Error"
-              ) : (
-                <>
-                  {Object.entries(attributes)?.map(([key, value]) => (
-                    <AttributeField key={key} value={value} attributeId={key} />
-                  ))}
-                </>
-              )}
+              {Object.entries(attributes)?.map(([key, value]) => (
+                <AttributeField key={key} value={value} attributeId={key} />
+              ))}
             </div>
           </div>
         </div>
