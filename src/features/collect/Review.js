@@ -1,22 +1,46 @@
-import { useDispatch, useSelector } from "react-redux";
+import { Timestamp } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useCreateItem } from "./collectApi";
+import { st } from "../../app/firebase";
+import AttributeField from "../../components/AttributeField";
 import Button from "../../components/Button";
 import ImageCard from "../../components/Cards/ImageCard";
 import Header from "../../components/Header";
 import { selectUser } from "../auth/authSlice";
-import { insert } from "./collectSlice";
 
 function Review() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const category = useSelector((state) => state.collect.category);
   const subcategory = useSelector((state) => state.collect.subcategory);
   const media = useSelector((state) => state.collect.media);
   const attributes = useSelector((state) => state.collect.attributes);
-  const item = useSelector((state) => state.collect);
   const user = useSelector(selectUser);
+  const createItem = useCreateItem();
 
-  const onSubmit = () => {
-    dispatch(insert({ item, user }));
+  const storeImages = async (media, user) => {
+    let urls = [];
+    for (const img of media) {
+      const storageRef = ref(st, `images/${user}/${Timestamp.now()}`);
+      const snapshot = await uploadBytes(storageRef, img.data);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      urls.push(downloadURL);
+    }
+    return urls;
+  };
+
+  const onSubmit = async () => {
+    const urls = await storeImages(media, user);
+    createItem.mutate({
+      category_id: category.id,
+      subcategory_id: subcategory.id,
+      attributes: Object.entries(attributes)?.map(([key, value]) => ({
+        attribute_id: parseInt(key),
+        initial_value: value,
+      })),
+      media: urls,
+    });
     navigate("/complete");
   };
 
@@ -34,25 +58,15 @@ function Review() {
             </div>
             <div>
               <p>
-                <span className="font-semibold">Category:</span>{" "}
-                {item.category.name}
+                <span className="font-semibold">Category:</span> {category.name}
               </p>
               <p>
                 <span className="font-semibold">Subcategory:</span>{" "}
-                {item.subcategory.name}
+                {subcategory.name}
               </p>
-              {subcategory &&
-                subcategory.attributes &&
-                subcategory.attributes.map((char) => (
-                  <p key={char.id}>
-                    <span className="font-semibold">{char.name}:</span>{" "}
-                    {attributes[char.name]}
-                  </p>
-                ))}
-              <p>
-                <span className="font-semibold">Quantity:</span>{" "}
-                {attributes['quantity']}
-              </p>
+              {Object.entries(attributes)?.map(([key, value]) => (
+                <AttributeField key={key} value={value} attributeId={key} />
+              ))}
             </div>
           </div>
         </div>

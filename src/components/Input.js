@@ -9,6 +9,7 @@ const Input = React.forwardRef(function Input(props, ref) {
     className,
     type = "text",
     label,
+    fieldName,
     register = null,
     required,
     ...other
@@ -66,7 +67,7 @@ const Input = React.forwardRef(function Input(props, ref) {
           className={cls}
           type={type}
           ref={ref}
-          {...register(label, { required })}
+          {...register(fieldName, { required })}
           {...other}
         />
       ) : (

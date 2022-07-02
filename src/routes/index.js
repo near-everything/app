@@ -4,7 +4,7 @@ import { lazy } from "react";
 const Media = lazy(() => import("../features/collect/Media"));
 const Category = lazy(() => import("../features/collect/Category"));
 const Subcategory = lazy(() => import("../features/collect/Subcategory"));
-const Extra = lazy(() => import("../features/collect/Extra"));
+const Attributes = lazy(() => import("../features/collect/Attributes"));
 const Review = lazy(() => import("../features/collect/Review"));
 const Complete = lazy(() => import("../features/collect/Complete"));
 const Page404 = lazy(() => import("../pages/404"));
@@ -33,8 +33,8 @@ const routes = [
     component: Subcategory,
   },
   {
-    path: "/extra",
-    component: Extra,
+    path: "/attributes",
+    component: Attributes,
   },
   {
     path: "/review",
