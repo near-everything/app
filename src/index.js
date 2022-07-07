@@ -12,6 +12,7 @@ import DarkModeProvider from "./components/DarkMode";
 import ThemedSuspense from "./components/ThemedSuspense";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./index.css";
+import 'react-phone-input-2/lib/style.css'
 import * as serviceWorker from "./serviceWorker";
 
 const persistor = persistStore(store);

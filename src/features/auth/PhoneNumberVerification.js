@@ -1,17 +1,17 @@
 import { signInWithPhoneNumber } from "firebase/auth";
 import { useEffect, useState } from "react";
+import PhoneInput from "react-phone-input-2";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import SubmitPhoneNumberButton from "./SubmitPhoneNumberButton";
 
 function PhoneNumberVerification({ recaptcha, auth }) {
-  const [digits, setDigits] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(null);
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [code, setCode] = useState("");
 
   let navigate = useNavigate();
-  const phoneNumber = `+1${digits}`;
 
   useEffect(() => {
     recaptcha.verify();
@@ -45,19 +45,19 @@ function PhoneNumberVerification({ recaptcha, auth }) {
                 Login
               </h1>
               <div className="flex flex-row">
-                <Input
-                  type="tel"
-                  value={digits}
-                  placeholder="XXX-XXX-XXXX"
-                  onChange={(e) => setDigits(e.target.value)}
+                <PhoneInput
+                  country={"us"}
+                  value={phoneNumber}
+                  onChange={(phone) => {
+                    setPhoneNumber(phone);
+                  }}
                 />
-                {phoneNumber.length === 12 ? (
-                  <SubmitPhoneNumberButton
-                    phoneNumber={phoneNumber}
-                    signIn={signIn}
-                  />
-                ) : null}
               </div>
+              <br />
+              <SubmitPhoneNumberButton
+                phoneNumber={phoneNumber}
+                signIn={signIn}
+              />
               <br />
               {confirmationResult && (
                 <div className="flex flex-row">
