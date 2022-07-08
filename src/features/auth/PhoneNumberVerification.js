@@ -7,7 +7,8 @@ import Input from "../../components/Input";
 import SubmitPhoneNumberButton from "./SubmitPhoneNumberButton";
 
 function PhoneNumberVerification({ recaptcha, auth }) {
-  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [digits, setDigits] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [code, setCode] = useState("");
 
@@ -48,16 +49,21 @@ function PhoneNumberVerification({ recaptcha, auth }) {
                 <PhoneInput
                   country={"us"}
                   value={phoneNumber}
-                  onChange={(phone) => {
-                    setPhoneNumber(phone);
+                  onChange={(phone, country) => {
+                    setDigits(phone.replace(country.dialCode, ""));
+                    setPhoneNumber(`+${phone}`);
                   }}
                 />
               </div>
               <br />
-              <SubmitPhoneNumberButton
-                phoneNumber={phoneNumber}
-                signIn={signIn}
-              />
+              {digits.length === 10 ? (
+                <>
+                  <SubmitPhoneNumberButton
+                    phoneNumber={phoneNumber}
+                    signIn={signIn}
+                  />
+                </>
+              ) : null}
               <br />
               {confirmationResult && (
                 <div className="flex flex-row">

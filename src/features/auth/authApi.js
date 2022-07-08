@@ -4,7 +4,6 @@ import { API_URL, queryClient } from "../../app/api";
 
 export function useInviteByPhoneNumber(phoneNumber) {
   return useQuery("inviteByPhoneNumber", async () => {
-    if (phoneNumber) {
       const { inviteByPhoneNumber } = await request(
         API_URL,
         gql`
@@ -17,7 +16,6 @@ export function useInviteByPhoneNumber(phoneNumber) {
         { phoneNumber }
       );
       return inviteByPhoneNumber;
-    }
   });
 }
 
