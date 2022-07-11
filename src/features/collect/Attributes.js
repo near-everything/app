@@ -41,9 +41,9 @@ function Attributes() {
             <div>
               {data?.map((attr) => (
                 <Input
-                  key={attr.node.attributeByAttributeId.id}
-                  label={attr.node.attributeByAttributeId.name}
-                  fieldName={`${attr.node.attributeByAttributeId.id}`}
+                  key={attr.node.attribute.id}
+                  label={attr.node.attribute.name}
+                  fieldName={`${attr.node.attribute.id}`}
                   register={register}
                 />
               ))}

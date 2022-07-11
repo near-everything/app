@@ -28,6 +28,8 @@ function PhoneNumberVerification({ recaptcha, auth }) {
     await confirmationResult
       .confirm(code)
       .then((result) => {
+        // Check if exists in postgres
+        // if it doesn't, then create new user
         navigate("/");
       })
       .catch((error) => {

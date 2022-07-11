@@ -1,33 +1,31 @@
-import { gql, request } from "graphql-request";
+import { gql } from "graphql-request";
 import { useMutation, useQuery } from "react-query";
-import { API_URL } from "../../app/api";
+import { graphqlClient } from "../../app/api";
 
 export function useCategoryById(categoryId) {
   return useQuery("categoryById", async () => {
-    const { categoryById } = await request(
-      API_URL,
+    const { category } = await graphqlClient.request(
       gql`
         query categoryById {
-          categoryById(id: ${categoryId}) {
+          category(id: ${categoryId}) {
             id
             name
           }
         }
       `
     );
-    return categoryById;
+    return category;
   });
 }
 
 export function useCategories() {
   return useQuery("categories", async () => {
     const {
-      allCategories: { edges },
-    } = await request(
-      API_URL,
+      categories: { edges },
+    } = await graphqlClient.request(
       gql`
         query getCategories {
-          allCategories {
+          categories {
             edges {
               node {
                 id
@@ -45,12 +43,11 @@ export function useCategories() {
 export function useSubcategoriesByCategoryId(categoryId) {
   return useQuery(["subcategoriesByCategoryId", categoryId], async () => {
     const {
-      allSubcategories: { edges },
-    } = await request(
-      API_URL,
+      subcategories: { edges },
+    } = await graphqlClient.request(
       gql`
         query getSubcategoriesByCategoryId {
-          allSubcategories(condition: { categoryId: ${categoryId} }) {
+          subcategories(condition: { categoryId: ${categoryId} }) {
             edges {
               node {
                 id
@@ -68,15 +65,14 @@ export function useSubcategoriesByCategoryId(categoryId) {
 export function useAttributesBySubcategoryId(subcategoryId) {
   return useQuery(["attributesBySubcategoryId", subcategoryId], async () => {
     const {
-      allAssociations: { edges },
-    } = await request(
-      API_URL,
+      associations: { edges },
+    } = await graphqlClient.request(
       gql`
         query attributesBySubcategoryId {
-          allAssociations(condition: { subcategoryId: ${subcategoryId} }) {
+          associations(condition: { subcategoryId: ${subcategoryId} }) {
             edges {
               node {
-                attributeByAttributeId {
+                attribute {
                   id
                   name
                 }
@@ -92,25 +88,23 @@ export function useAttributesBySubcategoryId(subcategoryId) {
 
 export function useAttributeById(attributeId) {
   return useQuery(["attributeById", attributeId], async () => {
-    const { attributeById } = await request(
-      API_URL,
+    const { attribute } = await graphqlClient.request(
       gql`
         query attributeById {
-          attributeById(id: ${parseInt(attributeId)}) {
+          attribute(id: ${parseInt(attributeId)}) {
             id
             name
           }
         }
       `
     );
-    return attributeById;
+    return attribute;
   });
 }
 
 export function useCreateItem() {
   return useMutation(async (newItem) => {
-    await request(
-      API_URL,
+    await graphqlClient.request(
       gql`
         mutation createItem($input: CreateItemInput!) {
           createItem(input: $input) {

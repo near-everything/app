@@ -1,11 +1,15 @@
 import React, { lazy } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import {
+  BrowserRouter as Router, Navigate,
+  Outlet, Route, Routes
+} from "react-router-dom";
 
-import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser, setUser } from "./features/auth/authSlice";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { graphqlClient } from "./app/api";
 import { firebase } from "./app/firebase";
+import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
+import { selectUser, setUser } from "./features/auth/authSlice";
 
 const Collect = lazy(() => import("./pages/Collect"));
 const Login = lazy(() => import("./pages/Login"));
@@ -15,11 +19,11 @@ function App() {
   const auth = getAuth(firebase);
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      dispatch(setUser(user.uid))
+      dispatch(setUser(user));
     } else {
-      dispatch(setUser(null))
+      dispatch(setUser(null));
     }
-  })
+  });
 
   return (
     <>
@@ -39,6 +43,11 @@ function App() {
 
 function PrivateRoute() {
   const user = useSelector(selectUser);
+  graphqlClient.setHeader(
+    // idk if this will work after token expires... somehow need auth.currentUser.getTokenId(true)
+    "authorization",
+    `Bearer ${user.stsTokenManager.accessToken}`
+  );
   return user ? <Outlet /> : <Navigate to="/login" />;
 }
 
