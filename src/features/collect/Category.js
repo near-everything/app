@@ -29,7 +29,7 @@ function Category() {
               return (
                 <Button
                   key={index}
-                  className="flex grow rounded-none"
+                  className="flex grow rounded-none my-2"
                   onClick={() => onSubmit(category.node)}
                 >
                   {category.node.name}
