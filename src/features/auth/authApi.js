@@ -4,17 +4,17 @@ import { graphqlClient, queryClient } from "../../app/api";
 
 export function useInviteByPhoneNumber(phoneNumber) {
   return useQuery("inviteByPhoneNumber", async () => {
-    const { inviteByPhoneNumber } = await graphqlClient.request(
+    const { invite } = await graphqlClient.request(
       gql`
         query inviteByPhoneNumber($phoneNumber: String!) {
-          inviteByPhoneNumber(phoneNumber: $phoneNumber) {
+          invite(phoneNumber: $phoneNumber) {
             isApproved
           }
         }
       `,
       { phoneNumber }
     );
-    return inviteByPhoneNumber;
+    return invite;
   });
 }
 
