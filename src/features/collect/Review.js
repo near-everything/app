@@ -43,8 +43,15 @@ function Review() {
         initial_value: value,
       })),
       media: urls,
+    },
+    {
+      onSuccess: () => {
+        navigate("/complete");
+      },
+      onError: () => {
+        navigate("/error");
+      },
     });
-    navigate("/complete");
   };
 
   return (

@@ -7,6 +7,7 @@ const Subcategory = lazy(() => import("../features/collect/Subcategory"));
 const Attributes = lazy(() => import("../features/collect/Attributes"));
 const Review = lazy(() => import("../features/collect/Review"));
 const Complete = lazy(() => import("../features/collect/Complete"));
+const Error = lazy(() => import("../features/collect/Error"));
 const Page404 = lazy(() => import("../pages/404"));
 
 /**
@@ -43,6 +44,10 @@ const routes = [
   {
     path: "/complete",
     component: Complete,
+  },
+  {
+    path: "/error",
+    component: Error,
   },
   {
     path: "*",
