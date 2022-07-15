@@ -4,10 +4,8 @@ import PhoneInput from "react-phone-input-2";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import SubmitPhoneNumberButton from "./SubmitPhoneNumberButton";
 
 function PhoneNumberVerification({ recaptcha, auth }) {
-  const [digits, setDigits] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [code, setCode] = useState("");
@@ -27,63 +25,64 @@ function PhoneNumberVerification({ recaptcha, auth }) {
   const verifyCode = async () => {
     await confirmationResult
       .confirm(code)
-      .then((result) => {
-        // Check if exists in postgres
-        // if it doesn't, then create new user
+      .then(async (result) => {
         navigate("/");
       })
       .catch((error) => {
-        recaptcha.reset(window.recaptchaWidgetId);
         console.log(error);
+        recaptcha.reset(window.recaptchaWidgetId);
       });
   };
 
   return (
-    <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
-      <div className="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
-        <div className="flex flex-col overflow-y-auto md:flex-row">
+    <div className="flex items-center min-h-screen p-6">
+      <div className="flex-1 h-full max-w-4xl mx-auto">
+        <div className="flex flex-col md:flex-row">
           <div className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div className="w-full">
-              <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                Login
+              <h1 className="mb-4 text-xl">
+                login to <span className="font-semibold">everything</span>
               </h1>
-              <div className="flex flex-row">
+              <div className="flex flex-row dark:text-black">
                 <PhoneInput
                   country={"us"}
+                  containerStyle={{ width: "auto" }}
+                  inputStyle={{ width: "auto" }}
                   value={phoneNumber}
-                  onChange={(phone, country) => {
-                    setDigits(phone.replace(country.dialCode, ""));
+                  onChange={(phone) => {
                     setPhoneNumber(`+${phone}`);
                   }}
                 />
+                <Button
+                  className="mx-2"
+                  aria-live="polite"
+                  onClick={signIn}
+                  disabled={confirmationResult}
+                >
+                  &#x2192;
+                </Button>
               </div>
               <br />
-              {digits.length === 10 ? (
-                <>
-                  <SubmitPhoneNumberButton
-                    phoneNumber={phoneNumber}
-                    signIn={signIn}
-                  />
-                </>
-              ) : null}
-              <br />
-              {confirmationResult && (
-                <div className="flex flex-row">
-                  <Input
-                    type="text"
-                    value={code}
-                    placeholder="XXXXXX"
-                    onChange={(e) => setCode(e.target.value)}
-                  />
-                  <Button
-                    className="mx-2"
-                    onClick={verifyCode}
-                    aria-live="polite"
-                  >
-                    Verify
-                  </Button>
-                </div>
-              )}
+              <div
+                className={`flex flex-row ${
+                  confirmationResult ? "" : "hidden"
+                }`}
+              >
+                <Input
+                  type="text"
+                  value={code}
+                  placeholder="XXXXXX"
+                  style={{ width: "208px" }}
+                  onChange={(e) => setCode(e.target.value)}
+                />
+                <Button
+                  className="mx-2"
+                  onClick={verifyCode}
+                  aria-live="polite"
+                >
+                  &#x2192;
+                </Button>
+              </div>
             </div>
           </div>
         </div>

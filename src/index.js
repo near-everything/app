@@ -12,7 +12,7 @@ import DarkModeProvider from "./components/DarkMode";
 import ThemedSuspense from "./components/ThemedSuspense";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./index.css";
-import 'react-phone-input-2/lib/style.css'
+import "react-phone-input-2/lib/style.css";
 import * as serviceWorker from "./serviceWorker";
 
 const persistor = persistStore(store);
@@ -25,7 +25,9 @@ ReactDom.render(
           <PersistGate loading={<ThemedSuspense />} persistor={persistor}>
             <Suspense fallback={<ThemedSuspense />}>
               <QueryClientProvider client={queryClient}>
-                <App />
+                <div className="bg-gray-50 dark:bg-black text-black dark:text-white">
+                  <App />
+                </div>
                 <ReactQueryDevtools initialIsOpen={false} />
               </QueryClientProvider>
             </Suspense>

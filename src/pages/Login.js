@@ -7,6 +7,9 @@ function Login() {
   const [recaptcha, setRecaptcha] = useState(null);
   const element = useRef(null);
   const auth = getAuth(firebase);
+  if (process.env.NODE_ENV !== "production") {
+    auth.settings.appVerificationDisabledForTesting = true;
+  }
 
   useEffect(() => {
     if (!recaptcha) {

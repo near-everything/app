@@ -136,9 +136,9 @@ const theme =  {
   },
   // Input
   input: {
-    base: 'block w-full text-sm focus:outline-none dark:text-gray-300 leading-5 rounded-md',
+    base: 'block w-full text-sm focus:outline-none dark:text-black leading-5 rounded-md',
     active:
-      'focus:border-green-400 border-gray-300 dark:border-gray-600 focus:ring focus:ring-green-300 dark:focus:border-gray-600 dark:focus:ring-gray-300 dark:bg-gray-700',
+      'focus:border-green-400 border-gray-300 focus:ring focus:ring-green-300',
     disabled: 'cursor-not-allowed opacity-50 bg-gray-300 dark:bg-gray-800',
     valid:
       'border-green-600 dark:bg-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring focus:ring-green-200 dark:focus:ring-green-200',
@@ -166,12 +166,12 @@ const theme =  {
   // Button
   button: {
     base:
-      'align-bottom inline-flex items-center justify-center cursor-pointer leading-5 transition-colors duration-150 font-medium focus:outline-none',
+      'align-bottom inline-flex items-center justify-center cursor-pointer transition-colors duration-150 font-medium focus:outline-none',
     block: 'w-full',
     size: {
       larger: 'px-10 py-4 rounded-lg',
       large: 'px-5 py-3 rounded-lg',
-      regular: 'px-4 py-2 rounded-lg text-sm',
+      regular: 'px-4 rounded-lg text-sm',
       small: 'px-3 py-1 rounded-md text-sm',
       icon: {
         larger: 'p-4 rounded-lg',
@@ -191,8 +191,8 @@ const theme =  {
       right: 'ml-2 -mr-1',
     },
     primary: {
-      base: 'bg-gray-200 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-800 rounded-none border border-transparent',
-      active: 'active:bg-green-600 hover:bg-green-700 focus:ring focus:ring-green-300',
+      base: 'bg-black hover:bg-gray-200 dark:bg-white dark:hover:bg-gray-400 text-white dark:text-black rounded-md border border-transparent',
+      active: 'active:bg-gray-600 hover:bg-gray-700 focus:ring focus:ring-gray-300',
       disabled: 'opacity-50 cursor-not-allowed',
     },
     outline: {
