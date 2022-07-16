@@ -43,6 +43,7 @@ function Review() {
         initial_value: value,
       })),
       media: urls,
+      ownerId: user.uid
     },
     {
       onSuccess: () => {

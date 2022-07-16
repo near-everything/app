@@ -1,29 +1,6 @@
 import { gql } from "graphql-request";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { graphqlClient } from "../../app/api";
-
-export function useUserById(uid) {
-  return useQuery(
-    "userById",
-    async () => {
-      const { invite } = await graphqlClient.request(
-        gql`
-          query userById($uid: String!) {
-            user(id: $uid) {
-              id
-            }
-          }
-        `,
-        { uid }
-      );
-      return invite;
-    },
-    {
-      refetchOnWindowFocus: false,
-      enabled: false, // disable this query from automatically running
-    }
-  );
-}
 
 export function useCreateUser() {
   return useMutation(
@@ -32,7 +9,7 @@ export function useCreateUser() {
       return await graphqlClient.request(
         gql`
           mutation createUser($uid: String!) {
-            createUser(input: { user: { id: $uid } }) {
+            createUser(input: { uid: $uid }) {
               user {
                 id
               }
@@ -44,10 +21,10 @@ export function useCreateUser() {
     },
     {
       onSuccess: () => {
-        // TODO : do something
+        console.log("success");
       },
       onError: () => {
-        // TODO : do something
+        console.log("failure");
       },
     }
   );
