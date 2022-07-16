@@ -24,7 +24,7 @@ function Review() {
   const storeImages = async (media, user) => {
     let urls = [];
     for (const img of media) {
-      const storageRef = ref(st, `images/${user}/${Timestamp.now()}`);
+      const storageRef = ref(st, `images/${user.uid}/${Timestamp.now()}`);
       const snapshot = await uploadBytes(storageRef, img.data);
       const downloadURL = await getDownloadURL(snapshot.ref);
       urls.push(downloadURL);
@@ -43,8 +43,16 @@ function Review() {
         initial_value: value,
       })),
       media: urls,
+      ownerId: user.uid
+    },
+    {
+      onSuccess: () => {
+        navigate("/complete");
+      },
+      onError: () => {
+        navigate("/error");
+      },
     });
-    navigate("/complete");
   };
 
   return (

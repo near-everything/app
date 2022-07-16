@@ -34,7 +34,7 @@ function Subcategory() {
               return (
                 <Button
                   key={index}
-                  className="flex grow rounded-none"
+                  className="flex grow rounded-none my-2"
                   onClick={() => onSubmit(subcategory.node)}
                 >
                   {subcategory.node.name}

@@ -1,45 +1,30 @@
-import request, { gql } from "graphql-request";
-import { useMutation, useQuery } from "react-query";
-import { API_URL, queryClient } from "../../app/api";
+import { gql } from "graphql-request";
+import { useMutation } from "react-query";
+import { graphqlClient } from "../../app/api";
 
-export function useInviteByPhoneNumber(phoneNumber) {
-  return useQuery("inviteByPhoneNumber", async () => {
-    const { inviteByPhoneNumber } = await request(
-      API_URL,
-      gql`
-        query inviteByPhoneNumber($phoneNumber: String!) {
-          inviteByPhoneNumber(phoneNumber: $phoneNumber) {
-            isApproved
-          }
-        }
-      `,
-      { phoneNumber }
-    );
-    return inviteByPhoneNumber;
-  });
-}
-
-export function useRequestInvite() {
+export function useCreateUser() {
   return useMutation(
-    "requestInvite",
-    async (phoneNumber) => {
-      return await request(
-        API_URL,
+    "createUser",
+    async (uid) => {
+      return await graphqlClient.request(
         gql`
-          mutation requestInvite($phoneNumber: String!) {
-            createInvite(input: { invite: { phoneNumber: $phoneNumber } }) {
-              invite {
-                phoneNumber
+          mutation createUser($uid: String!) {
+            createUser(input: { uid: $uid }) {
+              user {
+                id
               }
             }
           }
         `,
-        { phoneNumber }
+        { uid }
       );
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("inviteByPhoneNumber");
+        console.log("success");
+      },
+      onError: () => {
+        console.log("failure");
       },
     }
   );
