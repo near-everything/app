@@ -40,9 +40,6 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -68,14 +65,6 @@
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 collect is one of several applications to aid in the creation of the [inventory of everything](https://everything.dev).
 
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-### Built With
-
-* [![React][React.js]][React-url]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -210,6 +199,3 @@ Elliot Braem - elliot@everything.dev
 [issues-url]: https://github.com/near-everything/collect/issues
 [license-shield]: https://img.shields.io/github/license/near-everything/collect.svg?style=for-the-badge
 [license-url]: https://github.com/near-everything/collect/blob/main/LICENSE.txt
-[product-screenshot]: images/screenshot.png
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
