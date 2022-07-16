@@ -88,7 +88,7 @@ function Review() {
             )}
           </div>
         </div>
-        <div className="flex">
+        <div className="flex m-4">
           <Button className="w-full h-16" onClick={onSubmit} disabled={loading}>
             Submit
           </Button>

@@ -48,10 +48,10 @@ function Attributes() {
                 />
               ))}
             </div>
-            <div className="flex">
+            <div className="flex m-8">
               <div className="w-1/2"></div>
               <Button
-                className="w-1/2 h-16 bg-gray-200 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-800 rounded-none"
+                className="w-1/2 h-16"
                 form="Attributes"
                 type="submit"
               >

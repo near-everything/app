@@ -52,7 +52,7 @@ function Media() {
               ))}
           </div>
         </div>
-        <div className="flex">
+        <div className="flex m-4">
           <div className="w-1/2"></div>
           <Button
             className="w-1/2 h-16"
