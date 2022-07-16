@@ -25,9 +25,7 @@ ReactDom.render(
           <PersistGate loading={<ThemedSuspense />} persistor={persistor}>
             <Suspense fallback={<ThemedSuspense />}>
               <QueryClientProvider client={queryClient}>
-                <div className="bg-gray-50 dark:bg-black text-black dark:text-white">
-                  <App />
-                </div>
+                <App />
                 <ReactQueryDevtools initialIsOpen={false} />
               </QueryClientProvider>
             </Suspense>
