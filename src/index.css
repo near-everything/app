@@ -15,3 +15,7 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#react-select-3-listbox {
+  top: initial;
+}

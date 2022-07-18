@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 import ImageCard from "../../components/Cards/ImageCard";
 import FileUpload from "../../components/FileUpload";
-import Button from "../../components/Button";
-import { setMedia } from "./collectSlice";
 import Header from "../../components/Header";
+import { setMedia } from "./collectSlice";
 
 function Media() {
   const media = useSelector((state) => state.collect.media);
@@ -21,7 +21,7 @@ function Media() {
 
   const onSubmit = () => {
     dispatch(setMedia(files));
-    navigate("/category");
+    navigate("/details");
   };
 
   return (
@@ -40,7 +40,7 @@ function Media() {
               }
             }}
           />
-          <div className="grid grid-cols-2 md:grid-cols-4 py-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 py-4 gap-2">
             {files.length > 0 &&
               files.map((file, index) => (
                 <ImageCard
@@ -52,10 +52,9 @@ function Media() {
               ))}
           </div>
         </div>
-        <div className="flex">
-          <div className="w-1/2"></div>
+        <div className="flex m-4">
           <Button
-            className="w-1/2 h-16"
+            className="w-full h-16"
             onClick={onSubmit}
             disabled={files.length === 0 || files.length > 10}
           >

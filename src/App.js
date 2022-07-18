@@ -1,7 +1,10 @@
 import React, { lazy } from "react";
 import {
-  BrowserRouter as Router, Navigate,
-  Outlet, Route, Routes
+  BrowserRouter as Router,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
 } from "react-router-dom";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -43,11 +46,13 @@ function App() {
 
 function PrivateRoute() {
   const user = useSelector(selectUser);
-  graphqlClient.setHeader(
-    // idk if this will work after token expires... somehow need auth.currentUser.getTokenId(true)
-    "authorization",
-    `Bearer ${user.stsTokenManager.accessToken}`
-  );
+  if (user) {
+    graphqlClient.setHeader(
+      // idk if this will work after token expires... somehow need auth.currentUser.getTokenId(true)
+      "authorization",
+      `Bearer ${user.stsTokenManager.accessToken}`
+    );
+  }
   return user ? <Outlet /> : <Navigate to="/login" />;
 }
 

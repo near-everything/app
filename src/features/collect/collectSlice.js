@@ -4,7 +4,7 @@ const initialState = {
   status: "idle",
   category: null,
   subcategory: null,
-  attributes: {},
+  attributes: [],
   media: [],
 };
 
@@ -21,6 +21,13 @@ export const collectSlice = createSlice({
     setAttributes: (state, action) => {
       state.attributes = action.payload;
     },
+    setAttributeOptions: (state, action) => {
+      state.attributes = state.attributes.map((attribute) =>
+        attribute.value === action.payload.attributeId
+          ? { ...attribute, options: action.payload }
+          : attribute
+      );
+    },
     setMedia: (state, action) => {
       state.media = action.payload;
     },
@@ -32,7 +39,9 @@ export const {
   setCategory,
   setSubcategory,
   setAttributes,
+  setAttributeOptions,
   setMedia,
+  setDetails,
   resetCollect,
 } = collectSlice.actions;
 

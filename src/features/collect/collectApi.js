@@ -2,109 +2,118 @@ import { gql } from "graphql-request";
 import { useMutation, useQuery } from "react-query";
 import { graphqlClient } from "../../app/api";
 
-export function useCategoryById(categoryId) {
-  return useQuery("categoryById", async () => {
-    const { category } = await graphqlClient.request(
-      gql`
-        query categoryById {
-          category(id: ${categoryId}) {
-            id
-            name
-          }
-        }
-      `
-    );
-    return category;
-  });
-}
-
-export function useCategories() {
-  return useQuery("categories", async () => {
-    const {
-      categories: { edges },
-    } = await graphqlClient.request(
-      gql`
-        query getCategories {
-          categories {
-            edges {
-              node {
-                id
-                name
-              }
-            }
-          }
-        }
-      `
-    );
-    return edges;
-  });
-}
-
-export function useSubcategoriesByCategoryId(categoryId) {
-  return useQuery(["subcategoriesByCategoryId", categoryId], async () => {
-    const {
-      subcategories: { edges },
-    } = await graphqlClient.request(
-      gql`
-        query getSubcategoriesByCategoryId {
-          subcategories(condition: { categoryId: ${categoryId} }) {
-            edges {
-              node {
-                id
-                name
-              }
-            }
-          }
-        }
-      `
-    );
-    return edges;
-  });
-}
-
-export function useAttributesBySubcategoryId(subcategoryId) {
-  return useQuery(["attributesBySubcategoryId", subcategoryId], async () => {
-    const {
-      associations: { edges },
-    } = await graphqlClient.request(
-      gql`
-        query attributesBySubcategoryId {
-          associations(condition: { subcategoryId: ${subcategoryId} }) {
-            edges {
-              node {
-                attribute {
+export function useCategories(options) {
+  return useQuery(
+    "categories",
+    async () => {
+      const {
+        categories: { edges },
+      } = await graphqlClient.request(
+        gql`
+          query getCategories {
+            categories {
+              edges {
+                node {
                   id
                   name
                 }
               }
             }
           }
-        }
-      `
-    );
-    return edges;
-  });
+        `
+      );
+      return edges;
+    },
+    options
+  );
 }
 
-export function useAttributeById(attributeId) {
-  return useQuery(["attributeById", attributeId], async () => {
-    const { attribute } = await graphqlClient.request(
-      gql`
-        query attributeById {
-          attribute(id: ${parseInt(attributeId)}) {
-            id
-            name
+export function useSubcategoriesByCategoryId(categoryId, options) {
+  return useQuery(
+    ["subcategoriesByCategoryId", categoryId],
+    async () => {
+      const {
+        subcategories: { edges },
+      } = await graphqlClient.request(
+        gql`
+          query getSubcategoriesByCategoryId($categoryId: Int!) {
+            subcategories(condition: { categoryId: $categoryId }) {
+              edges {
+                node {
+                  id
+                  name
+                }
+              }
+            }
           }
-        }
-      `
-    );
-    return attribute;
-  });
+        `,
+        { categoryId }
+      );
+      return edges;
+    },
+    options
+  );
+}
+
+export function useAttributes(options) {
+  return useQuery(
+    "attributes",
+    async () => {
+      const {
+        attributes: { edges },
+      } = await graphqlClient.request(
+        gql`
+          query getAttributes {
+            attributes {
+              edges {
+                node {
+                  id
+                  name
+                }
+              }
+            }
+          }
+        `
+      );
+      return edges;
+    },
+    options
+  );
+}
+
+export function useAttributeById(attributeId, options) {
+  return useQuery(
+    ["attributeById", attributeId],
+    async () => {
+      const attribute = await graphqlClient.request(
+        gql`
+          query attributeById($attributeId: Int!) {
+            attribute(id: $attributeId) {
+              relationships {
+                edges {
+                  node {
+                    option {
+                      id
+                      value
+                    }
+                  }
+                }
+              }
+              name
+            }
+          }
+        `,
+        { attributeId }
+      );
+      return attribute;
+    },
+    options
+  );
 }
 
 export function useCreateItem() {
-  return useMutation(async (newItem) => {
-    await graphqlClient.request(
+  return useMutation((newItem) => {
+    return graphqlClient.request(
       gql`
         mutation createItem($input: CreateItemInput!) {
           createItem(input: $input) {
@@ -115,6 +124,96 @@ export function useCreateItem() {
         }
       `,
       { input: newItem }
+    );
+  });
+}
+
+export function useProposeCategory() {
+  return useMutation((name) => {
+    return graphqlClient.request(
+      gql`
+        mutation proposeCategory($name: String!) {
+          createCategory(
+            input: { category: { isProposal: true, name: $name } }
+          ) {
+            category {
+              id
+              name
+            }
+          }
+        }
+      `,
+      { name }
+    );
+  });
+}
+
+export function useProposeSubcategory() {
+  return useMutation((newSubcategory) => {
+    return graphqlClient.request(
+      gql`
+        mutation proposeSubcategory($categoryId: Int!, $name: String!) {
+          createSubcategory(
+            input: {
+              subcategory: {
+                isProposal: true
+                categoryId: $categoryId
+                name: $name
+              }
+            }
+          ) {
+            subcategory {
+              id
+              name
+            }
+          }
+        }
+      `,
+      {
+        name: newSubcategory.subcategory,
+        categoryId: newSubcategory.categoryId,
+      }
+    );
+  });
+}
+
+export function useProposeAttribute() {
+  return useMutation((name) => {
+    return graphqlClient.request(
+      gql`
+        mutation proposeAttribute($name: String!) {
+          proposeAttribute(input: { name: $name }) {
+            attribute {
+              id
+              name
+            }
+          }
+        }
+      `,
+      {
+        name,
+      }
+    );
+  });
+}
+
+export function useProposeOption() {
+  return useMutation((newOption) => {
+    return graphqlClient.request(
+      gql`
+        mutation proposeOption($value: String!, $attributeId: Int!) {
+          proposeOption(input: { value: $value, attributeId: $attributeId }) {
+            option {
+              id
+              value
+            }
+          }
+        }
+      `,
+      {
+        value: newOption.value,
+        attributeId: newOption.attributeId
+      }
     );
   });
 }

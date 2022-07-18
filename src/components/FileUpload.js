@@ -5,12 +5,13 @@ const FileUpload = React.forwardRef(function FileUpload(props, ref) {
   const { ...other } = props;
 
   return (
-    <label className="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-300 hover:border-gray-400">
-      <div className="flex flex-col items-center justify-center pt-7">
+    <label className="flex flex-col justify-center w-full h-48 border-4 cursor-pointer rounded-lg hover:border-green-300">
+      <div className="flex flex-col items-center pt-6">
         <ImageIcon />
-        <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-          add photos
-        </p>
+        <div className="flex flex-col text-sm text-center text-gray-400">
+          <span className="font-semibold">add photos</span>
+          <span className="">or drag and drop</span>
+        </div>
       </div>
       <input type="file" accept="image/*" className="opacity-0" multiple ref={ref} {...other} />
     </label>

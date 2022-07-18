@@ -1,22 +1,22 @@
 import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useCreateItem } from "./collectApi";
+import PulseLoader from "react-spinners/PulseLoader";
 import { st } from "../../app/firebase";
-import AttributeField from "../../components/AttributeField";
 import Button from "../../components/Button";
 import ImageCard from "../../components/Cards/ImageCard";
 import Header from "../../components/Header";
 import { selectUser } from "../auth/authSlice";
-import { useState } from "react";
+import { useCreateItem } from "./collectApi";
 
 function Review() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const media = useSelector((state) => state.collect.media);
   const category = useSelector((state) => state.collect.category);
   const subcategory = useSelector((state) => state.collect.subcategory);
-  const media = useSelector((state) => state.collect.media);
   const attributes = useSelector((state) => state.collect.attributes);
   const user = useSelector(selectUser);
   const createItem = useCreateItem();
@@ -35,37 +35,52 @@ function Review() {
   const onSubmit = async () => {
     setLoading(true);
     const urls = await storeImages(media, user);
-    createItem.mutate({
-      category_id: category.id,
-      subcategory_id: subcategory.id,
-      attributes: Object.entries(attributes)?.map(([key, value]) => ({
-        attribute_id: parseInt(key),
-        initial_value: value,
-      })),
-      media: urls,
-      ownerId: user.uid
-    },
-    {
-      onSuccess: () => {
-        navigate("/complete");
+    createItem.mutate(
+      {
+        categoryId: category.value,
+        subcategoryId: subcategory.value,
+        attributes: attributes
+          ?.filter((it) => it.options.value !== undefined)
+          .map((attr) => {
+            return {
+              attributeId: parseInt(attr.value),
+              optionId: attr.options.value,
+            };
+          }),
+        media: urls,
+        ownerId: user.uid,
       },
-      onError: () => {
-        navigate("/error");
-      },
-    });
+      {
+        onSuccess: (response) => {
+          navigate("/complete", {
+            state: { itemId: response.createItem.item.id },
+          });
+        },
+        onError: () => {
+          navigate("/error");
+        },
+      }
+    );
   };
 
   return (
     <>
       <div className="flex flex-col justify-between h-full">
-        <Header className="flex flex-1" title={"Review"} pageNumber={"5"} />
+        <Header className="flex flex-1" title={"Review"} pageNumber={"3"} />
         <div className="flex flex-1 p-6 flex-col">
           <div className="flex flex-col h-full">
             {loading ? (
-              <>Submitting...</>
+              <div className="flex justify-center items-center h-full">
+                <PulseLoader
+                  size={10}
+                  color={"#e5e7eb"}
+                  loading={loading}
+                  speedMultiplier={1.5}
+                />
+              </div>
             ) : (
               <>
-                <div className="flex flex-row mb-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 py-4 gap-2">
                   {media.length > 0 &&
                     media.map((file, index) => (
                       <ImageCard key={index} index={index} media={file.url} />
@@ -74,21 +89,28 @@ function Review() {
                 <div>
                   <p>
                     <span className="font-semibold">Category:</span>{" "}
-                    {category.name}
+                    {category.label}
                   </p>
                   <p>
                     <span className="font-semibold">Subcategory:</span>{" "}
-                    {subcategory.name}
+                    {subcategory.label}
                   </p>
-                  {Object.entries(attributes)?.map(([key, value]) => (
-                    <AttributeField key={key} value={value} attributeId={key} />
+                  {attributes?.map((attr) => (
+                    <p key={attr.value}>
+                      {attr.options?.value !== undefined ? (
+                        <>
+                          <span className="font-semibold">{attr.label}: </span>
+                          <span>{attr.options.label}</span>
+                        </>
+                      ) : null}
+                    </p>
                   ))}
                 </div>
               </>
             )}
           </div>
         </div>
-        <div className="flex">
+        <div className="flex m-4">
           <Button className="w-full h-16" onClick={onSubmit} disabled={loading}>
             Submit
           </Button>
