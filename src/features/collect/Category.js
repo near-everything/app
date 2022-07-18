@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { queryClient } from "../../app/api";
 import CreatableSelect from "../../components/CreatableSelect";
@@ -5,6 +6,7 @@ import { useCategories, useProposeCategory } from "./collectApi";
 import { setCategory, setSubcategory } from "./collectSlice";
 
 function Category() {
+  const [loading, setLoading] = useState(false);
   const { data, isLoading, isError } = useCategories();
   const proposeCategory = useProposeCategory();
   const category = useSelector((state) => state.collect.category);
@@ -16,7 +18,7 @@ function Category() {
       label: option?.node?.name,
     }));
   };
-  
+
   const handleOnChange = (value) => {
     dispatch(setCategory(value));
     dispatch(setSubcategory(null));
@@ -25,6 +27,7 @@ function Category() {
   const handleCreateCategory = (value) => {
     proposeCategory.mutate(value, {
       onSuccess: async (response) => {
+        setLoading(true);
         const {
           createCategory: { category },
         } = response;
@@ -35,6 +38,7 @@ function Category() {
             label: category.name,
           })
         );
+        setLoading(false);
       },
       onError: (error) => {
         console.log(error.message);
@@ -44,16 +48,20 @@ function Category() {
 
   return (
     <>
-      <CreatableSelect
-        options={prepareOptions()}
-        isDisabled={isLoading || isError}
-        isLoading={isLoading}
-        onChange={handleOnChange}
-        onCreateOption={handleCreateCategory}
-        defaultValue={category}
-        value={category}
-        placeholder={"Select a category..."}
-      />
+      {loading ? (
+        <>Loading...</>
+      ) : (
+        <CreatableSelect
+          options={prepareOptions()}
+          isDisabled={isLoading || isError}
+          isLoading={isLoading}
+          onChange={handleOnChange}
+          onCreateOption={handleCreateCategory}
+          defaultValue={category}
+          value={category}
+          placeholder={"Select a category..."}
+        />
+      )}
     </>
   );
 }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { queryClient } from "../../app/api";
 import CreatableSelect from "../../components/CreatableSelect";
@@ -8,6 +9,7 @@ import {
 import { setSubcategory } from "./collectSlice";
 
 function Subcategory() {
+  const [loading, setLoading] = useState(false);
   const subcategory = useSelector((state) => state.collect.subcategory);
   const category = useSelector((state) => state.collect.category);
   const { data, isLoading, isError } = useSubcategoriesByCategoryId(
@@ -33,6 +35,7 @@ function Subcategory() {
       { subcategory: value, categoryId: category.value },
       {
         onSuccess: async (response) => {
+          setLoading(true);
           const {
             createSubcategory: { subcategory },
           } = response;
@@ -43,6 +46,7 @@ function Subcategory() {
               label: subcategory.name,
             })
           );
+          setLoading(false);
         },
         onError: (error) => {
           console.log(error.message);
@@ -53,16 +57,20 @@ function Subcategory() {
 
   return (
     <>
-      <CreatableSelect
-        options={prepareOptions()}
-        isDisabled={!category || isError}
-        isLoading={isLoading}
-        onChange={handleOnChange}
-        onCreateOption={handleCreateSubcategory}
-        placeholder={"Select a subcategory..."}
-        defaultValue={subcategory}
-        value={subcategory}
-      />
+      {loading ? (
+        <>Loading...</>
+      ) : (
+        <CreatableSelect
+          options={prepareOptions()}
+          isDisabled={!category || isError}
+          isLoading={isLoading}
+          onChange={handleOnChange}
+          onCreateOption={handleCreateSubcategory}
+          placeholder={"Select a subcategory..."}
+          defaultValue={subcategory}
+          value={subcategory}
+        />
+      )}
     </>
   );
 }
