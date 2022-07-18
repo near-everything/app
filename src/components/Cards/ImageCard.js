@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Card from "../Card";
+import PulseLoader from "react-spinners/PulseLoader";
 
 function ImageCard({ index, media, removeImage }) {
   const [loading, setLoading] = useState(true);
@@ -16,7 +17,14 @@ function ImageCard({ index, media, removeImage }) {
         </div>
       ) : null}
       <div className={`${loading ? "block" : "hidden"} w-full h-48`}>
-        <div className="flex flex-1 justify-center items-center h-full bg-gray-100 dark:bg-gray-800">Loading...</div>
+        <div className="flex flex-1 justify-center items-center h-full bg-gray-100 dark:bg-gray-800">
+          <PulseLoader
+            size={10}
+            color={"#e5e7eb"}
+            loading={loading}
+            speedMultiplier={1.5}
+          />
+        </div>
       </div>
       <img
         alt="not found"

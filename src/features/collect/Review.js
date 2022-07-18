@@ -3,6 +3,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import PulseLoader from "react-spinners/PulseLoader";
 import { st } from "../../app/firebase";
 import Button from "../../components/Button";
 import ImageCard from "../../components/Cards/ImageCard";
@@ -51,7 +52,9 @@ function Review() {
       },
       {
         onSuccess: (response) => {
-          navigate("/complete", { state: { itemId: response.createItem.item.id }});
+          navigate("/complete", {
+            state: { itemId: response.createItem.item.id },
+          });
         },
         onError: () => {
           navigate("/error");
@@ -67,7 +70,14 @@ function Review() {
         <div className="flex flex-1 p-6 flex-col">
           <div className="flex flex-col h-full">
             {loading ? (
-              <>Submitting...</>
+              <div className="flex justify-center items-center h-full">
+                <PulseLoader
+                  size={10}
+                  color={"#e5e7eb"}
+                  loading={loading}
+                  speedMultiplier={1.5}
+                />
+              </div>
             ) : (
               <>
                 <div className="grid grid-cols-2 md:grid-cols-4 py-4 gap-2">
