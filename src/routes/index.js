@@ -2,6 +2,7 @@ import { lazy } from "react";
 
 // use lazy for better code splitting, a.k.a. load faster
 const Media = lazy(() => import("../features/collect/Media"));
+const Details = lazy(() => import("../features/collect/Details"));
 const Category = lazy(() => import("../features/collect/Category"));
 const Subcategory = lazy(() => import("../features/collect/Subcategory"));
 const Attributes = lazy(() => import("../features/collect/Attributes"));
@@ -28,6 +29,10 @@ const routes = [
   {
     path: "/category",
     component: Category,
+  },
+  {
+    path: "/details",
+    component: Details,
   },
   {
     path: "/subcategory",

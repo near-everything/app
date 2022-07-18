@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../Card";
 
 function ImageCard({ index, media, removeImage }) {
+  const [loading, setLoading] = useState(true);
   return (
-    <Card className="m-1 max-w-xs max-h-xs aspect-square flex justify-center">
-      <div className="flex relative overflow-hidden w-full h-full">
-        {removeImage ? (
+    <Card>
+      {removeImage ? (
+        <div className="relative">
           <button
-            className="absolute top-0 right-2 z-10"
+            className="rounded-full py-1 px-3 bg-white dark:bg-black absolute top-4 right-4 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800"
             onClick={() => removeImage(index)}
           >
-            &times;
+            <span className="">&times;</span>
           </button>
-        ) : null}
-        <img alt="not found" src={media} className="object-cover" />
+        </div>
+      ) : null}
+      <div className={`${loading ? "block" : "hidden"} w-full h-48`}>
+        <div className="flex flex-1 justify-center items-center h-full bg-gray-100 dark:bg-gray-800">Loading...</div>
       </div>
+      <img
+        alt="not found"
+        src={media}
+        className={`${loading ? "hidden" : "block"} w-full h-48 object-cover`}
+        loading="lazy"
+        onLoad={() => setLoading(false)}
+      />
     </Card>
   );
 }

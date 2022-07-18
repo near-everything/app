@@ -1,49 +1,68 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useSubcategoriesByCategoryId } from "./collectApi";
-import Button from "../../components/Button";
-import Header from "../../components/Header";
+import { queryClient } from "../../app/api";
+import CreatableSelect from "../../components/CreatableSelect";
+import {
+  useProposeSubcategory,
+  useSubcategoriesByCategoryId
+} from "./collectApi";
 import { setSubcategory } from "./collectSlice";
 
 function Subcategory() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const subcategory = useSelector((state) => state.collect.subcategory);
   const category = useSelector((state) => state.collect.category);
-  const { data, isLoading, isError } = useSubcategoriesByCategoryId(category.id);
+  const { data, isLoading, isError } = useSubcategoriesByCategoryId(
+    category?.value,
+    { enabled: !!category }
+  );
+  const proposeSubcategory = useProposeSubcategory();
+  const dispatch = useDispatch();
 
-  const onSubmit = (data) => {
-    dispatch(setSubcategory(data));
-    navigate("/attributes");
+  const prepareOptions = () => {
+    return data?.map((option) => ({
+      value: option?.node?.id,
+      label: option?.node?.name,
+    }));
+  };
+
+  const handleOnChange = (value) => {
+    dispatch(setSubcategory(value));
+  };
+
+  const handleCreateSubcategory = (value) => {
+    proposeSubcategory.mutate(
+      { subcategory: value, categoryId: category.value },
+      {
+        onSuccess: async (response) => {
+          const {
+            createSubcategory: { subcategory },
+          } = response;
+          await queryClient.refetchQueries(["subcategoriesByCategoryId"]);
+          dispatch(
+            setSubcategory({
+              value: subcategory.id,
+              label: subcategory.name,
+            })
+          );
+        },
+        onError: (error) => {
+          console.log(error.message);
+        },
+      }
+    );
   };
 
   return (
     <>
-      <div className="flex flex-col justify-between h-full">
-        <Header
-          className="flex flex-1"
-          title={"Subcategory"}
-          pageNumber={"3"}
-        />
-        {isLoading ? (
-          "Loading..."
-        ) : isError ? (
-          "Error"
-        ) : (
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 h-full">
-            {data?.map((subcategory, index) => {
-              return (
-                <Button
-                  key={index}
-                  className="flex grow rounded-none my-2"
-                  onClick={() => onSubmit(subcategory.node)}
-                >
-                  {subcategory.node.name}
-                </Button>
-              );
-            })}
-          </div>
-        )}
-      </div>
+      <CreatableSelect
+        options={prepareOptions()}
+        isDisabled={!category || isError}
+        isLoading={isLoading}
+        onChange={handleOnChange}
+        onCreateOption={handleCreateSubcategory}
+        placeholder={"Select a subcategory..."}
+        defaultValue={subcategory}
+        value={subcategory}
+      />
     </>
   );
 }
