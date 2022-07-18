@@ -19,9 +19,6 @@ function PhoneNumberVerification({ recaptcha, auth }) {
   }, [recaptcha]);
 
   const signIn = async () => {
-    // check if has invite
-    // if no invite, then create request
-    //  if there is invite, then sign in
     setConfirmationResult(
       await signInWithPhoneNumber(auth, phoneNumber, recaptcha)
     );
