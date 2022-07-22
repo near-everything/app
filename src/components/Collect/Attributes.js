@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { queryClient } from "../../app/api";
-import AttributeField from "../../components/AttributeField";
-import CreatableSelect from "../../components/CreatableSelect";
-import { useAttributes, useProposeAttribute } from "./collectApi";
-import { setAttributes } from "./collectSlice";
+import AttributeField from "./AttributeField";
+import CreatableSelect from "../CreatableSelect";
+import { useAttributes, useProposeAttribute } from "../../features/collect/collectApi";
+import { setAttributes } from "../../features/collect/collectSlice";
 
 function Attributes() {
   const { data, isLoading, isError } = useAttributes();

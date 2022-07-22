@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  status: "idle",
   category: null,
   subcategory: null,
   attributes: [],
@@ -41,7 +40,6 @@ export const {
   setAttributes,
   setAttributeOptions,
   setMedia,
-  setDetails,
   resetCollect,
 } = collectSlice.actions;
 

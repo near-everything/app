@@ -13,8 +13,14 @@ import { graphqlClient } from "./app/api";
 import { firebase } from "./app/firebase";
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
 import { selectUser, setUser } from "./features/auth/authSlice";
+import Layout from "./containers/Layout";
 
+const Main = lazy(() => import("./pages/Main"));
 const Collect = lazy(() => import("./pages/Collect"));
+const Request = lazy(() => import("./pages/Request"));
+const Organize = lazy(() => import("./pages/Organize"));
+const Item = lazy(() => import("./pages/Item"));
+const Profile = lazy(() => import("./pages/Profile"));
 const Login = lazy(() => import("./pages/Login"));
 
 function App() {
@@ -36,7 +42,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           {/* Private route */}
           <Route element={<PrivateRoute />}>
-            <Route path="/*" element={<Collect />} />
+            <Route path="/*" element={<Layout />}>
+              <Route index element={<Main />} />
+              <Route path="collect/*" element={<Collect />} />
+              <Route path="request/*" element={<Request />} />
+              <Route path="organize/*" element={<Organize />} />
+              <Route path="profile/*" element={<Profile />} />
+              <Route path="item/:itemId" element={<Item />} />
+            </Route>
           </Route>
         </Routes>
       </Router>

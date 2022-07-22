@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { queryClient } from "../../app/api";
-import CreatableSelect from "../../components/CreatableSelect";
-import { useCategories, useProposeCategory } from "./collectApi";
-import { setCategory, setSubcategory } from "./collectSlice";
+import {
+  useCategories,
+  useProposeCategory
+} from "../../features/collect/collectApi";
+import { setCategory, setSubcategory } from "../../features/collect/collectSlice";
+import CreatableSelect from "../CreatableSelect";
 
 function Category() {
+  const category = useSelector((state) => state.collect.category);
   const [loading, setLoading] = useState(false);
   const { data, isLoading, isError } = useCategories();
   const proposeCategory = useProposeCategory();
-  const category = useSelector((state) => state.collect.category);
   const dispatch = useDispatch();
+
+  const resetSubcategory = useCallback(() => {
+    dispatch(setSubcategory(null));
+  }, [dispatch]);
+
+  useEffect(() => {
+    resetSubcategory();
+  }, [category, resetSubcategory]);
 
   const prepareOptions = () => {
     return data?.map((option) => ({
@@ -21,7 +32,6 @@ function Category() {
 
   const handleOnChange = (value) => {
     dispatch(setCategory(value));
-    dispatch(setSubcategory(null));
   };
 
   const handleCreateCategory = (value) => {
@@ -32,12 +42,10 @@ function Category() {
           createCategory: { category },
         } = response;
         await queryClient.refetchQueries(["categories"]);
-        dispatch(
-          setCategory({
-            value: category.id,
-            label: category.name,
-          })
-        );
+        dispatch(setCategory({
+          value: category.id,
+          label: category.name,
+        }));
         setLoading(false);
       },
       onError: (error) => {
@@ -59,7 +67,7 @@ function Category() {
           onCreateOption={handleCreateCategory}
           defaultValue={category}
           value={category}
-          placeholder={"Select a category..."}
+          placeholder={"Select or create a category..."}
         />
       )}
     </>

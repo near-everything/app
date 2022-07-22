@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { queryClient } from "../app/api";
+import { queryClient } from "../../app/api";
 import {
   useAttributeById,
   useProposeOption
-} from "../features/collect/collectApi";
-import { setAttributeOptions } from "../features/collect/collectSlice";
-import CreatableSelect from "./CreatableSelect";
+} from "../../features/collect/collectApi";
+import { setAttributeOptions } from "../../features/collect/collectSlice";
+import CreatableSelect from "../CreatableSelect";
 
 const AttributeField = React.forwardRef(function AttributeField(props, ref) {
   const { attributeId } = props;

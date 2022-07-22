@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { queryClient } from "../../app/api";
-import CreatableSelect from "../../components/CreatableSelect";
+import CreatableSelect from "..//CreatableSelect";
 import {
   useProposeSubcategory,
-  useSubcategoriesByCategoryId
-} from "./collectApi";
-import { setSubcategory } from "./collectSlice";
+  useSubcategoriesByCategoryId,
+} from "../../features/collect/collectApi";
+import { useDispatch, useSelector } from "react-redux";
+import { setSubcategory } from "../../features/collect/collectSlice";
 
 function Subcategory() {
-  const [loading, setLoading] = useState(false);
-  const subcategory = useSelector((state) => state.collect.subcategory);
   const category = useSelector((state) => state.collect.category);
+  const subcategory = useSelector((state) => state.collect.subcategory);
+  const [loading, setLoading] = useState(false);
   const { data, isLoading, isError } = useSubcategoriesByCategoryId(
     category?.value,
     { enabled: !!category }
@@ -66,7 +66,7 @@ function Subcategory() {
           isLoading={isLoading}
           onChange={handleOnChange}
           onCreateOption={handleCreateSubcategory}
-          placeholder={"Select a subcategory..."}
+          placeholder={"Select or create a subcategory..."}
           defaultValue={subcategory}
           value={subcategory}
         />

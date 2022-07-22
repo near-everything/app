@@ -8,8 +8,8 @@ import { st } from "../../app/firebase";
 import Button from "../../components/Button";
 import ImageCard from "../../components/Cards/ImageCard";
 import Header from "../../components/Header";
-import { selectUser } from "../auth/authSlice";
-import { useCreateItem } from "./collectApi";
+import { selectUser } from "../../features/auth/authSlice";
+import { useCreateItem } from "../../features/collect/collectApi";
 
 function Review() {
   const [loading, setLoading] = useState(false);

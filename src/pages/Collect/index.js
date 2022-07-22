@@ -1,18 +1,16 @@
 import { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import ThemedSuspense from "../components/ThemedSuspense";
-import Layout from "../containers/Layout";
-import routes from "../routes";
-import Main from "./Main";
+import ThemedSuspense from "../../components/ThemedSuspense";
+import ModuleContainer from "../../containers/ModuleContainer";
+import { collectRoutes } from "../../routes";
 
 function Collect() {
   return (
     <>
       <Suspense fallback={<ThemedSuspense />}>
         <Routes>
-          <Route index element={<Main />} />
-          <Route element={<Layout />}>
-            {routes.map((route, i) => {
+          <Route element={<ModuleContainer moduleName="collect" moduleColor="green" />}>
+            {collectRoutes.map((route, i) => {
               return route.component ? (
                 <Route
                   key={i}
