@@ -2,7 +2,6 @@ import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 import { st } from "../../app/firebase";
 import Button from "../../components/Button";
@@ -13,7 +12,6 @@ import { useCreateItem } from "../../features/collect/collectApi";
 
 function Review() {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const media = useSelector((state) => state.collect.media);
   const category = useSelector((state) => state.collect.category);
   const subcategory = useSelector((state) => state.collect.subcategory);
@@ -52,12 +50,14 @@ function Review() {
       },
       {
         onSuccess: (response) => {
-          navigate("/complete", {
-            state: { itemId: response.createItem.item.id },
-          });
+          console.log(`success ${response.createItem.item.id}`);
+          // navigate("/complete", {
+          //   state: { itemId: response.createItem.item.id },
+          // });
         },
         onError: () => {
-          navigate("/error");
+          console.log("error");
+          // navigate("/error");
         },
       }
     );

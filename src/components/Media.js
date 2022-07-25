@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../app/hooks";
 import ImageCard from "./Cards/ImageCard";
 import FileUpload from "./FileUpload";
+import { setMedia } from "../features/collect/collectSlice";
 
-function Media({ media, setMedia }) {
+function Media({ media }) {
   const [files, setFiles] = useState([...media]);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     return dispatch(setMedia(files));
-  }, [dispatch, setMedia, files]);
+  }, [dispatch, files]);
 
   const removeFile = (index) => {
     setFiles((old) => {
       return old.filter((value, i) => i !== index);
     });
   };
-  
 
   return (
     <>

@@ -1,11 +1,11 @@
 import { lazy } from "react";
 
 // use lazy for better code splitting, a.k.a. load faster
-const CollectMain = lazy(() => import("../pages/Collect/CollectMain"));
-const CollectReview = lazy(() => import("../pages/Collect/CollectReview"));
-const CollectComplete = lazy(() => import("../pages/Collect/CollectComplete"));
+const CollectMain = lazy(() => import("../pages/collect"));
+const CollectReview = lazy(() => import("../pages/collect/review"));
+const CollectComplete = lazy(() => import("../pages/collect/complete"));
 const Item = lazy(() => import("../pages/Item"));
-const Error = lazy(() => import("../pages/Collect/Error"));
+const Error = lazy(() => import("../pages/collect/Error"));
 const Page404 = lazy(() => import("../pages/404"));
 
 const RequestMain = lazy(() => import("../pages/Request/RequestMain"));

@@ -1,5 +1,4 @@
 import { Suspense, useState } from "react";
-import { useParams } from "react-router-dom";
 // import AttributeField from "../components/AttributeField";
 import Button from "../components/Button";
 import Card from "../components/Card";
@@ -9,9 +8,8 @@ import ThemedSuspense from "../components/ThemedSuspense";
 import { useItemById } from "../features/organize/organizeApi";
 
 function Item() {
-  const { itemId } = useParams();
   const [showImages, setShowImages] = useState(false);
-  const { data, isLoading } = useItemById(parseInt(itemId));
+  const { data, isLoading } = useItemById(parseInt(1));
 
   return (
     <>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageIcon } from "../icons";
+import ImageIcon from "../icons/image";
 
 const FileUpload = React.forwardRef(function FileUpload(props, ref) {
   const { ...other } = props;

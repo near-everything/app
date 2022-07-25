@@ -1,13 +1,15 @@
 import React from "react";
 
-function Error() {
+function Complete() {
   return (
     <div className="flex justify-center items-center h-full text-center ">
-      an error occurred
+      successfully uploaded
+      <br />
+      {/* item id: {itemId} */}
       <br />
       (click anywhere to continue)
     </div>
   );
 }
 
-export default Error;
+export default Complete;
