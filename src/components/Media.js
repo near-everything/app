@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useAppDispatch } from "../app/hooks";
 import ImageCard from "./Cards/ImageCard";
 import FileUpload from "./FileUpload";
-import { setMedia } from "../features/collect/collectSlice";
 
-function Media({ media }) {
+function Media({ media, setMedia }) {
   const [files, setFiles] = useState([...media]);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    return dispatch(setMedia(files));
-  }, [dispatch, files]);
+    return setMedia(files);
+  }, [files, setMedia]);
 
   const removeFile = (index) => {
     setFiles((old) => {

@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { queryClient } from "../../app/api";
-import AttributeField from "./AttributeField";
+import {
+  useAttributes,
+  useProposeAttribute
+} from "../../features/collect/collectApi";
 import CreatableSelect from "../CreatableSelect";
-import { useAttributes, useProposeAttribute } from "../../features/collect/collectApi";
-import { setAttributes } from "../../features/collect/collectSlice";
 
-function Attributes() {
+function Attributes({ attributes, setAttributes }) {
   const { data, isLoading, isError } = useAttributes();
   const proposeAttribute = useProposeAttribute();
-  const attributes = useSelector((state) => state.collect.attributes);
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   const prepareOptions = () => {
@@ -21,7 +19,7 @@ function Attributes() {
   };
 
   const handleOnChange = (value) => {
-    dispatch(setAttributes(value));
+    setAttributes(value);
   };
 
   const handleProposeAttribute = (value) => {
@@ -31,12 +29,11 @@ function Attributes() {
         const {
           proposeAttribute: { attribute },
         } = response;
-        dispatch(
-          setAttributes([
-            ...attributes,
-            { value: attribute.id, label: attribute.name },
-          ])
-        );
+
+        setAttributes([
+          ...attributes,
+          { value: attribute.id, label: attribute.name },
+        ]);
         await queryClient.refetchQueries(["attributes"]);
         setLoading(false);
       },
@@ -64,9 +61,9 @@ function Attributes() {
         />
       )}
       <br />
-      {attributes?.map((attr) => (
+      {/* {attributes?.map((attr) => (
         <AttributeField key={attr.value} attributeId={attr.value} />
-      ))}
+      ))} */}
     </>
   );
 }

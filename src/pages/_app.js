@@ -1,22 +1,21 @@
-import { Provider } from "react-redux";
-import { QueryClientProvider } from "react-query";
+import { useState } from "react";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import store from "../app/store";
-import { queryClient } from "../app/api";
+import { AuthProvider } from "../context/AuthContext";
 import "../styles/globals.css";
-import Layout from "../containers/Layout";
 
 export default function App({ Component, pageProps }) {
-  const getLayout = Component.getLayout || ((page) => page)
+  const [queryClient] = useState(() => new QueryClient());
+  const getLayout = Component.getLayout || ((page) => page);
 
   return (
-    <Provider store={store}>
+    <AuthProvider>
       <QueryClientProvider client={queryClient}>
-        <Layout>
+        <Hydrate state={pageProps.dehydratedState}>
           {getLayout(<Component {...pageProps} />)}
-        </Layout>
-        <ReactQueryDevtools initialIsOpen={false} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Hydrate>
       </QueryClientProvider>
-    </Provider>
+    </AuthProvider>
   );
 }

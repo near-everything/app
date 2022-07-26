@@ -1,19 +1,22 @@
+import { useRouter } from "next/router";
 import { Suspense, useState } from "react";
 // import AttributeField from "../components/AttributeField";
-import Button from "../components/Button";
-import Card from "../components/Card";
-import CardBody from "../components/CardBody";
-import ImageCard from "../components/Cards/ImageCard";
-import ThemedSuspense from "../components/ThemedSuspense";
-import { useItemById } from "../features/organize/organizeApi";
+import Button from "../../components/Button";
+import Card from "../../components/Card";
+import CardBody from "../../components/CardBody";
+import ImageCard from "../../components/Cards/ImageCard";
+import ThemedSuspense from "../../components/ThemedSuspense";
+import { useItemById } from "../../features/organize/organizeApi";
 
 function Item() {
   const [showImages, setShowImages] = useState(false);
-  const { data, isLoading } = useItemById(parseInt(1));
+  const router = useRouter();
+  const { id } = router.query;
+  const { data, isLoading } = useItemById(parseInt(id));
 
   return (
     <>
-      <Suspense fallback={<ThemedSuspense />}>
+      {/* <Suspense fallback={<ThemedSuspense />}> */}
         {isLoading ? (
           <>Loading</>
         ) : (
@@ -40,12 +43,12 @@ function Item() {
                   </p>
                   {data.characteristics.edges.map((char, index) => {
                     return (
-                      <Suspense key={index}>
+                      // <Suspense key={index}>
                         {/* <AttributeField
                       characteristic={char.node}
                       itemId={data.id}
                     /> */}
-                      </Suspense>
+                      // </Suspense>
                     );
                   })}
                 </div>
@@ -54,7 +57,7 @@ function Item() {
             </Card>
           </>
         )}
-      </Suspense>
+      {/* </Suspense> */}
     </>
   );
 }

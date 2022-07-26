@@ -1,23 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { queryClient } from "../../app/api";
 import {
   useCategories,
   useProposeCategory
 } from "../../features/collect/collectApi";
-import { setCategory, setSubcategory } from "../../features/collect/collectSlice";
 import CreatableSelect from "../CreatableSelect";
 
-function Category() {
-  const category = useSelector((state) => state.collect.category);
+function Category({ category, setCategory, setSubcategory }) {
   const [loading, setLoading] = useState(false);
   const { data, isLoading, isError } = useCategories();
   const proposeCategory = useProposeCategory();
-  const dispatch = useDispatch();
 
   const resetSubcategory = useCallback(() => {
-    dispatch(setSubcategory(null));
-  }, [dispatch]);
+    setSubcategory(null);
+  }, [setSubcategory]);
 
   useEffect(() => {
     resetSubcategory();
@@ -31,7 +27,7 @@ function Category() {
   };
 
   const handleOnChange = (value) => {
-    dispatch(setCategory(value));
+    setCategory(value);
   };
 
   const handleCreateCategory = (value) => {
@@ -42,10 +38,10 @@ function Category() {
           createCategory: { category },
         } = response;
         await queryClient.refetchQueries(["categories"]);
-        dispatch(setCategory({
+        setCategory({
           value: category.id,
           label: category.name,
-        }));
+        });
         setLoading(false);
       },
       onError: (error) => {

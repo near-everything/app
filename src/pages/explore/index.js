@@ -2,17 +2,17 @@ import React from "react";
 import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
 
-function Organize() {
+function Explore() {
   return <></>;
 }
 
-Organize.getLayout = function getLayout(page) {
+Explore.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <ModuleContainer moduleName={"organize"} moduleColor={"yellow"}>
+      <ModuleContainer moduleName={"explore"} moduleColor={"blue"}>
         {page}
       </ModuleContainer>
     </Layout>
   );
 };
-export default Organize;
+export default Explore;

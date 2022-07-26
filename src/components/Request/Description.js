@@ -1,13 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setDescription } from "../../features/request/requestSlice";
 import TextArea from "../TextArea";
 
-function Description() {
-  const description = useSelector((state) => state.request.description);
-  const dispatch = useDispatch();
-
+function Description({ description, setDescription }) {
   const handleOnChange = (event) => {
-    dispatch(setDescription(event.target.value));
+    setDescription(event.target.value);
   };
 
   return (
