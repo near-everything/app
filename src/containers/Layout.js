@@ -1,14 +1,13 @@
-import React, { Suspense } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
-import ThemedSuspense from "../components/ThemedSuspense";
 
 function Layout({ children }) {
   return (
     <div className="flex h-screen">
       <div className="flex flex-col flex-1 w-full justify-between">
-        <main className="container mx-auto h-full overflow-y-auto">
+        <main id="container" className="container mx-auto h-full overflow-y-auto">
           {/* <Suspense fallback={<ThemedSuspense />}> */}
-            {children}
+          {children}
           {/* </Suspense> */}
         </main>
         <Navbar />

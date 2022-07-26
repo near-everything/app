@@ -1,14 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import Button from "../Button";
 import Card from "../Card";
 import CardBody from "../CardBody";
 import ImageCard from "./ImageCard";
 
 function ItemCard({ item }) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const viewItem = (id) => {
-    navigate(`/item/${id}`);
+    router.push(`/organize/item/${id}`);
   };
   return (
     <Card>
