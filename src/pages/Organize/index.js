@@ -65,7 +65,7 @@ function Organize() {
             loader={<div>Loading...</div>}
             scrollableTarget="container"
           >
-            <div className="grid">
+            <div className="grid gap-4">
               {data?.pages.map((page) => (
                 <>
                   {page.edges?.map((item) => (

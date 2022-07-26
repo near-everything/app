@@ -17,7 +17,7 @@ function Media({ media, setMedia }) {
 
   return (
     <>
-      <div className="flex flex-row py-4 gap-2 overflow-x-auto">
+      <div className="flex flex-row gap-2 overflow-x-auto">
         <div className="w-48">
           <FileUpload
             onChange={(event) => {

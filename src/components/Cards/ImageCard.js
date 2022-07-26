@@ -5,7 +5,7 @@ import Card from "../Card";
 function ImageCard({ index, media, removeImage }) {
   return (
     <Card>
-      <div className="h-48 w-full relative">
+      <div className="h-96 w-full relative">
         {removeImage ? (
           <div className="relative z-50 float-right m-2">
             <button

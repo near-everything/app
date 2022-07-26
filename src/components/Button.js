@@ -18,8 +18,8 @@ const Button = React.forwardRef(function Button(props, ref) {
     ...other
   } = props;
   const {
-    theme: { button }
-  } = useContext(DarkModeContext)
+    theme: { button },
+  } = useContext(DarkModeContext);
 
   function hasIcon() {
     return !!icon || !!iconLeft || !!iconRight;
@@ -81,18 +81,18 @@ const Button = React.forwardRef(function Button(props, ref) {
     layout === "__dropdownItem"
       ? classNames(dropdownItemStyle, className)
       : classNames(
-          baseStyle,
-          // has icon but no children
-          hasIcon() && !children && iconSizeStyles[size],
-          // has icon and children
-          hasIcon() && children && sizeStyles[size],
-          // does not have icon
-          !hasIcon() && sizeStyles[size],
-          layoutStyles[layout],
-          disabled ? disabledStyles[layout] : activeStyles[layout],
-          block ? blockStyle : null,
-          className
-        );
+        baseStyle,
+        // has icon but no children
+        hasIcon() && !children && iconSizeStyles[size],
+        // has icon and children
+        hasIcon() && children && sizeStyles[size],
+        // does not have icon
+        !hasIcon() && sizeStyles[size],
+        layoutStyles[layout],
+        disabled ? disabledStyles[layout] : activeStyles[layout],
+        block ? blockStyle : null,
+        className
+      );
 
   const iconLeftStyles = classNames(
     iconStyle,
@@ -114,16 +114,16 @@ const Button = React.forwardRef(function Button(props, ref) {
     },
     IconLeft
       ? React.createElement(IconLeft, {
-          className: iconLeftStyles,
-          "aria-hidden": true,
-        })
+        className: iconLeftStyles,
+        "aria-hidden": true,
+      })
       : null,
     children,
     IconRight
       ? React.createElement(IconRight, {
-          className: iconRightStyles,
-          "aria-hidden": true,
-        })
+        className: iconRightStyles,
+        "aria-hidden": true,
+      })
       : null
   );
 });

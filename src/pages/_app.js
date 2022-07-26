@@ -1,3 +1,4 @@
+import { ThemeProvider } from "next-themes";
 import { useState } from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -12,8 +13,10 @@ export default function App({ Component, pageProps }) {
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          {getLayout(<Component {...pageProps} />)}
-          <ReactQueryDevtools initialIsOpen={false} />
+          <ThemeProvider attribute="class">
+            {getLayout(<Component {...pageProps} />)}
+            <ReactQueryDevtools initialIsOpen={false} />
+          </ThemeProvider>
         </Hydrate>
       </QueryClientProvider>
     </AuthProvider>
