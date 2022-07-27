@@ -19,7 +19,7 @@
 <h2 align="center">collect</h3>
 
   <p align="center">
-    A tool for adding items to the inventory of everything.
+    A tool for adding things to the inventory of everything.
     <br />
     <!-- <a href="https://documentation.everything.dev"><strong>Explore the docs »</strong></a> -->
     <!-- <br /> -->

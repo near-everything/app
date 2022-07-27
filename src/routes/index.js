@@ -1,39 +1,31 @@
 import { lazy } from "react";
 
 // use lazy for better code splitting, a.k.a. load faster
-const Media = lazy(() => import("../features/collect/Media"));
-const Details = lazy(() => import("../features/collect/Details"));
-const Review = lazy(() => import("../features/collect/Review"));
-const Complete = lazy(() => import("../features/collect/Complete"));
-const Error = lazy(() => import("../features/collect/Error"));
+const CollectMain = lazy(() => import("../pages/collect"));
+const CollectReview = lazy(() => import("../pages/collect/review"));
+const CollectComplete = lazy(() => import("../pages/collect/complete"));
+const Item = lazy(() => import("../pages/Item"));
+const Error = lazy(() => import("../pages/collect/Error"));
 const Page404 = lazy(() => import("../pages/404"));
 
-/**
- * ⚠ These are internal routes!
- * They will be rendered inside the app, using the default `containers/Layout`.
- * If you want to add a route to, let's say, a landing page, you should add
- * it to the `App`'s router, exactly like `Login`, `CreateAccount` and other pages
- * are routed.
- *
- * If you're looking for the links rendered in the SidebarContent, go to
- * `routes/sidebar.js`
- */
-const routes = [
+const RequestMain = lazy(() => import("../pages/Request/RequestMain"));
+// const ReviewRequest = lazy(() => import("../features/request/pages/Review"));
+
+const OrganizeMain = lazy(() => import("../pages/Organize/OrganizeMain"));
+const ProfileMain = lazy(() => import("../pages/Profile/ProfileMain"));
+
+export const collectRoutes = [
   {
-    path: "/media",
-    component: Media,
-  },
-  {
-    path: "/details",
-    component: Details,
+    path: "/",
+    component: CollectMain,
   },
   {
     path: "/review",
-    component: Review,
+    component: CollectReview,
   },
   {
     path: "/complete",
-    component: Complete,
+    component: CollectComplete,
   },
   {
     path: "/error",
@@ -45,4 +37,55 @@ const routes = [
   },
 ];
 
-export default routes;
+export const requestRoutes = [
+  {
+    path: "/",
+    component: RequestMain,
+  },
+  // {
+  //   path: "/review",
+  //   component: ReviewRequest,
+  // },
+  {
+    path: "/error",
+    component: Error,
+  },
+  {
+    path: "*",
+    component: Page404,
+  },
+];
+
+export const organizeRoutes = [
+  {
+    path: "/",
+    component: OrganizeMain,
+  },
+  {
+    path: "/error",
+    component: Error,
+  },
+  {
+    path: "/item/:itemId",
+    component: Item,
+  },
+  {
+    path: "*",
+    component: Page404,
+  },
+];
+
+export const profileRoutes = [
+  {
+    path: "/",
+    component: ProfileMain,
+  },
+  {
+    path: "/error",
+    component: Error,
+  },
+  {
+    path: "*",
+    component: Page404,
+  },
+];

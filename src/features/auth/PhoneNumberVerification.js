@@ -1,7 +1,7 @@
 import { signInWithPhoneNumber } from "firebase/auth";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
-import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { useCreateUser } from "./authApi";
@@ -11,8 +11,7 @@ function PhoneNumberVerification({ recaptcha, auth }) {
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [code, setCode] = useState("");
   const createUser = useCreateUser();
-
-  let navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     recaptcha.verify();
@@ -29,7 +28,7 @@ function PhoneNumberVerification({ recaptcha, auth }) {
       .confirm(code)
       .then((result) => {
         createUser.mutate(result.user.uid);
-        navigate("/");
+        router.push("/");
       })
       .catch((error) => {
         console.log(error);
