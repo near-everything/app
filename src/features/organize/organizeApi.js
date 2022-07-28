@@ -2,16 +2,16 @@ import { gql } from "graphql-request";
 import { useInfiniteQuery, useQuery } from "react-query";
 import { graphqlClient } from "../../app/api";
 
-const ITEMS_PER_PAGE = 10;
+const THINGS_PER_PAGE = 10;
 
-export function useInfiniteItems() {
+export function useInfiniteThings() {
   const result = useInfiniteQuery(
-    ["infiniteItems"],
+    ["infiniteThings"],
     async ({ pageParam = 0 }) => {
-      const { items } = await graphqlClient.request(
+      const { things } = await graphqlClient.request(
         gql`
-          query items($first: Int!, $after: Cursor) {
-            items(first: $first, after: $after) {
+          query things($first: Int!, $after: Cursor) {
+            things(first: $first, after: $after) {
               edges {
                 cursor
                 node {
@@ -33,17 +33,17 @@ export function useInfiniteItems() {
           }
         `,
         pageParam || {
-          first: ITEMS_PER_PAGE,
+          first: THINGS_PER_PAGE,
           after: null,
         }
       );
-      return items;
+      return things;
     },
     {
       getNextPageParam: (lastPage) => {
         if (lastPage.pageInfo.hasNextPage) {
           return {
-            first: ITEMS_PER_PAGE,
+            first: THINGS_PER_PAGE,
             after: lastPage.pageInfo.endCursor,
           };
         }
@@ -53,12 +53,12 @@ export function useInfiniteItems() {
   return result;
 }
 
-export function useItemById(itemId) {
-  return useQuery(["itemById", itemId], async () => {
-    const { item } = await graphqlClient.request(
+export function useThingById(thingId) {
+  return useQuery(["thingById", thingId], async () => {
+    const { thing } = await graphqlClient.request(
       gql`
-        query itemById($itemId: Int!) {
-          item(id: $itemId) {
+        query thingById($thingId: Int!) {
+          thing(id: $thingId) {
             id
             category {
               name
@@ -78,8 +78,8 @@ export function useItemById(itemId) {
           }
         }
       `,
-      { itemId }
+      { thingId }
     );
-    return item;
+    return thing;
   });
 }

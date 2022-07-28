@@ -1,9 +1,6 @@
 import { getAuth } from "firebase/auth";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Timestamp } from "firebase/firestore";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import nookies from "nookies";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { st } from "../../app/firebase";
@@ -15,7 +12,7 @@ import Media from "../../components/Media";
 import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
 import { useAuth } from "../../context/AuthContext";
-import { useCreateItem } from "../../features/collect/collectApi";
+import { useCreateThing } from "../../features/collect/collectApi";
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -30,7 +27,7 @@ export const getServerSideProps = async (ctx) => {
     // FETCH STUFF HERE
 
     return {
-      props: { message: `Nice` },
+      props: { message: "Nice" },
     };
   } catch (err) {
     // either the `token` cookie didn't exist
@@ -58,7 +55,7 @@ function Collect({ props }) {
   const [attributes, setAttributes] = useState([]);
   const [media, setMedia] = useState([]);
   const { user } = useAuth();
-  const createItem = useCreateItem();
+  const createThing = useCreateThing();
 
   const storeImages = async (media, user) => {
     let urls = [];
@@ -74,7 +71,7 @@ function Collect({ props }) {
   const handleSubmit = async () => {
     setLoading(true);
     const urls = await storeImages(media, user);
-    createItem.mutate(
+    createThing.mutate(
       {
         categoryId: category.value,
         subcategoryId: subcategory.value,
@@ -91,10 +88,7 @@ function Collect({ props }) {
       },
       {
         onSuccess: (response) => {
-          console.log(`success ${response.createItem.item.id}`);
-          // navigate("/complete", {
-          //   state: { itemId: response.createItem.item.id },
-          // });
+          console.log(`success ${response.createThing.item.id}`);
           setCategory("");
           setSubcategory("");
           setAttributes([]);
@@ -104,7 +98,6 @@ function Collect({ props }) {
         onError: () => {
           console.log("error");
           setLoading(false);
-          // navigate("/error");
         },
       }
     );

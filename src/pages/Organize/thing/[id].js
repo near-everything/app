@@ -7,13 +7,13 @@ import CardBody from "../../../components/CardBody";
 import ImageCard from "../../../components/Cards/ImageCard";
 import Layout from "../../../containers/Layout";
 import ModuleContainer from "../../../containers/ModuleContainer";
-import { useItemById } from "../../../features/organize/organizeApi";
+import { useThingById } from "../../../features/organize/organizeApi";
 
 function Thing() {
   const [showImages, setShowImages] = useState(false);
   const router = useRouter();
   const { id } = router.query;
-  const { data, isLoading } = useItemById(parseInt(id));
+  const { data, isLoading } = useThingById(parseInt(id));
 
   return (
     <>

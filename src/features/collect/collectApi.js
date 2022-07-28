@@ -111,19 +111,19 @@ export function useAttributeById(attributeId, options) {
   );
 }
 
-export function useCreateItem() {
-  return useMutation((newItem) => {
+export function useCreateThing() {
+  return useMutation((newThing) => {
     return graphqlClient.request(
       gql`
-        mutation createItem($input: CreateItemInput!) {
-          createItem(input: $input) {
-            item {
+        mutation createThing($input: CreateThingInput!) {
+          createThing(input: $input) {
+            thing {
               id
             }
           }
         }
       `,
-      { input: newItem }
+      { input: newThing }
     );
   });
 }
