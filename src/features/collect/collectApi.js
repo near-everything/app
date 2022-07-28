@@ -134,7 +134,7 @@ export function useProposeCategory() {
       gql`
         mutation proposeCategory($name: String!) {
           createCategory(
-            input: { category: { isProposal: true, name: $name } }
+            input: { category: { name: $name } }
           ) {
             category {
               id
@@ -156,7 +156,6 @@ export function useProposeSubcategory() {
           createSubcategory(
             input: {
               subcategory: {
-                isProposal: true
                 categoryId: $categoryId
                 name: $name
               }

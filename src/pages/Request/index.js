@@ -2,6 +2,7 @@ import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Link from "next/link";
 import { useState } from "react";
+import { PulseLoader } from "react-spinners";
 import { st } from "../../app/firebase";
 import Button from "../../components/Button";
 import Media from "../../components/Media";
@@ -10,7 +11,7 @@ import ReferenceLink from "../../components/Request/ReferenceLink";
 import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
 import { useAuth } from "../../context/AuthContext";
-import { useCreateItem } from "../../features/collect/collectApi";
+import { useCreateRequest } from "../../features/request/requestApi";
 
 function Request() {
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ function Request() {
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState([]);
   const { user } = useAuth();
-  const createItem = useCreateItem();
+  const createRequest = useCreateRequest();
 
   const storeImages = async (media, user) => {
     let urls = [];
@@ -33,64 +34,70 @@ function Request() {
 
   const handleSubmit = async () => {
     setLoading(true);
-    // const urls = await storeImages(media, user);
-    // createItem.mutate(
-    //   {
-    //     media: urls,
-    //     ownerId: user.uid,
-    //   },
-    //   {
-    //     onSuccess: (response) => {
-    //       console.log(`success ${response.createItem.item.id}`);
-    //       // navigate("/complete", {
-    //       //   state: { itemId: response.createItem.item.id },
-    //       // });
-    //       setCategory("");
-    //       setSubcategory("");
-    //       setAttributes([]);
-    //       setMedia([]);
-    //       setLoading(false);
-    //     },
-    //     onError: () => {
-    //       console.log("error");
-    //       setLoading(false);
-    //       // navigate("/error");
-    //     },
-    //   }
-    // );
+    const urls = await storeImages(media, user);
+    createRequest.mutate(
+      {
+        media: urls,
+        referenceLink: referenceLink,
+        description: description,
+        requesterId: user.uid,
+      },
+      {
+        onSuccess: (response) => {
+          console.log(`success ${response.createRequest.request.id}`);
+          setMedia([]);
+          setReferenceLink("");
+          setDescription("");
+          setLoading(false);
+        },
+        onError: () => {
+          console.log("error");
+          setLoading(false);
+        },
+      }
+    );
   };
 
   return (
     <>
-      <div className="flex flex-1 flex-col">
-        <Media media={media} setMedia={setMedia} />
-        <br />
-        <div className="flex flex-col text-black">
-          <div className="w-75 border-t-2 flex justify-end text-sm text-gray-400 pb-2">
-            Optional
-          </div>
-          <ReferenceLink
-            referenceLink={referenceLink}
-            setReferenceLink={setReferenceLink}
-          />
-          <br />
-          <Description
-            description={description}
-            setDescription={setDescription}
+      {loading ? (
+        <div className="flex justify-center items-center h-full">
+          <PulseLoader
+            size={10}
+            color={"#e5e7eb"}
+            loading={loading}
+            speedMultiplier={1.5}
           />
         </div>
-      </div>
-      <div className="flex justify-self-end">
-        <Link href="/review">
-          <Button
-            className="w-full h-16"
-            disabled={media.length <= 0}
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button>
-        </Link>
-      </div>
+      ) : (
+        <div className="flex flex-1 flex-col">
+          <Media media={media} setMedia={setMedia} />
+          <br />
+          <div className="flex flex-col flex-1 text-black">
+            <div className="w-75 border-t-2 flex justify-end text-sm text-gray-400 pb-2">
+              Optional
+            </div>
+            <ReferenceLink
+              referenceLink={referenceLink}
+              setReferenceLink={setReferenceLink}
+            />
+            <br />
+            <Description
+              description={description}
+              setDescription={setDescription}
+            />
+          </div>
+          <div className="flex justify-self-end">
+            <Button
+              className="w-full h-16"
+              disabled={media.length <= 0}
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

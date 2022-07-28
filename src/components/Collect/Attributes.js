@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { queryClient } from "../../app/api";
+import { useQueryClient } from "react-query";
 import {
   useAttributes,
-  useProposeAttribute
+  useProposeAttribute,
 } from "../../features/collect/collectApi";
 import CreatableSelect from "../CreatableSelect";
+import AttributeField from "./AttributeField";
 
 function Attributes({ attributes, setAttributes }) {
   const { data, isLoading, isError } = useAttributes();
   const proposeAttribute = useProposeAttribute();
   const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   const prepareOptions = () => {
     return data?.map((option) => ({
@@ -43,6 +45,25 @@ function Attributes({ attributes, setAttributes }) {
     });
   };
 
+  const setAttributeOption = (value) => {
+    setAttributes(
+      attributes.map((attribute) =>
+        attribute.value === value.attributeId
+          ? { ...attribute, options: value }
+          : attribute
+      )
+    );
+  };
+
+  const handleValue = (attributeId) => {
+    const match = attributes.find((it) => it.value === attributeId);
+    if (match.options?.value === undefined) {
+      return null;
+    } else {
+      return match.options;
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -61,9 +82,14 @@ function Attributes({ attributes, setAttributes }) {
         />
       )}
       <br />
-      {/* {attributes?.map((attr) => (
-        <AttributeField key={attr.value} attributeId={attr.value} />
-      ))} */}
+      {attributes?.map((attr) => (
+        <AttributeField
+          key={attr.value}
+          attributeId={attr.value}
+          setAttributeOption={setAttributeOption}
+          value={() => handleValue(attr.value)}
+        />
+      ))}
     </>
   );
 }

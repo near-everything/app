@@ -88,7 +88,7 @@ function Collect({ props }) {
       },
       {
         onSuccess: (response) => {
-          console.log(`success ${response.createThing.item.id}`);
+          console.log(`success ${response.createThing.thing.id}`);
           setCategory("");
           setSubcategory("");
           setAttributes([]);

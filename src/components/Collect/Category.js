@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { queryClient } from "../../app/api";
+import { useQueryClient } from "react-query";
 import {
   useCategories,
   useProposeCategory
@@ -10,6 +10,7 @@ function Category({ category, setCategory, setSubcategory }) {
   const [loading, setLoading] = useState(false);
   const { data, isLoading, isError } = useCategories();
   const proposeCategory = useProposeCategory();
+  const queryClient = useQueryClient();
 
   const resetSubcategory = useCallback(() => {
     setSubcategory(null);
