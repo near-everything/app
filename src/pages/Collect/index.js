@@ -1,7 +1,7 @@
 import { getAuth } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { st } from "../../app/firebase";
 import Button from "../../components/Button";
@@ -70,6 +70,12 @@ function Collect({ props }) {
 
   const handleSubmit = async () => {
     setLoading(true);
+    let lat;
+    let long;
+    navigator.geolocation.getCurrentPosition(function (position) {
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
+    });
     const urls = await storeImages(media, user);
     createThing.mutate(
       {
@@ -85,6 +91,10 @@ function Collect({ props }) {
           }),
         media: urls,
         ownerId: user.uid,
+        geomPoint: (lat && long) ? {
+          type: "Point",
+          coordinates: [lat, long]
+        } : null
       },
       {
         onSuccess: (response) => {
