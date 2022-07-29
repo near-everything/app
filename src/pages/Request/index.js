@@ -1,6 +1,5 @@
 import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import Link from "next/link";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { st } from "../../app/firebase";
