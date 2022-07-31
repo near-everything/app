@@ -103,7 +103,7 @@ Make sure you have the [everything-api](https://github.com/near-everything/api) 
 Run the app in development mode:
 
 ```sh
- npm start
+ npm run dev
  ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
