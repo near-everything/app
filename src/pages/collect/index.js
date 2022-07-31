@@ -1,7 +1,7 @@
 import { getAuth } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { st } from "../../app/firebase";
 import Button from "../../components/Button";
@@ -91,10 +91,13 @@ function Collect({ props }) {
           }),
         media: urls,
         ownerId: user.uid,
-        geomPoint: (lat && long) ? {
-          type: "Point",
-          coordinates: [lat, long]
-        } : null
+        geomPoint:
+          lat && long
+            ? {
+                type: "Point",
+                coordinates: [lat, long],
+              }
+            : null,
       },
       {
         onSuccess: (response) => {
