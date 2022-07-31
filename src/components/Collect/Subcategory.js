@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { queryClient } from "../../app/api";
+import { useQueryClient } from "react-query";
 import {
   useProposeSubcategory,
   useSubcategoriesByCategoryId
@@ -13,6 +13,7 @@ function Subcategory({ category, subcategory, setSubcategory }) {
     { enabled: !!category }
   );
   const proposeSubcategory = useProposeSubcategory();
+  const queryClient = useQueryClient();
 
   const prepareOptions = () => {
     return data?.map((option) => ({

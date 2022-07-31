@@ -2,17 +2,17 @@ import React from "react";
 import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
 
-function Items() {
+function Things() {
   return <></>;
 }
 
-Items.getLayout = function getLayout(page) {
+Things.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <ModuleContainer moduleName={"items"} moduleColor={"green"}>
+      <ModuleContainer moduleName={"things"} moduleColor={"green"}>
         {page}
       </ModuleContainer>
     </Layout>
   );
 };
-export default Items;
+export default Things;

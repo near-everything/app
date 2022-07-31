@@ -3,20 +3,20 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { dehydrate, QueryClient } from "react-query";
 import { graphqlClient } from "../../app/api";
-import ItemCard from "../../components/Cards/ItemCard";
+import ThingCard from "../../components/Cards/ThingCard";
 import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
-import { useInfiniteItems } from "../../features/organize/organizeApi";
+import { useInfiniteThings } from "../../features/organize/organizeApi";
 
 export async function getServerSideProps() {
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery(
-    ["infiniteItems"],
+    ["infiniteThings"],
     async ({ pageParam = 0 }) => {
-      const { items } = await graphqlClient.request(
+      const { things } = await graphqlClient.request(
         gql`
-          query items($first: Int!, $after: Cursor) {
-            items(first: $first, after: $after) {
+          query things($first: Int!, $after: Cursor) {
+            things(first: $first, after: $after) {
               edges {
                 cursor
                 node {
@@ -41,7 +41,7 @@ export async function getServerSideProps() {
           after: null,
         }
       );
-      return items;
+      return things;
     }
   );
 
@@ -53,7 +53,7 @@ export async function getServerSideProps() {
 }
 
 function Organize() {
-  const { data, status, fetchNextPage, hasNextPage } = useInfiniteItems();
+  const { data, status, fetchNextPage, hasNextPage } = useInfiniteThings();
   return (
     <>
       <div>
@@ -68,9 +68,9 @@ function Organize() {
             <div className="grid gap-4">
               {data?.pages.map((page) => (
                 <>
-                  {page.edges?.map((item) => (
-                    <div key={item.node.id}>
-                      <ItemCard item={item.node} />
+                  {page.edges?.map((thing) => (
+                    <div key={thing.node.id}>
+                      <ThingCard thing={thing.node} />
                     </div>
                   ))}
                 </>

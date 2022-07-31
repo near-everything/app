@@ -111,19 +111,19 @@ export function useAttributeById(attributeId, options) {
   );
 }
 
-export function useCreateItem() {
-  return useMutation((newItem) => {
+export function useCreateThing() {
+  return useMutation((newThing) => {
     return graphqlClient.request(
       gql`
-        mutation createItem($input: CreateItemInput!) {
-          createItem(input: $input) {
-            item {
+        mutation createThing($input: CreateThingInput!) {
+          createThing(input: $input) {
+            thing {
               id
             }
           }
         }
       `,
-      { input: newItem }
+      { input: newThing }
     );
   });
 }
@@ -134,7 +134,7 @@ export function useProposeCategory() {
       gql`
         mutation proposeCategory($name: String!) {
           createCategory(
-            input: { category: { isProposal: true, name: $name } }
+            input: { category: { name: $name } }
           ) {
             category {
               id
@@ -156,7 +156,6 @@ export function useProposeSubcategory() {
           createSubcategory(
             input: {
               subcategory: {
-                isProposal: true
                 categoryId: $categoryId
                 name: $name
               }

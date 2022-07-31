@@ -7,13 +7,13 @@ import CardBody from "../../../components/CardBody";
 import ImageCard from "../../../components/Cards/ImageCard";
 import Layout from "../../../containers/Layout";
 import ModuleContainer from "../../../containers/ModuleContainer";
-import { useItemById } from "../../../features/organize/organizeApi";
+import { useThingById } from "../../../features/organize/organizeApi";
 
 function Thing() {
   const [showImages, setShowImages] = useState(false);
   const router = useRouter();
   const { id } = router.query;
-  const { data, isLoading } = useItemById(parseInt(id));
+  const { data, isLoading } = useThingById(parseInt(id));
 
   return (
     <>
@@ -42,18 +42,7 @@ function Thing() {
                 <p className="mb-2 text-md font-medium text-gray-600 dark:text-gray-400">
                   {data.subcategory.name}
                 </p>
-                {data.characteristics.edges.map((char, index) => {
-                  return (
-                    // <Suspense key={index}>
-                    {
-                      /* <AttributeField
-                      characteristic={char.node}
-                      itemId={data.id}
-                    /> */
-                    }
-                    // </Suspense>
-                  );
-                })}
+                
               </div>
               <br />
             </CardBody>
