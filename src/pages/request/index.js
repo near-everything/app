@@ -1,8 +1,10 @@
 import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { parseCookies } from "nookies";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { st } from "../../app/firebase";
+import getFirebaseAdmin from "../../app/firebaseAdmin";
 import Button from "../../components/Button";
 import Media from "../../components/Media";
 import Description from "../../components/Request/Description";
@@ -11,6 +13,30 @@ import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
 import { useAuth } from "../../context/AuthContext";
 import { useCreateRequest } from "../../features/request/requestApi";
+
+
+export const getServerSideProps = async (ctx) => {
+  try {
+    const admin = getFirebaseAdmin();
+    const cookies = parseCookies(ctx);
+    await admin.auth().verifyIdToken(cookies.__session);
+
+    return {
+      props: {},
+    };
+  } catch (err) {
+    // either the `__session` cookie didn't exist
+    // or token verification failed
+    // either way: redirect to the login page
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
+  }
+};
 
 function Request() {
   const [loading, setLoading] = useState(false);

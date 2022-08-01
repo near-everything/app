@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 import {
   useAttributeById,
-  useProposeOption
+  useProposeOption,
 } from "../../features/collect/collectApi";
 import CreatableSelect from "../CreatableSelect";
 
-const AttributeField = React.forwardRef(function AttributeField(props) {
-  const { attributeId, setAttributeOption, value } = props;
+const AttributeField = ({ attributeId, setAttributeOption, value }) => {
   const { data, isLoading, isError } = useAttributeById(attributeId, {
     enabled: !!attributeId,
   });
@@ -72,6 +71,6 @@ const AttributeField = React.forwardRef(function AttributeField(props) {
       <br />
     </>
   );
-});
+};
 
 export default AttributeField;

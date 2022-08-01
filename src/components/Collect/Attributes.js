@@ -70,6 +70,8 @@ function Attributes({ attributes, setAttributes }) {
         <>Loading...</>
       ) : (
         <CreatableSelect
+          id="attribute_select"
+          instanceId="attribute_select"
           isMulti
           options={prepareOptions()}
           isDisabled={isLoading || isError}
