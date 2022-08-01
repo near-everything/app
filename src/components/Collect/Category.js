@@ -57,6 +57,8 @@ function Category({ category, setCategory, setSubcategory }) {
         <>Loading...</>
       ) : (
         <CreatableSelect
+          id="category_select"
+          instanceId="category_select"
           options={prepareOptions()}
           isDisabled={isLoading || isError}
           isLoading={isLoading}

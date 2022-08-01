@@ -18,14 +18,14 @@ export function AuthProvider({ children }) {
     return auth.onIdTokenChanged(async (user) => {
       if (!user) {
         setUser(null);
-        nookies.destroy(null, "token");
-        nookies.set(null, "token", "", { path: "/" });
+        nookies.destroy(null, "__session");
+        nookies.set(null, "__session", "", { path: "/" });
         return;
       }
 
       const token = await user.getIdToken();
       setUser(user);
-      nookies.set(null, "token", token, { path: "/" });
+      nookies.set(null, "__session", token, { path: "/" });
     });
   }, [auth]);
 

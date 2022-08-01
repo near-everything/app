@@ -1,9 +1,9 @@
-import { getAuth } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { parseCookies } from "nookies";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
-import { st } from "../../app/firebase";
+import getFirebaseAdmin from "../../app/firebaseAdmin";
 import Button from "../../components/Button";
 import Attributes from "../../components/Collect/Attributes";
 import Category from "../../components/Collect/Category";
@@ -13,27 +13,19 @@ import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
 import { useAuth } from "../../context/AuthContext";
 import { useCreateThing } from "../../features/collect/collectApi";
+import { getFirebaseStorage } from "../../app/firebaseClient";
 
 export const getServerSideProps = async (ctx) => {
   try {
-    const auth = getAuth();
-    // const cookies = nookies.get(ctx);
-    // console.log(JSON.stringify(cookies, null, 2));
-    console.log("did it");
-    // const token = await auth.verifyIdToken(cookies.token);
-    // const { uid, email } = token;
-
-    // the user is authenticated!
-    // FETCH STUFF HERE
+    const admin = getFirebaseAdmin();
+    const cookies = parseCookies(ctx);
+    await admin.auth().verifyIdToken(cookies.__session);
 
     return {
-      props: { message: "Nice" },
+      props: {},
     };
   } catch (err) {
-    // either the `token` cookie didn't exist
-    // or token verification failed
-    // either way: redirect to the login page
-    // either the `token` cookie didn't exist
+    // either the `__session` cookie didn't exist
     // or token verification failed
     // either way: redirect to the login page
     return {
@@ -41,8 +33,6 @@ export const getServerSideProps = async (ctx) => {
         permanent: false,
         destination: "/login",
       },
-      // `as never` is required for correct type inference
-      // by InferGetServerSidePropsType below
       props: {},
     };
   }
@@ -56,6 +46,7 @@ function Collect({ props }) {
   const [media, setMedia] = useState([]);
   const { user } = useAuth();
   const createThing = useCreateThing();
+  const st = getFirebaseStorage();
 
   const storeImages = async (media, user) => {
     let urls = [];
@@ -92,12 +83,7 @@ function Collect({ props }) {
         media: urls,
         ownerId: user.uid,
         geomPoint:
-          lat && long
-            ? {
-                type: "Point",
-                coordinates: [lat, long],
-              }
-            : null,
+          lat && long ? { type: "Point", coordinates: [lat, long] } : null,
       },
       {
         onSuccess: (response) => {

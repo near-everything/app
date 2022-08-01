@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import {
   useProposeSubcategory,
-  useSubcategoriesByCategoryId
+  useSubcategoriesByCategoryId,
 } from "../../features/collect/collectApi";
 import CreatableSelect from "..//CreatableSelect";
 
@@ -55,6 +55,8 @@ function Subcategory({ category, subcategory, setSubcategory }) {
         <>Loading...</>
       ) : (
         <CreatableSelect
+          id="subcategory_select"
+          instanceId="subcategory_select"
           options={prepareOptions()}
           isDisabled={!category || isError}
           isLoading={isLoading}
