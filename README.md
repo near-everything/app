@@ -1,13 +1,12 @@
 <div id="top"></div>
 
 <!-- PROJECT SHIELDS -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -32,8 +31,6 @@
   </p>
 </div>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -57,32 +54,30 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
-everything is one of several applications to aid in the creation of the [inventory of everything](https://everything.dev): a centralized database of real, tangible assets that can then be used as the foundation for decentralized marketplaces, services, tools-- in the effort to create a circular economy that makes sense for everyone.
 
+everything is one of several applications to aid in the creation of the [inventory of everything](https://everything.dev): a centralized database of real, tangible assets that can then be used as the foundation for decentralized marketplaces, services, tools-- in the effort to create a circular economy that makes sense for everyone.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
+- [![Next][next.js]][next-url]
+- [![React][react.js]][react-url]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 ### Prerequisites
 
-* npm
+- npm
   ```sh
   npm install npm@latest -g
   ```
@@ -100,9 +95,8 @@ everything is one of several applications to aid in the creation of the [invento
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 **Make sure you have the [everything-api](https://github.com/near-everything/api) running locally!**
@@ -111,18 +105,20 @@ everything is one of several applications to aid in the creation of the [invento
 
 ```sh
  npm run dev
- ```
+```
 
 2. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-    The page will reload if you make edits.<br />
-    You will also see any lint errors in the console.
+   The page will reload if you make edits.<br />
+   You will also see any lint errors in the console.
 
-3. When prompted (/login), login with any phone number, real or fake. This will be saved locally to the firebase emulator and will not be available for anyone else to see. Once you enter in your phone number and submit, check the docker logs for container "firebase-emulator:firebase-emulator" and there should be a message "To verify the phone number ____, use the code _____". Enter in this code on the login page.
+3. When prompted (/login), login with any phone number, real or fake. This will be saved locally to the firebase emulator and will not be available for anyone else to see. Once you enter in your phone number and submit, check the docker logs for container "firebase-emulator:firebase-emulator" and there should be a message "To verify the phone number \_**\_, use the code \_\_\_**". Enter in this code on the login page.
 
-<!-- 
+![Logging in tutorial][logging-in-tutorial]
+
+<!--
 <br/>
-Launch the test runner in the interactive watch mode: 
+Launch the test runner in the interactive watch mode:
 
 ```sh
   npm run test
@@ -135,9 +131,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_ --
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- ROADMAP -->
+
 ## Roadmap
 
 - [ ] TBD...
@@ -146,9 +141,8 @@ See the [open issues](https://github.com/near-everything/app/issues) for a full 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -164,38 +158,33 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 Elliot Braem - elliot@everything.dev
 
-
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- ACKNOWLEDGMENTS -->
+
 ## Acknowledgments
 
-* README adapted from [Best-README-Template](https://github.com/othneildrew/Best-README-Template/blob/master/BLANK_README.md).
+- README adapted from [Best-README-Template](https://github.com/othneildrew/Best-README-Template/blob/master/BLANK_README.md).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/near-everything/collect.svg?style=for-the-badge
 [contributors-url]: https://github.com/near-everything/collect/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/near-everything/collect.svg?style=for-the-badge
@@ -206,7 +195,8 @@ Elliot Braem - elliot@everything.dev
 [issues-url]: https://github.com/near-everything/collect/issues
 [license-shield]: https://img.shields.io/github/license/near-everything/collect.svg?style=for-the-badge
 [license-url]: https://github.com/near-everything/collect/blob/main/LICENSE.txt
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
+[logging-in-tutorial]: docs/logging-in.gif
+[next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[next-url]: https://nextjs.org/
+[react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[react-url]: https://reactjs.org/
