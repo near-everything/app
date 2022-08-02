@@ -1,55 +1,74 @@
 import { gql } from "graphql-request";
+import { parseCookies } from "nookies";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { dehydrate, QueryClient } from "react-query";
 import { graphqlClient } from "../../app/api";
+import getFirebaseAdmin from "../../app/firebaseAdmin";
 import ThingCard from "../../components/Cards/ThingCard";
 import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
 import { useInfiniteThings } from "../../features/organize/organizeApi";
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchInfiniteQuery(
-    ["infiniteThings"],
-    async ({ pageParam = 0 }) => {
-      const { things } = await graphqlClient.request(
-        gql`
-          query things($first: Int!, $after: Cursor) {
-            things(first: $first, after: $after) {
-              edges {
-                cursor
-                node {
-                  id
-                  category {
-                    name
-                  }
-                  media
-                  subcategory {
-                    name
+export async function getServerSideProps(ctx) {
+  try {
+    const admin = getFirebaseAdmin();
+    const cookies = parseCookies(ctx);
+    await admin.auth().verifyIdToken(cookies.__session);
+
+    const queryClient = new QueryClient();
+    await queryClient.prefetchInfiniteQuery(
+      ["infiniteThings"],
+      async ({ pageParam = 0 }) => {
+        const { things } = await graphqlClient.request(
+          gql`
+            query things($first: Int!, $after: Cursor) {
+              things(first: $first, after: $after) {
+                edges {
+                  cursor
+                  node {
+                    id
+                    category {
+                      name
+                    }
+                    media
+                    subcategory {
+                      name
+                    }
                   }
                 }
-              }
-              pageInfo {
-                endCursor
+                pageInfo {
+                  endCursor
+                }
               }
             }
+          `,
+          pageParam || {
+            first: 10,
+            after: null,
           }
-        `,
-        pageParam || {
-          first: 10,
-          after: null,
-        }
-      );
-      return things;
-    }
-  );
+        );
+        return things;
+      }
+    );
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+      },
+    };
+  } catch (err) {
+    // either the `__session` cookie didn't exist
+    // or token verification failed
+    // either way: redirect to the login page
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
+  }
 }
 
 function Organize() {
