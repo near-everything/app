@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
 import classNames from "classnames";
-import { DarkModeContext } from "./DarkMode";
+import React from "react";
+import theme from "../themes/default";
 
 const TextArea = React.forwardRef(function TextArea(props, ref) {
   const {
@@ -9,14 +9,10 @@ const TextArea = React.forwardRef(function TextArea(props, ref) {
     className,
     type = "text",
     label,
-    fieldName,
-    required,
     ...other
   } = props;
 
-  const {
-    theme: { input },
-  } = useContext(DarkModeContext);
+  const input = theme.input;
 
   const baseStyle = input.base;
   const activeStyle = input.active;
@@ -39,12 +35,12 @@ const TextArea = React.forwardRef(function TextArea(props, ref) {
 
   function typeStyle(type) {
     switch (type) {
-      case "radio":
-        return radioStyle;
-      case "checkbox":
-        return checkStyle;
-      default:
-        return baseStyle;
+    case "radio":
+      return radioStyle;
+    case "checkbox":
+      return checkStyle;
+    default:
+      return baseStyle;
     }
   }
 
