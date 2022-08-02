@@ -26,9 +26,18 @@ function Profile() {
     <>
       <span>{user?.phoneNumber}</span>
       <br />
-      <Button onClick={handleSignOut} className="w-full h-16 mb-2">
-        Log out
-      </Button>
+      {user ? (
+        <Button onClick={handleSignOut} className="w-full h-16 mb-2">
+          Log out
+        </Button>
+      ) : (
+        <Button
+          onClick={() => router.push("/login")}
+          className="w-full h-16 mb-2"
+        >
+          Log in
+        </Button>
+      )}
     </>
   );
 }
