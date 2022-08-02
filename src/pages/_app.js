@@ -1,3 +1,5 @@
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import { ThemeProvider } from "next-themes";
 import { useState } from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
@@ -5,6 +7,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import initFirebaseClientSDK from "../app/firebaseClient";
 import { AuthProvider } from "../context/AuthContext";
 import "../styles/globals.css";
+
+config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
 initFirebaseClientSDK();
 

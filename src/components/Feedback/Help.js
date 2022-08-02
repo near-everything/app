@@ -31,19 +31,21 @@ function Help() {
   return (
     <>
       <span>Want to help?</span>
-      <TextArea
-        name="feedback_help"
-        placeholder="How can you help?"
-        onChange={handleOnChange}
-        value={help}
-      />
-      {/* <Button
-        onClick={handleSubmit}
-        className="w-full h-16"
-        disabled={help === ""}
-      >
-        Submit
-      </Button> */}
+      <div className="flex flex-row gap-2">
+        <TextArea
+          name="feedback_help"
+          placeholder="How can you help?"
+          onChange={handleOnChange}
+          value={help}
+        />
+        <Button
+          onClick={handleSubmit}
+          className="w-1/4 h-16"
+          disabled={help.length < 10}
+        >
+          Submit
+        </Button>
+      </div>
     </>
   );
 }
