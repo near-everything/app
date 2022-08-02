@@ -31,19 +31,21 @@ function Idea() {
   return (
     <>
       <span>Have an idea?</span>
-      <TextArea
-        name="feedback_idea"
-        placeholder="What's your idea?"
-        onChange={handleOnChange}
-        value={idea}
-      />
-      {/* <Button
-        onClick={handleSubmit}
-        className="w-full h-16"
-        disabled={idea === ""}
-      >
-        Submit
-      </Button> */}
+      <div className="flex flex-row gap-2">
+        <TextArea
+          name="feedback_idea"
+          placeholder="What's your idea?"
+          onChange={handleOnChange}
+          value={idea}
+        />
+        <Button
+          onClick={handleSubmit}
+          className="w-1/4 h-16"
+          disabled={idea.length < 10}
+        >
+          Submit
+        </Button>
+      </div>
     </>
   );
 }

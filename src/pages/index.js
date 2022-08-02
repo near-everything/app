@@ -1,6 +1,6 @@
 import {
   faDiscord,
-  faGithub, faReddit, faTwitter
+  faGithub, faTwitter
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import Button from "../components/Button";
 import Concern from "../components/Feedback/Concern";
 import Help from "../components/Feedback/Help";
 import Idea from "../components/Feedback/Idea";
+import Question from "../components/Feedback/Question";
 import Layout from "../containers/Layout";
 import ModuleContainer from "../containers/ModuleContainer";
 
@@ -22,11 +23,13 @@ function Home() {
         <Link href="/settings">
           <Button className="w-full h-16 mb-2">Settings</Button>
         </Link>
-        <Help />
+        <Question />
+        <br />
+        <Concern />
         <br />
         <Idea />
         <br />
-        <Concern />
+        <Help />
         <br />
       </div>
       <footer className="flex flex-col p-8">

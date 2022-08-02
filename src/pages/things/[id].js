@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-// import AttributeField from "../components/AttributeField";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
 import CardBody from "../../components/CardBody";
@@ -42,18 +41,6 @@ function Thing() {
                 <p className="mb-2 text-md font-medium text-gray-600 dark:text-gray-400">
                   {data.subcategory.name}
                 </p>
-                {data.characteristics.edges.map((char, index) => {
-                  return (
-                    // <Suspense key={index}>
-                    {
-                      /* <AttributeField
-                      characteristic={char.node}
-                      itemId={data.id}
-                    /> */
-                    }
-                    // </Suspense>
-                  );
-                })}
               </div>
               <br />
             </CardBody>
@@ -76,4 +63,3 @@ Thing.getLayout = function getLayout(page) {
     </Layout>
   );
 };
-
