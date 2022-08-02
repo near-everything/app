@@ -1,10 +1,13 @@
 import {
   faDiscord,
-  faGithub, faTwitter
+  faGithub,
+  faTwitter
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { parseCookies } from "nookies";
 import React from "react";
+import getFirebaseAdmin from "../app/firebaseAdmin";
 import Button from "../components/Button";
 import Concern from "../components/Feedback/Concern";
 import Help from "../components/Feedback/Help";
@@ -12,6 +15,29 @@ import Idea from "../components/Feedback/Idea";
 import Question from "../components/Feedback/Question";
 import Layout from "../containers/Layout";
 import ModuleContainer from "../containers/ModuleContainer";
+
+export const getServerSideProps = async (ctx) => {
+  try {
+    const admin = getFirebaseAdmin();
+    const cookies = parseCookies(ctx);
+    await admin.auth().verifyIdToken(cookies.__session);
+
+    return {
+      props: {},
+    };
+  } catch (err) {
+    // either the `__session` cookie didn't exist
+    // or token verification failed
+    // either way: redirect to the login page
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
+  }
+};
 
 function Home() {
   return (
