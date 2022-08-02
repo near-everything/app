@@ -1,3 +1,8 @@
+import {
+  faDiscord,
+  faGithub, faReddit, faTwitter
+} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
 import Button from "../components/Button";
@@ -24,6 +29,44 @@ function Home() {
         <Concern />
         <br />
       </div>
+      <footer className="flex flex-col p-8">
+        <p>Like the project? Get involved.</p>
+        <div className="flex flex-row">
+          <a
+            href="https://twitter.com/collctevrything"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FontAwesomeIcon
+              className="mx-1 transition ease-in-out duration-500 hover:text-blue-400"
+              size="lg"
+              icon={faTwitter}
+            />
+          </a>
+          <a
+            href="https://discord.gg/pEGGmMGDfy"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FontAwesomeIcon
+              className="mx-1 transition ease-in-out duration-500 hover:text-indigo-700"
+              size="lg"
+              icon={faDiscord}
+            />
+          </a>
+          <a
+            href="https://github.com/near-everything"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FontAwesomeIcon
+              className="mx-1 transition ease-in-out duration-500 hover:text-violet-600"
+              size="lg"
+              icon={faGithub}
+            />
+          </a>
+        </div>
+      </footer>
     </>
   );
 }
