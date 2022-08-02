@@ -1,13 +1,13 @@
+import { getApp } from "firebase/app";
 import { getAuth, RecaptchaVerifier } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
 import "react-phone-input-2/lib/style.css";
-import { firebase } from "../../app/firebase";
 import PhoneNumberVerification from "../../features/auth/PhoneNumberVerification";
 
 function Login() {
   const [recaptcha, setRecaptcha] = useState(null);
   const element = useRef(null);
-  const auth = getAuth(firebase);
+  const auth = getAuth(getApp());
 
   if (process.env.NODE_ENV !== "production") {
     auth.settings.appVerificationDisabledForTesting = true;

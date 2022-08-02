@@ -3,8 +3,8 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { parseCookies } from "nookies";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
-import { st } from "../../app/firebase";
 import getFirebaseAdmin from "../../app/firebaseAdmin";
+import { getFirebaseStorage } from "../../app/firebaseClient";
 import Button from "../../components/Button";
 import Media from "../../components/Media";
 import Description from "../../components/Request/Description";
@@ -45,6 +45,7 @@ function Request() {
   const [media, setMedia] = useState([]);
   const { user } = useAuth();
   const createRequest = useCreateRequest();
+  const st = getFirebaseStorage();
 
   const storeImages = async (media, user) => {
     let urls = [];
