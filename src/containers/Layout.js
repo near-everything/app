@@ -3,8 +3,8 @@ import Navbar from "../components/Navbar";
 
 function Layout({ children }) {
   return (
-    <div className="flex h-screen">
-      <div className="flex flex-col flex-1 w-full justify-between">
+    <div className="flex h-screen w-full">
+      <div className="flex-1 w-full">
         <main id="container" className="container mx-auto h-full overflow-y-auto">
           {/* <Suspense fallback={<ThemedSuspense />}> */}
           {children}
@@ -12,6 +12,7 @@ function Layout({ children }) {
         </main>
         <Navbar />
       </div>
+      
     </div>
   );
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function Navbar() {
   return (
-    <nav className="z-50 shadow-lg h-16 text-sm">
+    <nav className="z-50 shadow-lg h-16 text-sm sticky bottom-0 bg-white dark:bg-black">
       <div className="flex justify-between h-full">
         <Link href="/collect">
           <span className="flex flex-1 justify-center items-center hover:bg-gray-100 font-bold text-green-600 cursor-pointer">
