@@ -13,6 +13,12 @@ const nextConfig = {
     disable: process.env.NODE_ENV !== "production",
     register: false,
   },
+  rewrites: async () => [
+    {
+      source: "/public/privacy-policy.html",
+      destination: "/pages/api/privacy-policy.js",
+    },
+  ],
 };
 
 module.exports = withPWA(nextConfig);
