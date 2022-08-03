@@ -10,6 +10,7 @@ function PhoneNumberVerification({ recaptcha, auth }) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [code, setCode] = useState("");
+  const [isAgree, setIsAgree] = useState(false);
   const createUser = useCreateUser();
   const router = useRouter();
 
@@ -65,47 +66,50 @@ function PhoneNumberVerification({ recaptcha, auth }) {
                 </Button>
               </div>
               <br />
-              <div
-                className={`flex flex-row ${
-                  confirmationResult ? "" : "hidden"
-                }`}
-              >
-                <Input
-                  type="text"
-                  value={code}
-                  placeholder="XXXXXX"
-                  style={{ width: "208px" }}
-                  onChange={(e) => setCode(e.target.value)}
-                />
-                <Button
-                  className="mx-2"
-                  onClick={verifyCode}
-                  aria-live="polite"
-                >
-                  &#x2192;
-                </Button>
-              </div>
-              <div className="flex items-center">
-                <input
-                  id="link-checkbox"
-                  type="checkbox"
-                  value=""
-                  className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label
-                  htmlFor="link-checkbox"
-                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  I agree with the{" "}
-                  <a
-                    type="button"
-                    onClick={() => router.push("/privacy-policy.html")}
-                    className="text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    privacy policy
-                  </a>
-                  .
-                </label>
+              <div>
+                <div className={`${confirmationResult ? "" : "hidden"}`}>
+                  <div className={"flex flex-row"}>
+                    <Input
+                      type="text"
+                      value={code}
+                      placeholder="XXXXXX"
+                      style={{ width: "208px" }}
+                      onChange={(e) => setCode(e.target.value)}
+                    />
+                    <Button
+                      className="mx-2"
+                      onClick={verifyCode}
+                      disabled={!isAgree || code.length != 6}
+                      aria-live="polite"
+                    >
+                      &#x2192;
+                    </Button>
+                  </div>
+                  <br />
+                  <div className="flex items-center">
+                    <input
+                      id="link-checkbox"
+                      type="checkbox"
+                      value={isAgree}
+                      onChange={() => setIsAgree(!isAgree)}
+                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                    <label
+                      htmlFor="link-checkbox"
+                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      I agree with the{" "}
+                      <a
+                        type="button"
+                        onClick={() => router.push("/privacy-policy.html")}
+                        className="text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        privacy policy
+                      </a>
+                      .
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
