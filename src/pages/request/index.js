@@ -40,6 +40,7 @@ export const getServerSideProps = async (ctx) => {
 
 function Request() {
   const [loading, setLoading] = useState(false);
+  const [urlError, setUrlError]  = useState(false);
   const [referenceLink, setReferenceLink] = useState("");
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState([]);
@@ -58,9 +59,24 @@ function Request() {
     return urls;
   };
 
+  const validateLink = (link) =>{
+    if(link.indexOf("https://")==0){
+      return true;
+    }
+    return  false;
+  };
+
   const handleSubmit = async () => {
+    setUrlError(false);
     setLoading(true);
+    const validUrl = validateLink(referenceLink);
+    if(!validUrl){
+      setUrlError(true);
+      setLoading(false);
+      return;
+    }
     const urls = await storeImages(media, user);
+
     createRequest.mutate(
       {
         media: urls,
@@ -107,6 +123,11 @@ function Request() {
               referenceLink={referenceLink}
               setReferenceLink={setReferenceLink}
             />
+            {urlError && 
+              <div className="p-4 mt-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                Links must be secured and should start with https://
+              </div>
+            }
             <br />
             <Description
               description={description}
