@@ -19,7 +19,7 @@ export default function initFirebaseClientSDK() {
   // If the user has provided the firebaseAuthEmulatorHost address, set the emulator
   if (process.env.NODE_ENV !== "production") {
     const auth = getAuth(getApp());
-    connectAuthEmulator(auth, "http://localhost:9099");
+    connectAuthEmulator(auth, "http://localhost:9099", { disableWarnings: true });
   }
 }
 
