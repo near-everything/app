@@ -12,6 +12,12 @@ const nextConfig = {
     dest: "public",
     register: true
   },
+  rewrites: async () => [
+    {
+      source: "/public/privacy-policy.html",
+      destination: "/pages/api/privacy-policy.js",
+    },
+  ],
 };
 
 module.exports = withPWA(nextConfig);
