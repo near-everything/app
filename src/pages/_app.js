@@ -1,10 +1,15 @@
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import { ThemeProvider } from "next-themes";
+import Head from "next/head";
 import { useState } from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import initFirebaseClientSDK from "../app/firebaseClient";
 import { AuthProvider } from "../context/AuthContext";
 import "../styles/globals.css";
+
+config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
 initFirebaseClientSDK();
 
@@ -17,6 +22,12 @@ export default function App({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ThemeProvider attribute="class">
+            <Head>
+              <meta
+                name="viewport"
+                content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+              />
+            </Head>
             {getLayout(<Component {...pageProps} />)}
             <ReactQueryDevtools initialIsOpen={false} />
           </ThemeProvider>

@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import React, { useContext } from "react";
-import { DarkModeContext } from "./DarkMode";
+import React from "react";
+import theme from "../themes/default";
 
 const Button = React.forwardRef(function Button(props, ref) {
   const {
@@ -17,10 +17,7 @@ const Button = React.forwardRef(function Button(props, ref) {
     children,
     ...other
   } = props;
-  const {
-    theme: { button },
-  } = useContext(DarkModeContext);
-
+  const button = theme.button;
   function hasIcon() {
     return !!icon || !!iconLeft || !!iconRight;
   }

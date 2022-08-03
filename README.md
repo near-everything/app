@@ -185,16 +185,16 @@ Elliot Braem - elliot@everything.dev
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/near-everything/collect.svg?style=for-the-badge
-[contributors-url]: https://github.com/near-everything/collect/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/near-everything/collect.svg?style=for-the-badge
-[forks-url]: https://github.com/near-everything/collect/network/members
-[stars-shield]: https://img.shields.io/github/stars/near-everything/collect.svg?style=for-the-badge
-[stars-url]: https://github.com/near-everything/collect/stargazers
-[issues-shield]: https://img.shields.io/github/issues/near-everything/collect.svg?style=for-the-badge
-[issues-url]: https://github.com/near-everything/collect/issues
-[license-shield]: https://img.shields.io/github/license/near-everything/collect.svg?style=for-the-badge
-[license-url]: https://github.com/near-everything/collect/blob/main/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/near-everything/app.svg?style=for-the-badge
+[contributors-url]: https://github.com/near-everything/app/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/near-everything/app.svg?style=for-the-badge
+[forks-url]: https://github.com/near-everything/app/network/members
+[stars-shield]: https://img.shields.io/github/stars/near-everything/app.svg?style=for-the-badge
+[stars-url]: https://github.com/near-everything/app/stargazers
+[issues-shield]: https://img.shields.io/github/issues/near-everything/app.svg?style=for-the-badge
+[issues-url]: https://github.com/near-everything/app/issues
+[license-shield]: https://img.shields.io/github/license/near-everything/app.svg?style=for-the-badge
+[license-url]: https://github.com/near-everything/app/blob/main/LICENSE.txt
 [logging-in-tutorial]: docs/logging-in.gif
 [next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [next-url]: https://nextjs.org/

@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
 import classNames from "classnames";
-import { DarkModeContext } from "./DarkMode";
+import React from "react";
+import theme from "../themes/default";
 
 const Input = React.forwardRef(function Input(props, ref) {
   const {
@@ -15,9 +15,7 @@ const Input = React.forwardRef(function Input(props, ref) {
     ...other
   } = props;
 
-  const {
-    theme: { input },
-  } = useContext(DarkModeContext);
+  const input = theme.input;
 
   const baseStyle = input.base;
   const activeStyle = input.active;
@@ -40,12 +38,12 @@ const Input = React.forwardRef(function Input(props, ref) {
 
   function typeStyle(type) {
     switch (type) {
-      case "radio":
-        return radioStyle;
-      case "checkbox":
-        return checkStyle;
-      default:
-        return baseStyle;
+    case "radio":
+      return radioStyle;
+    case "checkbox":
+      return checkStyle;
+    default:
+      return baseStyle;
     }
   }
 

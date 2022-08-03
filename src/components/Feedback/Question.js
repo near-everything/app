@@ -1,25 +1,25 @@
 import { useState } from "react";
-import { useCreateConcern } from "../../features/feedback/feedbackApi";
+import { useCreateQuestion } from "../../features/feedback/feedbackApi";
 import Button from "../Button";
 import TextArea from "../TextArea";
 
-function Concern() {
-  const [concern, setConcern] = useState("");
-  const createConcern = useCreateConcern();
+function Question() {
+  const [question, setQuestion] = useState("");
+  const createQuestion = useCreateQuestion();
 
   const handleOnChange = (event) => {
-    setConcern(event.target.value);
+    setQuestion(event.target.value);
   };
 
   const handleSubmit = () => {
-    createConcern.mutate(
+    createQuestion.mutate(
       {
-        description: concern,
+        description: question,
       },
       {
         onSuccess: (response) => {
-          console.log(`success ${response.createConcern.concern.id}`);
-          setConcern("");
+          console.log(`success ${response.createQuestion.question.id}`);
+          setQuestion("");
         },
         onError: () => {
           console.log("error");
@@ -30,18 +30,18 @@ function Concern() {
 
   return (
     <>
-      <span>Have a concern?</span>
+      <span>Have a question?</span>
       <div className="flex flex-row gap-2">
         <TextArea
-          name="feedback_concern"
-          placeholder="What's your concern?"
+          name="feedback_question"
+          placeholder="What's your question?"
           onChange={handleOnChange}
-          value={concern}
+          value={question}
         />
         <Button
           onClick={handleSubmit}
           className="w-1/4 h-16"
-          disabled={concern.length < 10}
+          disabled={question.length < 10}
         >
           Submit
         </Button>
@@ -50,4 +50,4 @@ function Concern() {
   );
 }
 
-export default Concern;
+export default Question;

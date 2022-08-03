@@ -52,3 +52,20 @@ export function useCreateConcern() {
     );
   });
 }
+
+export function useCreateQuestion() {
+  return useMutation((newQuestion) => {
+    return graphqlClient.request(
+      gql`
+        mutation createQuestion($input: CreateQuestionInput!) {
+          createQuestion(input: $input) {
+            question {
+              id
+            }
+          }
+        }
+      `,
+      { input: { question: newQuestion } }
+    );
+  });
+}
