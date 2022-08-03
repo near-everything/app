@@ -63,8 +63,8 @@ function Request() {
     if(link.indexOf("https://")==0){
       return true;
     }
-	  return false;
-  }
+    return  false;
+  };
 
   const handleSubmit = async () => {
     setUrlError(false);
@@ -124,8 +124,8 @@ function Request() {
               setReferenceLink={setReferenceLink}
             />
             {urlError && 
-              <div class="p-4 mt-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
-                <span class="font-medium"></span> Links must be secured and should start with https://
+              <div className="p-4 mt-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                Links must be secured and should start with https://
               </div>
             }
             <br />
