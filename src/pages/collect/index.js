@@ -1,19 +1,22 @@
 import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
+import { toast } from "react-toastify";
 import getFirebaseAdmin from "../../app/firebaseAdmin";
+import { getFirebaseStorage } from "../../app/firebaseClient";
 import Button from "../../components/Button";
 import Attributes from "../../components/Collect/Attributes";
 import Category from "../../components/Collect/Category";
 import Subcategory from "../../components/Collect/Subcategory";
 import Media from "../../components/Media";
+import CreateSuccessNotification from "../../components/Notification/CreateSuccessNotification";
 import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
 import { useAuth } from "../../context/AuthContext";
 import { useCreateThing } from "../../features/collect/collectApi";
-import { getFirebaseStorage } from "../../app/firebaseClient";
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -87,7 +90,13 @@ function Collect({ props }) {
       },
       {
         onSuccess: (response) => {
-          console.log(`success ${response.createThing.thing.id}`);
+          toast.success(
+            <CreateSuccessNotification
+              type={"Thing"}
+              href={`/things/${response.createThing.thing.id}`}
+              id={response.createThing.thing.id}
+            />
+          );
           setCategory("");
           setSubcategory("");
           setAttributes([]);
