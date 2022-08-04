@@ -3,17 +3,18 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { parseCookies } from "nookies";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
+import { toast } from "react-toastify";
 import getFirebaseAdmin from "../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../app/firebaseClient";
 import Button from "../../components/Button";
 import Media from "../../components/Media";
+import CreateSuccessNotification from "../../components/Notification/CreateSuccessNotification";
 import Description from "../../components/Request/Description";
 import ReferenceLink from "../../components/Request/ReferenceLink";
 import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
 import { useAuth } from "../../context/AuthContext";
 import { useCreateRequest } from "../../features/request/requestApi";
-
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -40,7 +41,7 @@ export const getServerSideProps = async (ctx) => {
 
 function Request() {
   const [loading, setLoading] = useState(false);
-  const [urlError, setUrlError]  = useState(false);
+  const [urlError, setUrlError] = useState(false);
   const [referenceLink, setReferenceLink] = useState("");
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState([]);
@@ -59,18 +60,18 @@ function Request() {
     return urls;
   };
 
-  const validateLink = (link) =>{
-    if(link.indexOf("https://")==0){
+  const validateLink = (link) => {
+    if (link.indexOf("https://") == 0) {
       return true;
     }
-    return  false;
+    return false;
   };
 
   const handleSubmit = async () => {
     setUrlError(false);
     setLoading(true);
     const validUrl = validateLink(referenceLink);
-    if(!validUrl){
+    if (!validUrl) {
       setUrlError(true);
       setLoading(false);
       return;
@@ -86,13 +87,21 @@ function Request() {
       },
       {
         onSuccess: (response) => {
-          console.log(`success ${response.createRequest.request.id}`);
+          toast.success(
+            <CreateSuccessNotification
+              type={"Request"}
+              color={"red"}
+              href={`/requests/${response.createRequest.request.id}`}
+              id={response.createRequest.request.id}
+            />
+          );
           setMedia([]);
           setReferenceLink("");
           setDescription("");
           setLoading(false);
         },
         onError: () => {
+          toast.error("Error creating request, please try again.");
           console.log("error");
           setLoading(false);
         },
@@ -123,11 +132,14 @@ function Request() {
               referenceLink={referenceLink}
               setReferenceLink={setReferenceLink}
             />
-            {urlError && 
-              <div className="p-4 mt-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+            {urlError && (
+              <div
+                className="p-4 mt-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                role="alert"
+              >
                 Links must be secured and should start with https://
               </div>
-            }
+            )}
             <br />
             <Description
               description={description}
