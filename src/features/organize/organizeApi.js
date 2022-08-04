@@ -83,3 +83,22 @@ export function useThingById(thingId) {
     return thing;
   });
 }
+
+export function useRequestById(requestId){
+  return useQuery(["requestById",requestId], async ()=>{
+    const { request } = await graphqlClient.request(
+      gql`
+        query requestById($requestId: Int!){
+          request(id: $requestId) {
+              id
+              media
+              referenceLink
+              description
+            }
+        }
+      `,
+      {requestId}
+    );
+    return request;
+  });
+}
