@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-function CreateSuccessNotification({ type, href, id }) {
+function CreateSuccessNotification({ type, color, href, id }) {
   const router = useRouter();
   return (
     <>
@@ -11,7 +11,7 @@ function CreateSuccessNotification({ type, href, id }) {
           onClick={() =>
             router.push(href)
           }
-          className="text-green-600 pointer-cursor"
+          className={`text-${color}-600 pointer-cursor`}
         >
           #{id}
         </a>{" "}

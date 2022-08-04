@@ -90,6 +90,7 @@ function Request() {
           toast.success(
             <CreateSuccessNotification
               type={"Request"}
+              color={"red"}
               href={`/requests/${response.createRequest.request.id}`}
               id={response.createRequest.request.id}
             />

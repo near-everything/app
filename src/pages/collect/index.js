@@ -92,6 +92,7 @@ function Collect({ props }) {
           toast.success(
             <CreateSuccessNotification
               type={"Thing"}
+              color={"green"}
               href={`/things/${response.createThing.thing.id}`}
               id={response.createThing.thing.id}
             />
@@ -103,7 +104,7 @@ function Collect({ props }) {
           setLoading(false);
         },
         onError: () => {
-          console.log("error");
+          toast.error("Error creating thing, please try again.");
           setLoading(false);
         },
       }
