@@ -41,22 +41,15 @@ export const getServerSideProps = async (ctx) => {
 function Home() {
   return (
     <>
-      <div className="flex flex-col h-full px-6 pb-6 pt-12">
+      <div className="flex flex-col h-full px-6 py-6">
         <div className="flex flex-row w-full justify-between">
-          <p className={"font-bold text-6xl mb-8"}>everything</p>
-          <div className="flex gap-1">
+          <p className={"font-bold text-6xl mb-8 py-6"}>everything</p>
+          <div className="flex gap-2">
             <Link href="/profile">
               <FontAwesomeIcon
-                className="mx-1 transition ease-in-out duration-500 hover:text-gray-400 cursor-pointer"
+                className="transition ease-in-out duration-500 hover:text-gray-400 cursor-pointer"
                 size="xl"
                 icon={faUser}
-              />
-            </Link>
-            <Link href="/settings">
-              <FontAwesomeIcon
-                className="mx-1 transition ease-in-out duration-500 hover:text-gray-400 cursor-pointer"
-                size="xl"
-                icon={faGear}
               />
             </Link>
           </div>
