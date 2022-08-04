@@ -86,13 +86,16 @@ function Request() {
       },
       {
         onSuccess: (response) => {
-          toast.success(`Request #${response.createRequest.request.id} successfully created.`);
+          toast.success(
+            `Request #${response.createRequest.request.id} successfully created.`
+          );
           setMedia([]);
           setReferenceLink("");
           setDescription("");
           setLoading(false);
         },
         onError: () => {
+          toast.error("Error creating request, please try again.");
           console.log("error");
           setLoading(false);
         },
