@@ -81,7 +81,7 @@ export function useAttributes(options) {
   );
 }
 
-export function useAttributeById(attributeId, options) {
+export function useAttributeById(attributeId) {
   return useQuery(
     ["attributeById", attributeId],
     async () => {
@@ -89,16 +89,6 @@ export function useAttributeById(attributeId, options) {
         gql`
           query attributeById($attributeId: Int!) {
             attribute(id: $attributeId) {
-              relationships {
-                edges {
-                  node {
-                    option {
-                      id
-                      value
-                    }
-                  }
-                }
-              }
               name
             }
           }
@@ -106,8 +96,26 @@ export function useAttributeById(attributeId, options) {
         { attributeId }
       );
       return attribute;
-    },
-    options
+    }
+  );
+}
+
+export function useOptionById(optionId) {
+  return useQuery(
+    ["optionById", optionId],
+    async () => {
+      const option = await graphqlClient.request(
+        gql`
+          query optionById($optionId: Int!) {
+            option(id: $optionId) {
+              value
+            }
+          }
+        `,
+        { optionId }
+      );
+      return option;
+    }
   );
 }
 
