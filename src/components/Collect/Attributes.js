@@ -89,7 +89,7 @@ function Attributes({ attributes, setAttributes }) {
           key={attr.value}
           attributeId={attr.value}
           setAttributeOption={setAttributeOption}
-          value={() => handleValue(attr.value)}
+          value={handleValue(attr.value)}
         />
       ))}
     </>
