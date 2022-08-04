@@ -5,6 +5,8 @@ import Head from "next/head";
 import { useState } from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+
+import "react-toastify/dist/ReactToastify.css";
 import initFirebaseClientSDK from "../app/firebaseClient";
 import { AuthProvider } from "../context/AuthContext";
 import "../styles/globals.css";
