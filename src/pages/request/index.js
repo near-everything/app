@@ -8,6 +8,7 @@ import getFirebaseAdmin from "../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../app/firebaseClient";
 import Button from "../../components/Button";
 import Media from "../../components/Media";
+import CreateSuccessNotification from "../../components/Notification/CreateSuccessNotification";
 import Description from "../../components/Request/Description";
 import ReferenceLink from "../../components/Request/ReferenceLink";
 import Layout from "../../containers/Layout";
@@ -87,7 +88,11 @@ function Request() {
       {
         onSuccess: (response) => {
           toast.success(
-            `Request #${response.createRequest.request.id} successfully created.`
+            <CreateSuccessNotification
+              type={"Request"}
+              href={`/requests/${response.createRequest.request.id}`}
+              id={response.createRequest.request.id}
+            />
           );
           setMedia([]);
           setReferenceLink("");

@@ -1,6 +1,5 @@
 import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
