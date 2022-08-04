@@ -1,18 +1,16 @@
 import {
   faDiscord,
   faGithub,
-  faTwitter
+  faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import React from "react";
 import getFirebaseAdmin from "../app/firebaseAdmin";
-import Concern from "../components/Feedback/Concern";
-import Help from "../components/Feedback/Help";
-import Idea from "../components/Feedback/Idea";
-import Question from "../components/Feedback/Question";
+import Button from "../components/Button";
 import Layout from "../containers/Layout";
 
 export const getServerSideProps = async (ctx) => {
@@ -39,11 +37,16 @@ export const getServerSideProps = async (ctx) => {
 };
 
 function Home() {
+  const router = useRouter();
+
   return (
     <>
       <div className="flex flex-col h-full px-6 py-6">
         <div className="flex flex-row w-full justify-between">
-          <p className={"font-bold text-6xl mb-8 py-6"}>everything</p>
+          <div className="flex flex-col">
+            <p className={"font-bold text-6xl pt-6"}>everything</p>
+            <p className={"font-bold text-xl mb-8 pb-6"}>the new economy</p>
+          </div>
           <div className="flex gap-2">
             <Link href="/profile">
               <FontAwesomeIcon
@@ -54,17 +57,14 @@ function Home() {
             </Link>
           </div>
         </div>
-        <div className="flex flex-col">
-          <Question />
+        <footer className="flex flex-col">
+          <Button
+            onClick={() => router.push("/feedback")}
+            className={"w-full h-16"}
+          >
+            Provide feedback
+          </Button>
           <br />
-          <Concern />
-          <br />
-          <Idea />
-          <br />
-          <Help />
-          <br />
-        </div>
-        <footer className="flex flex-col p-8">
           <p>Like the project? Get involved.</p>
           <div className="flex flex-row">
             <a
