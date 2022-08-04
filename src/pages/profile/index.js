@@ -1,4 +1,4 @@
-import { faGear, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";
@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import React from "react";
 import Button from "../../components/Button";
 import Layout from "../../containers/Layout";
-import ModuleContainer from "../../containers/ModuleContainer";
 import { useAuth } from "../../context/AuthContext";
 
 function Profile() {

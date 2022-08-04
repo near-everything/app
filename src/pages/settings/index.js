@@ -1,5 +1,7 @@
 import { useTheme } from "next-themes";
 import React from "react";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Layout from "../../containers/Layout";
 import ModuleContainer from "../../containers/ModuleContainer";
 
@@ -11,10 +13,17 @@ function Settings() {
       <button
         aria-label="Toggle Dark Mode"
         type="button"
-        className="rounded-md focus:outline-none focus:shadow-outline-green"
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       >
-        {theme === "dark" ? <span>Sun</span> : <span>Moon</span>}
+        {theme === "dark" ? (
+          <FontAwesomeIcon
+            className="cursor-pointer"
+            size="xl"
+            icon={faSun}
+          />
+        ) : (
+          <FontAwesomeIcon className="cursor-pointer" size="xl" icon={faMoon} />
+        )}
       </button>
     </>
   );
