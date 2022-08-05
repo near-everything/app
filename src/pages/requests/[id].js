@@ -31,9 +31,6 @@ export const getServerSideProps = async (ctx) => {
   }
 };
 
-
-
-
 function Request() {
   const router = useRouter();
   const { id } = router.query;
