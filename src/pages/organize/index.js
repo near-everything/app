@@ -1,14 +1,10 @@
-import { gql } from "graphql-request";
 import { parseCookies } from "nookies";
-import React from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { dehydrate, QueryClient } from "react-query";
-import { graphqlClient } from "../../app/api";
+import React, { useState } from "react";
 import getFirebaseAdmin from "../../app/firebaseAdmin";
-import ThingCard from "../../components/Cards/ThingCard";
+import Button from "../../components/Button";
+import InfiniteRequests from "../../components/Organize/InfiniteRequests";
+import InfiniteThings from "../../components/Organize/InfiniteThings";
 import Layout from "../../containers/Layout";
-import ModuleContainer from "../../containers/ModuleContainer";
-import { useInfiniteThings } from "../../features/organize/organizeApi";
 
 export async function getServerSideProps(ctx) {
   try {
@@ -16,46 +12,8 @@ export async function getServerSideProps(ctx) {
     const cookies = parseCookies(ctx);
     await admin.auth().verifyIdToken(cookies.__session);
 
-    const queryClient = new QueryClient();
-    await queryClient.prefetchInfiniteQuery(
-      ["infiniteThings"],
-      async ({ pageParam = 0 }) => {
-        const { things } = await graphqlClient.request(
-          gql`
-            query things($first: Int!, $after: Cursor) {
-              things(first: $first, after: $after) {
-                edges {
-                  cursor
-                  node {
-                    id
-                    category {
-                      name
-                    }
-                    media
-                    subcategory {
-                      name
-                    }
-                  }
-                }
-                pageInfo {
-                  endCursor
-                }
-              }
-            }
-          `,
-          pageParam || {
-            first: 10,
-            after: null,
-          }
-        );
-        return things;
-      }
-    );
-
     return {
-      props: {
-        dehydratedState: dehydrate(queryClient),
-      },
+      props: {},
     };
   } catch (err) {
     // either the `__session` cookie didn't exist
@@ -72,43 +30,43 @@ export async function getServerSideProps(ctx) {
 }
 
 function Organize() {
-  const { data, status, fetchNextPage, hasNextPage } = useInfiniteThings();
+  const [list, setList] = useState("things");
   return (
     <>
-      <div>
-        {status === "success" && (
-          <InfiniteScroll
-            dataLength={data?.pages.length * 10}
-            next={fetchNextPage}
-            hasMore={hasNextPage}
-            loader={<div>Loading...</div>}
-            scrollableTarget="container"
+      <div className="flex flex-col h-full px-6 py-6">
+        <div className="flex flex-row w-full justify-between">
+          <div className="flex flex-col">
+            <p className={"font-bold text-6xl pt-6 text-yellow-600"}>
+              organize
+            </p>
+            <p
+              className={`font-bold text-xl mb-8 text-${
+                list === "things" ? "green" : "red"
+              }-600`}
+            >
+              {list === "things" ? "things" : "requests"}
+            </p>
+          </div>
+        </div>
+        <div>
+          <Button
+            className={"w-full h-8 mb-8"}
+            onClick={() => {
+              list === "things" ? setList("requests") : setList("things");
+            }}
           >
-            <div className="grid gap-4">
-              {data?.pages.map((page) => (
-                <>
-                  {page.edges?.map((thing) => (
-                    <div key={thing.node.id}>
-                      <ThingCard thing={thing.node} />
-                    </div>
-                  ))}
-                </>
-              ))}
-            </div>
-          </InfiniteScroll>
-        )}
+            Toggle
+          </Button>
+          <div id="list-container">
+            {list === "things" ? <InfiniteThings /> : <InfiniteRequests />}
+          </div>
+        </div>
       </div>
     </>
   );
 }
 
 Organize.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <ModuleContainer moduleName={"organize"} moduleColor={"yellow"}>
-        {page}
-      </ModuleContainer>
-    </Layout>
-  );
+  return <Layout>{page}</Layout>;
 };
 export default Organize;
