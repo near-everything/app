@@ -90,6 +90,16 @@ export function useAttributeById(attributeId) {
           query attributeById($attributeId: Int!) {
             attribute(id: $attributeId) {
               name
+              relationships {
+                 edges {
+                   node {
+                     option {
+                       id
+                       value
+                     }
+                   }
+                 }
+               }
             }
           }
         `,

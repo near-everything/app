@@ -135,9 +135,9 @@ const theme = {
       "focus:border-green-400 border-gray-300 focus:ring focus:ring-green-300",
     disabled: "cursor-not-allowed opacity-50 bg-gray-300 dark:bg-gray-800",
     valid:
-      "border-green-600 dark:bg-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring focus:ring-green-200 dark:focus:ring-green-200",
+      "border-green-600 focus:border-green-400 dark:focus:border-green-400 focus:ring focus:ring-green-200 dark:focus:ring-green-200",
     invalid:
-      "border-red-600 dark:bg-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring focus:ring-red-200 dark:focus:ring-red-200",
+      "border-red-600 focus:border-red-400 dark:focus:border-red-400 focus:ring focus:ring-red-200 dark:focus:ring-red-200",
     radio:
       "text-green-600 form-radio focus:border-green-400 focus:outline-none focus:ring focus:ring-green-300 focus:ring-offset-0 dark:focus:ring-gray-300",
     checkbox:
