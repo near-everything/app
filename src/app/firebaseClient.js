@@ -1,5 +1,6 @@
+import { getAnalytics } from "firebase/analytics";
 import { getApp, getApps, initializeApp } from "firebase/app";
-import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { connectAuthEmulator, getAuth } from "firebase/auth";
 import { connectStorageEmulator, getStorage } from "firebase/storage";
 
 const CLIENT_CONFIG = {
@@ -19,7 +20,9 @@ export default function initFirebaseClientSDK() {
   // If the user has provided the firebaseAuthEmulatorHost address, set the emulator
   if (process.env.NODE_ENV !== "production") {
     const auth = getAuth(getApp());
-    connectAuthEmulator(auth, "http://localhost:9099", { disableWarnings: true });
+    connectAuthEmulator(auth, "http://localhost:9099", {
+      disableWarnings: true,
+    });
   }
 }
 
@@ -29,4 +32,8 @@ export function getFirebaseStorage() {
     connectStorageEmulator(st, "localhost", 9199);
   }
   return st;
+}
+
+export function getGoogleAnalytics() {
+  return getAnalytics(getApp());
 }
