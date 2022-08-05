@@ -1,7 +1,9 @@
+import { logEvent } from "firebase/analytics";
 import { signInWithPhoneNumber } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
+import { getGoogleAnalytics } from "../../app/firebaseClient";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { useCreateUser } from "./authApi";
@@ -29,6 +31,7 @@ function PhoneNumberVerification({ recaptcha, auth }) {
       .confirm(code)
       .then((result) => {
         createUser.mutate(result.user.uid);
+        logEvent(getGoogleAnalytics(), "login");
         router.push("/");
       })
       .catch((error) => {

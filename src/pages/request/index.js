@@ -61,7 +61,7 @@ function Request() {
   };
 
   const validateLink = (link) => {
-    if (link.indexOf("https://") == 0) {
+    if (link === "" || link.indexOf("https://") == 0) {
       return true;
     }
     return false;
@@ -131,15 +131,9 @@ function Request() {
             <ReferenceLink
               referenceLink={referenceLink}
               setReferenceLink={setReferenceLink}
+              setUrlError={setUrlError}
+              urlError={urlError}
             />
-            {urlError && (
-              <div
-                className="p-4 mt-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-                role="alert"
-              >
-                Links must be secured and should start with https://
-              </div>
-            )}
             <br />
             <Description
               description={description}
