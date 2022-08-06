@@ -101,15 +101,16 @@ function PhoneNumberVerification({ recaptcha, auth }) {
                       htmlFor="link-checkbox"
                       className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
-                      I agree with the{" "}
-                      <a
-                        type="button"
-                        onClick={() => router.push("/privacy-policy.html")}
-                        className="text-blue-600 dark:text-blue-500 hover:underline"
-                      >
-                        privacy policy
-                      </a>
-                      .
+                      <span>
+                        I agree with the{" "}
+                        <a
+                          type="button"
+                          onClick={() => router.push("/privacy-policy.html")}
+                          className="text-blue-600 dark:text-blue-500 hover:underline after:content-['.']"
+                        >
+                          privacy policy
+                        </a>
+                      </span>
                     </label>
                   </div>
                 </div>
