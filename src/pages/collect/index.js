@@ -174,7 +174,7 @@ export default Collect;
 Collect.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <ModuleContainer moduleName={"collect"} moduleColor={"green"}>
+      <ModuleContainer  description={"A tool for adding something to the inventory of everything"} moduleName={"collect"} moduleColor={"green"}>
         {page}
       </ModuleContainer>
     </Layout>
