@@ -57,14 +57,7 @@ function Home() {
             </Link>
           </div>
         </div>
-        <footer className="flex flex-col">
-          <Button
-            onClick={() => router.push("/feedback")}
-            className={"w-full h-16"}
-          >
-            Provide feedback
-          </Button>
-          <br />
+        <footer className="flex flex-col flex-1 justify-end mb-16">
           <p>Like the project? Get involved.</p>
           <div className="flex flex-row">
             <a
