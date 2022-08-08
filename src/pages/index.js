@@ -53,7 +53,7 @@ function Home() {
             </Link>
           </div>
         </div>
-        <footer className="flex flex-col flex-1 justify-end mb-16">
+        <footer className="flex flex-col flex-1 justify-end mb-24">
           <p>Like the project? Get involved.</p>
           <div className="flex flex-row">
             <a

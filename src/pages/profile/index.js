@@ -39,7 +39,6 @@ function Profile() {
             </Link>
           </div>
         </div>
-        <span>{user?.phoneNumber}</span>
         <br />
         <br />
         <Button
