@@ -2,70 +2,19 @@ import { gql } from "graphql-request";
 import { useMutation } from "react-query";
 import { graphqlClient } from "../../app/api";
 
-export function useCreateHelp() {
-  return useMutation((newHelp) => {
+export function useCreateFeedback() {
+  return useMutation((newFeedback) => {
     return graphqlClient.request(
       gql`
-        mutation createHelp($input: CreateHelpInput!) {
-          createHelp(input: $input) {
-            help {
+        mutation createFeedback($input: CreateFeedbackInput!) {
+          createFeedback(input: $input) {
+            feedback {
               id
             }
           }
         }
       `,
-      { input: { help: newHelp } }
-    );
-  });
-}
-
-export function useCreateIdea() {
-  return useMutation((newIdea) => {
-    return graphqlClient.request(
-      gql`
-        mutation createIdea($input: CreateIdeaInput!) {
-          createIdea(input: $input) {
-            idea {
-              id
-            }
-          }
-        }
-      `,
-      { input: { idea: newIdea } }
-    );
-  });
-}
-
-export function useCreateConcern() {
-  return useMutation((newConcern) => {
-    return graphqlClient.request(
-      gql`
-        mutation createConcern($input: CreateConcernInput!) {
-          createConcern(input: $input) {
-            concern {
-              id
-            }
-          }
-        }
-      `,
-      { input: { concern: newConcern } }
-    );
-  });
-}
-
-export function useCreateQuestion() {
-  return useMutation((newQuestion) => {
-    return graphqlClient.request(
-      gql`
-        mutation createQuestion($input: CreateQuestionInput!) {
-          createQuestion(input: $input) {
-            question {
-              id
-            }
-          }
-        }
-      `,
-      { input: { question: newQuestion } }
+      { input: { feedback: newFeedback } }
     );
   });
 }
