@@ -1,5 +1,9 @@
 import { logEvent } from "firebase/analytics";
-import { signInWithPhoneNumber } from "firebase/auth";
+import {
+  browserLocalPersistence,
+  setPersistence,
+  signInWithPhoneNumber,
+} from "firebase/auth";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
@@ -21,6 +25,7 @@ function PhoneNumberVerification({ recaptcha, auth }) {
   }, [recaptcha]);
 
   const signIn = async () => {
+    await setPersistence(auth, browserLocalPersistence);
     setConfirmationResult(
       await signInWithPhoneNumber(auth, phoneNumber, recaptcha)
     );
