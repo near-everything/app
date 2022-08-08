@@ -1,7 +1,7 @@
 import {
   faDiscord,
   faGithub,
-  faTwitter,
+  faTwitter
 } from "@fortawesome/free-brands-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import React from "react";
 import getFirebaseAdmin from "../app/firebaseAdmin";
-import Button from "../components/Button";
 import Layout from "../containers/Layout";
 
 export const getServerSideProps = async (ctx) => {
@@ -37,8 +36,6 @@ export const getServerSideProps = async (ctx) => {
 };
 
 function Home() {
-  const router = useRouter();
-
   return (
     <>
       <div className="flex flex-col h-full px-6 py-6">
