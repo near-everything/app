@@ -160,7 +160,7 @@ export default Request;
 Request.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <ModuleContainer moduleName={"request"} moduleColor={"red"}>
+      <ModuleContainer description={"A tool for requesting something from the inventory of everything"} moduleName={"request"} moduleColor={"red"}>
         {page}
       </ModuleContainer>
     </Layout>

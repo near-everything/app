@@ -14,7 +14,7 @@ function Request() {
   const { isLoading, data } = useRequestById(parseInt(id));
   return (
     <>
-      <ModuleContainer moduleName={`request #${id}`} moduleColor={"black"}>
+      <ModuleContainer  moduleName={`request #${id}`} moduleColor={"black"}>
         {isLoading ? (
           <>Loading</>
         ) : (
