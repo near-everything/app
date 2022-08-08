@@ -6,7 +6,6 @@ import {
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import React from "react";
 import getFirebaseAdmin from "../app/firebaseAdmin";
