@@ -1,16 +1,14 @@
 import {
   faDiscord,
   faGithub,
-  faTwitter,
+  faTwitter
 } from "@fortawesome/free-brands-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import React from "react";
 import getFirebaseAdmin from "../app/firebaseAdmin";
-import Button from "../components/Button";
 import Layout from "../containers/Layout";
 
 export const getServerSideProps = async (ctx) => {
@@ -37,8 +35,6 @@ export const getServerSideProps = async (ctx) => {
 };
 
 function Home() {
-  const router = useRouter();
-
   return (
     <>
       <div className="flex flex-col h-full px-6 py-6">
@@ -57,14 +53,7 @@ function Home() {
             </Link>
           </div>
         </div>
-        <footer className="flex flex-col">
-          <Button
-            onClick={() => router.push("/feedback")}
-            className={"w-full h-16"}
-          >
-            Provide feedback
-          </Button>
-          <br />
+        <footer className="flex flex-col flex-1 justify-end mb-24">
           <p>Like the project? Get involved.</p>
           <div className="flex flex-row">
             <a
