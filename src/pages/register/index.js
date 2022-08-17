@@ -2,10 +2,10 @@ import { getApp } from "firebase/app";
 import { getAuth, RecaptchaVerifier } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
 import "react-phone-input-2/lib/style.css";
-import LoginForm from "../../components/Forms/LoginForm";
+import RegisterForm from "../../components/Forms/RegisterForm";
 import CenteredContainer from "../../containers/CenteredContainer";
 
-function Login() {
+function Register() {
   const [recaptcha, setRecaptcha] = useState(null);
   const element = useRef(null);
   const auth = getAuth(getApp());
@@ -32,14 +32,14 @@ function Login() {
 
   return (
     <>
-      {recaptcha && <LoginForm recaptcha={recaptcha} auth={auth} />}
+      {recaptcha && <RegisterForm recaptcha={recaptcha} auth={auth} />}
       <div ref={element}></div>
     </>
   );
 }
 
-export default Login;
+export default Register;
 
-Login.getLayout = function getLayout(page) {
+Register.getLayout = function getLayout(page) {
   return <CenteredContainer>{page}</CenteredContainer>;
 };
