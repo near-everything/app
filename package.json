@@ -1,6 +1,6 @@
 {
-  "name": "collect",
-  "version": "0.1.0",
+  "name": "everything",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
