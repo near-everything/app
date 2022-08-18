@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { graphqlClient } from "../../app/api";
 
 export function useCreateUser() {
@@ -27,5 +27,26 @@ export function useCreateUser() {
         console.log("failure");
       },
     }
+  );
+}
+
+export function useGetUser(uid, options) {
+  return useQuery(
+    ["getUser", uid],
+    async () => {
+      const { user } = await graphqlClient.request(
+        gql`
+          query getUser($uid: String!) {
+            user(id: $uid) {
+              id
+              wallet
+            }
+          }
+        `,
+        { uid }
+      );
+      return user;
+    },
+    options
   );
 }

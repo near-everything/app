@@ -2,6 +2,7 @@ import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { parseCookies } from "nookies";
 import { useState } from "react";
+import Select from "react-select";
 import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import getFirebaseAdmin from "../../app/firebaseAdmin";
@@ -40,12 +41,24 @@ export const getServerSideProps = async (ctx) => {
   }
 };
 
+const privacyOptions = [
+  {
+    label: "Private",
+    value: "PRIVATE",
+  },
+  {
+    label: "Public",
+    value: "PUBLIC",
+  },
+];
+
 function Collect({ props }) {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [attributes, setAttributes] = useState([]);
   const [media, setMedia] = useState([]);
+  const [privacy, setPrivacy] = useState(privacyOptions[0]);
   const { user } = useAuth();
   const createThing = useCreateThing();
   const st = getFirebaseStorage();
@@ -86,6 +99,7 @@ function Collect({ props }) {
         ownerId: user.uid,
         geomPoint:
           lat && long ? { type: "Point", coordinates: [lat, long] } : null,
+        privacyType: privacy.value
       },
       {
         onSuccess: (response) => {
@@ -153,6 +167,16 @@ function Collect({ props }) {
                 />
               </>
             ) : null}
+            <Select
+              id="privacy_select"
+              className="basic-single text-black"
+              classNamePrefix={"select"}
+              defaultValue={privacy}
+              name="type"
+              options={privacyOptions}
+              onChange={setPrivacy}
+              placeholder="Privacy setting"
+            />
           </div>
           <div className="flex justify-self-end">
             <Button

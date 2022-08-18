@@ -4,13 +4,18 @@ import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { PulseLoader } from "react-spinners";
 import Button from "../../components/Button";
 import Layout from "../../containers/Layout";
 import { useAuth } from "../../context/AuthContext";
+import { useGetUser } from "../../features/auth/authApi";
 
 function Profile() {
   const { user } = useAuth();
   const auth = getAuth();
+  const { data, isLoading, isError } = useGetUser(user && user.uid, {
+    enabled: !!user,
+  });
   const router = useRouter();
 
   const handleSignOut = () => {
@@ -40,6 +45,29 @@ function Profile() {
           </div>
         </div>
         <br />
+        {isLoading || isError ? (
+          <div className="flex justify-center items-center h-full">
+            <PulseLoader
+              size={10}
+              color={"#e5e7eb"}
+              loading={isLoading}
+              speedMultiplier={1.5}
+            />
+          </div>
+        ) : (
+          <>
+            <div>
+              <span>Wallet: {data && data.wallet}</span>
+            </div>
+          </>
+        )}
+        <br />
+        <Button
+          onClick={() => router.push("/profile/things")}
+          className={"w-full h-16"}
+        >
+          My Everything
+        </Button>
         <br />
         <Button
           onClick={() => router.push("/feedback")}
