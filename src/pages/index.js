@@ -56,12 +56,12 @@ function Home() {
             </Link>
           </div>
         </div>
-        <Button
+        <button
           onClick={() => router.push("/marketplace")}
-          className={"w-full h-16"}
+          className={"btn btn-primary w-1/2"}
         >
           Marketplace
-        </Button>
+        </button>
         <br />
         <footer className="flex flex-col flex-1 justify-end mb-24">
           <p>Like the project? Get involved.</p>
