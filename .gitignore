@@ -37,3 +37,4 @@ yarn-error.log*
 **/public/worker-*.js
 **/public/sw.js
 **/public/sw.js.map
+config.bat
