@@ -8,6 +8,7 @@ import getFirebaseAdmin from "../../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../../app/firebaseClient";
 import CreateHeader from "../../../components/Create/CreateHeader";
 import Media from "../../../components/Media";
+import MediaUpload from "../../../components/MediaUpload";
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Description from "../../../components/Request/Description";
 import ReferenceLink from "../../../components/Request/ReferenceLink";
@@ -126,26 +127,28 @@ function Request() {
             disabled={media.length <= 0}
             handleSubmit={handleSubmit}
           >
-            <p className={"font-bold text-red-600"}>new request</p>
+            <p className={"font-semibold text-red-600"}>new request</p>
           </CreateHeader>
           <PageContentContainer>
-            <Media media={media} setMedia={setMedia} />
-            <br />
-            <div className="flex flex-col flex-1 text-black">
-              <div className="w-75 border-t-2 flex justify-end text-sm text-gray-400 pb-2">
-                Optional
+            <MediaUpload />
+            <div className="h-96">
+              <div className="collapse collapse-arrow border border-base-300 rounded-box">
+                <input type="checkbox" />
+                <div className="collapse-title">Advanced</div>
+                <div className="collapse-content">
+                  <ReferenceLink
+                    referenceLink={referenceLink}
+                    setReferenceLink={setReferenceLink}
+                    setUrlError={setUrlError}
+                    urlError={urlError}
+                  />
+                  <br />
+                  <Description
+                    description={description}
+                    setDescription={setDescription}
+                  />
+                </div>
               </div>
-              <ReferenceLink
-                referenceLink={referenceLink}
-                setReferenceLink={setReferenceLink}
-                setUrlError={setUrlError}
-                urlError={urlError}
-              />
-              <br />
-              <Description
-                description={description}
-                setDescription={setDescription}
-              />
             </div>
           </PageContentContainer>
         </>

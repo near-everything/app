@@ -8,9 +8,8 @@ import { toast } from "react-toastify";
 import getFirebaseAdmin from "../../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../../app/firebaseClient";
 import Attributes from "../../../components/Collect/Attributes";
-import Category from "../../../components/Collect/Category";
-import Subcategory from "../../../components/Collect/Subcategory";
 import CreateHeader from "../../../components/Create/CreateHeader";
+import NewThingMedia from "../../../components/Create/NewThingMedia";
 import Media from "../../../components/Media";
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Layout from "../../../containers/Layout";
@@ -52,7 +51,7 @@ const privacyOptions = [
   },
 ];
 
-function Collect({ props }) {
+function Collect() {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
@@ -139,51 +138,35 @@ function Collect({ props }) {
       ) : (
         <>
           <CreateHeader
-            disabled={!category || !subcategory || media.length <= 0}
+            disabled={media.length <= 0}
             handleSubmit={handleSubmit}
           >
-            <p className={"font-bold text-green-600"}>new thing</p>
+            <p className={"font-semibold text-green-600"}>new thing</p>
           </CreateHeader>
           <PageContentContainer>
-            <p>{props?.message}</p>
-            <Media media={media} setMedia={setMedia} />
-            <br />
-            <div className="flex flex-1 flex-col text-black">
-              <Category
-                category={category}
-                setCategory={setCategory}
-                setSubcategory={setSubcategory}
-              />
-              <br />
-              {category ? (
-                <Subcategory
-                  category={category}
-                  subcategory={subcategory}
-                  setSubcategory={setSubcategory}
-                />
-              ) : null}
-              <br />
-              {subcategory ? (
-                <>
-                  <div className="w-75 border-t-2 flex justify-end text-sm text-gray-400 pb-2">
-                    Optional
-                  </div>
+            <NewThingMedia />
+            {/* <Media media={media} setMedia={setMedia} /> */}
+            <div className="h-96">
+              <div className="collapse collapse-arrow border border-base-300 rounded-box">
+                <input type="checkbox" defaultChecked={true} />
+                <div className="collapse-title">Advanced</div>
+                <div className="collapse-content">
                   <Attributes
                     attributes={attributes}
                     setAttributes={setAttributes}
                   />
-                </>
-              ) : null}
-              <Select
-                id="privacy_select"
-                className="basic-single text-black"
-                classNamePrefix={"select"}
-                defaultValue={privacy}
-                name="type"
-                options={privacyOptions}
-                onChange={setPrivacy}
-                placeholder="Privacy setting"
-              />
+                  <Select
+                    id="privacy_select"
+                    className="basic-single text-black"
+                    classNamePrefix={"select"}
+                    defaultValue={privacy}
+                    name="type"
+                    options={privacyOptions}
+                    onChange={setPrivacy}
+                    placeholder="Privacy setting"
+                  />
+                </div>
+              </div>
             </div>
           </PageContentContainer>
         </>

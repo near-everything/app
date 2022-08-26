@@ -22,7 +22,7 @@ function Layout({ children }) {
       <div className="flex-1 w-full">
         <main
           id="container"
-          className="container mx-auto h-full overflow-y-auto"
+          className="flex flex-col container mx-auto h-full overflow-y-auto"
         >
           {children}
         </main>

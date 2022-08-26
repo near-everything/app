@@ -18,7 +18,7 @@ function Media({ media, setMedia }) {
   return (
     <>
       <div className="flex flex-row gap-2 overflow-x-auto">
-        <div className="w-48">
+        <div className="w-full">
           <FileUpload
             onChange={(event) => {
               if (event.target.files.length > 0) {
