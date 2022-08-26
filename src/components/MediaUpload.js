@@ -3,7 +3,7 @@ import ImageIcon from "../icons/image";
 
 const MediaUpload = React.forwardRef(function MediaUpload(props, ref) {
   return (
-    <label className="flex flex-col justify-center border-4 cursor-pointer rounded-lg hover:border-green-300 h-full m-4">
+    <label className="flex flex-col justify-center border-4 cursor-pointer rounded-lg hover:border-green-300 h-full p-4 w-full">
       <div className="flex flex-col items-center pt-6">
         <ImageIcon />
         <div className="flex flex-col text-sm text-center text-gray-400">

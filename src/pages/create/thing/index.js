@@ -144,13 +144,12 @@ function Collect() {
             <p className={"font-semibold text-green-600"}>new thing</p>
           </CreateHeader>
           <PageContentContainer>
-            <NewThingMedia />
-            {/* <Media media={media} setMedia={setMedia} /> */}
-            <div className="h-96">
-              <div className="collapse collapse-arrow border border-base-300 rounded-box">
+            <NewThingMedia media={media} setMedia={setMedia} />
+            <div className="h-auto pb-48 overflow-y-visible">
+              <div className="collapse collapse-arrow border border-base-300 rounded-box overflow-y-visible">
                 <input type="checkbox" defaultChecked={true} />
                 <div className="collapse-title">Advanced</div>
-                <div className="collapse-content">
+                <div className="collapse-content overflow-y-visible">
                   <Attributes
                     attributes={attributes}
                     setAttributes={setAttributes}

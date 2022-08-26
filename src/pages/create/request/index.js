@@ -131,7 +131,8 @@ function Request() {
           </CreateHeader>
           <PageContentContainer>
             <MediaUpload />
-            <div className="h-96">
+            {/* This needs to be fixed, add 4+ attributes and it gets hidden */}
+            <div className="h-96"> 
               <div className="collapse collapse-arrow border border-base-300 rounded-box">
                 <input type="checkbox" />
                 <div className="collapse-title">Advanced</div>

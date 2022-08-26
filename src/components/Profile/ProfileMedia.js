@@ -30,7 +30,7 @@ function ProfileMedia() {
           requests
         </a>
       </div>
-      <div>{renderMedia()}</div>
+      {renderMedia()}
     </>
   );
 }

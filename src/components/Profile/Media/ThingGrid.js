@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useAuth } from "../../../context/AuthContext";
 import { useThingsByOwner } from "../../../features/organize/organizeApi";
 import MediaGrid from "../../MediaGrid";
-import MediaGridCard from "../../MediaGridCard";
+import SquareImage from "../../SquareImage";
 
 function ThingGrid() {
   const { user } = useAuth();
@@ -14,7 +14,7 @@ function ThingGrid() {
     return (
       <div key={thing.node.id}>
         <Link href={`/things/${thing.node.id}`}>
-          <MediaGridCard media={thing.node.media[0]} />
+          <SquareImage media={thing.node.media[0]} />
         </Link>
       </div>
     );

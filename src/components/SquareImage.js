@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-function MediaGridCard({ media }) {
+function SquareImage({ media }) {
   return (
     <>
       <figure className="relative aspect-square">
@@ -10,4 +10,4 @@ function MediaGridCard({ media }) {
   );
 }
 
-export default MediaGridCard;
+export default SquareImage;
