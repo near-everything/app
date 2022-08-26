@@ -4,17 +4,17 @@ import { parseCookies } from "nookies";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import getFirebaseAdmin from "../../app/firebaseAdmin";
-import { getFirebaseStorage } from "../../app/firebaseClient";
-import Button from "../../components/Button";
-import Media from "../../components/Media";
-import CreateSuccessNotification from "../../components/Notification/CreateSuccessNotification";
-import Description from "../../components/Request/Description";
-import ReferenceLink from "../../components/Request/ReferenceLink";
-import Layout from "../../containers/Layout";
-import ModuleContainer from "../../containers/ModuleContainer";
-import { useAuth } from "../../context/AuthContext";
-import { useCreateRequest } from "../../features/request/requestApi";
+import getFirebaseAdmin from "../../../app/firebaseAdmin";
+import { getFirebaseStorage } from "../../../app/firebaseClient";
+import CreateHeader from "../../../components/Create/CreateHeader";
+import Media from "../../../components/Media";
+import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
+import Description from "../../../components/Request/Description";
+import ReferenceLink from "../../../components/Request/ReferenceLink";
+import Layout from "../../../containers/Layout";
+import PageContentContainer from "../../../containers/PageContentContainer";
+import { useAuth } from "../../../context/AuthContext";
+import { useCreateRequest } from "../../../features/request/requestApi";
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -121,35 +121,34 @@ function Request() {
           />
         </div>
       ) : (
-        <div className="flex flex-1 flex-col">
-          <Media media={media} setMedia={setMedia} />
-          <br />
-          <div className="flex flex-col flex-1 text-black">
-            <div className="w-75 border-t-2 flex justify-end text-sm text-gray-400 pb-2">
-              Optional
-            </div>
-            <ReferenceLink
-              referenceLink={referenceLink}
-              setReferenceLink={setReferenceLink}
-              setUrlError={setUrlError}
-              urlError={urlError}
-            />
+        <>
+          <CreateHeader
+            disabled={media.length <= 0}
+            handleSubmit={handleSubmit}
+          >
+            <p className={"font-bold text-red-600"}>new request</p>
+          </CreateHeader>
+          <PageContentContainer>
+            <Media media={media} setMedia={setMedia} />
             <br />
-            <Description
-              description={description}
-              setDescription={setDescription}
-            />
-          </div>
-          <div className="flex justify-self-end">
-            <Button
-              className="w-full h-16"
-              disabled={media.length <= 0}
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </div>
-        </div>
+            <div className="flex flex-col flex-1 text-black">
+              <div className="w-75 border-t-2 flex justify-end text-sm text-gray-400 pb-2">
+                Optional
+              </div>
+              <ReferenceLink
+                referenceLink={referenceLink}
+                setReferenceLink={setReferenceLink}
+                setUrlError={setUrlError}
+                urlError={urlError}
+              />
+              <br />
+              <Description
+                description={description}
+                setDescription={setDescription}
+              />
+            </div>
+          </PageContentContainer>
+        </>
       )}
     </>
   );
@@ -158,11 +157,5 @@ function Request() {
 export default Request;
 
 Request.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <ModuleContainer description={"A tool for requesting something from the inventory of everything"} moduleName={"request"} moduleColor={"red"}>
-        {page}
-      </ModuleContainer>
-    </Layout>
-  );
+  return <Layout>{page}</Layout>;
 };

@@ -5,18 +5,18 @@ import { useState } from "react";
 import Select from "react-select";
 import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import getFirebaseAdmin from "../../app/firebaseAdmin";
-import { getFirebaseStorage } from "../../app/firebaseClient";
-import Button from "../../components/Button";
-import Attributes from "../../components/Collect/Attributes";
-import Category from "../../components/Collect/Category";
-import Subcategory from "../../components/Collect/Subcategory";
-import Media from "../../components/Media";
-import CreateSuccessNotification from "../../components/Notification/CreateSuccessNotification";
-import Layout from "../../containers/Layout";
-import ModuleContainer from "../../containers/ModuleContainer";
-import { useAuth } from "../../context/AuthContext";
-import { useCreateThing } from "../../features/collect/collectApi";
+import getFirebaseAdmin from "../../../app/firebaseAdmin";
+import { getFirebaseStorage } from "../../../app/firebaseClient";
+import Attributes from "../../../components/Collect/Attributes";
+import Category from "../../../components/Collect/Category";
+import Subcategory from "../../../components/Collect/Subcategory";
+import CreateHeader from "../../../components/Create/CreateHeader";
+import Media from "../../../components/Media";
+import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
+import Layout from "../../../containers/Layout";
+import PageContentContainer from "../../../containers/PageContentContainer";
+import { useAuth } from "../../../context/AuthContext";
+import { useCreateThing } from "../../../features/collect/collectApi";
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -99,7 +99,7 @@ function Collect({ props }) {
         ownerId: user.uid,
         geomPoint:
           lat && long ? { type: "Point", coordinates: [lat, long] } : null,
-        privacyType: privacy.value
+        privacyType: privacy.value,
       },
       {
         onSuccess: (response) => {
@@ -137,57 +137,56 @@ function Collect({ props }) {
           />
         </div>
       ) : (
-        <div className="flex flex-1 flex-col">
-          <p>{props?.message}</p>
-          <Media media={media} setMedia={setMedia} />
-          <br />
-          <div className="flex flex-1 flex-col text-black">
-            <Category
-              category={category}
-              setCategory={setCategory}
-              setSubcategory={setSubcategory}
-            />
+        <>
+          <CreateHeader
+            disabled={!category || !subcategory || media.length <= 0}
+            handleSubmit={handleSubmit}
+          >
+            <p className={"font-bold text-green-600"}>new thing</p>
+          </CreateHeader>
+          <PageContentContainer>
+            <p>{props?.message}</p>
+            <Media media={media} setMedia={setMedia} />
             <br />
-            {category ? (
-              <Subcategory
+            <div className="flex flex-1 flex-col text-black">
+              <Category
                 category={category}
-                subcategory={subcategory}
+                setCategory={setCategory}
                 setSubcategory={setSubcategory}
               />
-            ) : null}
-            <br />
-            {subcategory ? (
-              <>
-                <div className="w-75 border-t-2 flex justify-end text-sm text-gray-400 pb-2">
-                  Optional
-                </div>
-                <Attributes
-                  attributes={attributes}
-                  setAttributes={setAttributes}
+              <br />
+              {category ? (
+                <Subcategory
+                  category={category}
+                  subcategory={subcategory}
+                  setSubcategory={setSubcategory}
                 />
-              </>
-            ) : null}
-            <Select
-              id="privacy_select"
-              className="basic-single text-black"
-              classNamePrefix={"select"}
-              defaultValue={privacy}
-              name="type"
-              options={privacyOptions}
-              onChange={setPrivacy}
-              placeholder="Privacy setting"
-            />
-          </div>
-          <div className="flex justify-self-end">
-            <Button
-              className="w-full h-16"
-              disabled={!category || !subcategory || media.length <= 0}
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </div>
-        </div>
+              ) : null}
+              <br />
+              {subcategory ? (
+                <>
+                  <div className="w-75 border-t-2 flex justify-end text-sm text-gray-400 pb-2">
+                    Optional
+                  </div>
+                  <Attributes
+                    attributes={attributes}
+                    setAttributes={setAttributes}
+                  />
+                </>
+              ) : null}
+              <Select
+                id="privacy_select"
+                className="basic-single text-black"
+                classNamePrefix={"select"}
+                defaultValue={privacy}
+                name="type"
+                options={privacyOptions}
+                onChange={setPrivacy}
+                placeholder="Privacy setting"
+              />
+            </div>
+          </PageContentContainer>
+        </>
       )}
     </>
   );
@@ -196,11 +195,5 @@ function Collect({ props }) {
 export default Collect;
 
 Collect.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <ModuleContainer  description={"A tool for adding something to the inventory of everything"} moduleName={"collect"} moduleColor={"green"}>
-        {page}
-      </ModuleContainer>
-    </Layout>
-  );
+  return <Layout>{page}</Layout>;
 };

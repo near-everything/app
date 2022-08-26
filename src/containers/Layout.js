@@ -24,9 +24,7 @@ function Layout({ children }) {
           id="container"
           className="container mx-auto h-full overflow-y-auto"
         >
-          {/* <Suspense fallback={<ThemedSuspense />}> */}
           {children}
-          {/* </Suspense> */}
         </main>
         <Navbar />
       </div>

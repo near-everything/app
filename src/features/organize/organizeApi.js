@@ -163,6 +163,34 @@ export function useThingsByOwner(ownerId, options) {
   );
 }
 
+
+export function useRequestsByRequester(requesterId, options) {
+  return useQuery(
+    ["requestsByRequester", requesterId],
+    async () => {
+      const {
+        requests: { edges },
+      } = await graphqlClient.request(
+        gql`
+          query requestsByRequester($requesterId: String!) {
+            requests(condition: { requesterId: $requesterId }) {
+              edges {
+                node {
+                  id
+                  media
+                }
+              }
+            }
+          }
+        `,
+        { requesterId }
+      );
+      return edges;
+    },
+    options
+  );
+}
+
 export function useRequestById(requestId) {
   return useQuery(["requestById", requestId], async () => {
     const { request } = await graphqlClient.request(

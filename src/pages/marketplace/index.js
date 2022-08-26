@@ -1,7 +1,8 @@
 import React from "react";
 import { PulseLoader } from "react-spinners";
+import Header from "../../components/Header";
 import Layout from "../../containers/Layout";
-import ModuleContainer from "../../containers/ModuleContainer";
+import PageContentContainer from "../../containers/PageContentContainer";
 import { useInventory } from "../../features/marketplace/marketplaceApi";
 
 function Marketplace() {
@@ -21,19 +22,19 @@ function Marketplace() {
           </div>
         </>
       ) : (
-        <>{data && data.map((it) => <div key={it.id}>{JSON.stringify(it)}</div>)}</>
+        <>
+          <Header title="marketplace" />
+          <PageContentContainer>
+            {data &&
+              data.map((it) => <div key={it.id}>{JSON.stringify(it)}</div>)}
+          </PageContentContainer>
+        </>
       )}
     </>
   );
 }
 
 Marketplace.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <ModuleContainer moduleName={"marketplace"} moduleColor={"black"}>
-        {page}
-      </ModuleContainer>
-    </Layout>
-  );
+  return <Layout>{page}</Layout>;
 };
 export default Marketplace;
