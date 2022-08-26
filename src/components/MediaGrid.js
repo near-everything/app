@@ -13,7 +13,7 @@ function MediaGrid({ isLoading, isError, data, renderGridCard }) {
           />
         </div>
       ) : (
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 gap-1">
           {data?.map((it) => renderGridCard(it))}
         </div>
       )}

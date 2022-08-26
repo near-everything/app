@@ -137,9 +137,6 @@ function CreateThing() {
         </div>
       ) : (
         <>
-          <ExitableHeader>
-            <p className={"font-semibold text-green-600"}>new thing</p>
-          </ExitableHeader>
           <PageContentContainer>
             <Media media={media} setMedia={setMedia} />
             <div className="h-auto pb-48 overflow-y-visible">

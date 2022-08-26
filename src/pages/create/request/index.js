@@ -1,12 +1,13 @@
 import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { parseCookies } from "nookies";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import getFirebaseAdmin from "../../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../../app/firebaseClient";
 import Media from "../../../components/Create/Media";
+import RequestDragAndDrop from "../../../components/Create/RequestDragAndDrop";
 import ExitableHeader from "../../../components/ExitableHeader";
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Description from "../../../components/Request/Description";
@@ -48,6 +49,11 @@ function CreateRequest() {
   const { user } = useAuth();
   const createRequest = useCreateRequest();
   const st = getFirebaseStorage();
+  const [files, setFiles] = useState([...media]);
+  
+  useEffect(() => {
+    return setMedia(files);
+  }, [files, setMedia]);
 
   const storeImages = async (media, user) => {
     let urls = [];
@@ -122,31 +128,35 @@ function CreateRequest() {
         </div>
       ) : (
         <>
-          <ExitableHeader>
-            <p className={"font-semibold text-red-600"}>new request</p>
-          </ExitableHeader>
           <PageContentContainer>
-            <Media media={media} setMedia={setMedia} />
-            {/* This needs to be fixed, add 4+ attributes and it gets hidden */}
-            <div className="h-96">
-              <div className="collapse collapse-arrow border border-base-300 rounded-box">
-                <input type="checkbox" />
-                <div className="collapse-title">Advanced</div>
-                <div className="collapse-content">
-                  <ReferenceLink
-                    referenceLink={referenceLink}
-                    setReferenceLink={setReferenceLink}
-                    setUrlError={setUrlError}
-                    urlError={urlError}
-                  />
-                  <br />
-                  <Description
-                    description={description}
-                    setDescription={setDescription}
-                  />
+            {media.length > 0 ? (
+              <>
+                <Media media={media} setMedia={setMedia} />
+                <div className="h-96">
+                  <div className="collapse collapse-arrow border border-base-300 rounded-box">
+                    <input type="checkbox" />
+                    <div className="collapse-title">Advanced</div>
+                    <div className="collapse-content">
+                      <ReferenceLink
+                        referenceLink={referenceLink}
+                        setReferenceLink={setReferenceLink}
+                        setUrlError={setUrlError}
+                        urlError={urlError}
+                      />
+                      <br />
+                      <Description
+                        description={description}
+                        setDescription={setDescription}
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </>
+            ) : (
+              <>
+                <RequestDragAndDrop media={files} setMedia={setFiles} />
+              </>
+            )}
           </PageContentContainer>
           <div className="absolute right-0 bottom-16 p-4">
             <button
