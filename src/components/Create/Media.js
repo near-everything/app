@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import SquareImage from "../SquareImage";
 import MediaUpload from "../MediaUpload";
 import RemoveableMedia from "../RemoveableMedia";
 

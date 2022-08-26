@@ -7,8 +7,7 @@ import { toast } from "react-toastify";
 import getFirebaseAdmin from "../../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../../app/firebaseClient";
 import CreateHeader from "../../../components/Create/CreateHeader";
-import Media from "../../../components/Media";
-import MediaUpload from "../../../components/MediaUpload";
+import Media from "../../../components/Create/Media";
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Description from "../../../components/Request/Description";
 import ReferenceLink from "../../../components/Request/ReferenceLink";
@@ -130,7 +129,7 @@ function Request() {
             <p className={"font-semibold text-red-600"}>new request</p>
           </CreateHeader>
           <PageContentContainer>
-            <MediaUpload />
+            <Media media={media} setMedia={setMedia} />
             {/* This needs to be fixed, add 4+ attributes and it gets hidden */}
             <div className="h-96"> 
               <div className="collapse collapse-arrow border border-base-300 rounded-box">

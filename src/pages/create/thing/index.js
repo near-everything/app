@@ -9,8 +9,7 @@ import getFirebaseAdmin from "../../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../../app/firebaseClient";
 import Attributes from "../../../components/Collect/Attributes";
 import CreateHeader from "../../../components/Create/CreateHeader";
-import NewThingMedia from "../../../components/Create/NewThingMedia";
-import Media from "../../../components/Media";
+import Media from "../../../components/Create/Media";
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Layout from "../../../containers/Layout";
 import PageContentContainer from "../../../containers/PageContentContainer";
@@ -144,7 +143,7 @@ function Collect() {
             <p className={"font-semibold text-green-600"}>new thing</p>
           </CreateHeader>
           <PageContentContainer>
-            <NewThingMedia media={media} setMedia={setMedia} />
+            <Media media={media} setMedia={setMedia} />
             <div className="h-auto pb-48 overflow-y-visible">
               <div className="collapse collapse-arrow border border-base-300 rounded-box overflow-y-visible">
                 <input type="checkbox" defaultChecked={true} />
