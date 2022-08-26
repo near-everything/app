@@ -1,10 +1,10 @@
 import { gql } from "graphql-request";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { subgraphClient } from "../../app/api";
 
 export function useInventory() {
   return useQuery(
-    "inventory",
+    ["inventory"],
     async () => {
       const {
         tokens

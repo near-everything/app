@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { graphqlClient } from "../../app/api";
 
 const THINGS_PER_PAGE = 10;

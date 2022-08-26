@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { graphqlClient } from "../../app/api";
 
 export function useCategories(options) {
@@ -57,7 +57,7 @@ export function useSubcategoriesByCategoryId(categoryId, options) {
 
 export function useAttributes(options) {
   return useQuery(
-    "attributes",
+    ["attributes"],
     async () => {
       const {
         attributes: { edges },

@@ -3,8 +3,8 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { ThemeProvider } from "next-themes";
 import Head from "next/head";
 import { useState } from "react";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import "react-toastify/dist/ReactToastify.css";
 import initFirebaseClientSDK from "../app/firebaseClient";
