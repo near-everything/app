@@ -6,8 +6,8 @@ import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import getFirebaseAdmin from "../../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../../app/firebaseClient";
-import CreateHeader from "../../../components/Create/CreateHeader";
 import Media from "../../../components/Create/Media";
+import ExitableHeader from "../../../components/ExitableHeader";
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Description from "../../../components/Request/Description";
 import ReferenceLink from "../../../components/Request/ReferenceLink";
@@ -39,7 +39,7 @@ export const getServerSideProps = async (ctx) => {
   }
 };
 
-function Request() {
+function CreateRequest() {
   const [loading, setLoading] = useState(false);
   const [urlError, setUrlError] = useState(false);
   const [referenceLink, setReferenceLink] = useState("");
@@ -122,16 +122,13 @@ function Request() {
         </div>
       ) : (
         <>
-          <CreateHeader
-            disabled={media.length <= 0}
-            handleSubmit={handleSubmit}
-          >
+          <ExitableHeader>
             <p className={"font-semibold text-red-600"}>new request</p>
-          </CreateHeader>
+          </ExitableHeader>
           <PageContentContainer>
             <Media media={media} setMedia={setMedia} />
             {/* This needs to be fixed, add 4+ attributes and it gets hidden */}
-            <div className="h-96"> 
+            <div className="h-96">
               <div className="collapse collapse-arrow border border-base-300 rounded-box">
                 <input type="checkbox" />
                 <div className="collapse-title">Advanced</div>
@@ -151,14 +148,23 @@ function Request() {
               </div>
             </div>
           </PageContentContainer>
+          <div className="absolute right-0 bottom-16 p-4">
+            <button
+              className="btn btn-primary btn-lg"
+              disabled={media.length <= 0}
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </div>
         </>
       )}
     </>
   );
 }
 
-export default Request;
+export default CreateRequest;
 
-Request.getLayout = function getLayout(page) {
+CreateRequest.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
 };

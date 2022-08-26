@@ -8,8 +8,9 @@ import { toast } from "react-toastify";
 import getFirebaseAdmin from "../../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../../app/firebaseClient";
 import Attributes from "../../../components/Collect/Attributes";
-import CreateHeader from "../../../components/Create/CreateHeader";
 import Media from "../../../components/Create/Media";
+import ExitableHeader from "../../../components/ExitableHeader";
+
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Layout from "../../../containers/Layout";
 import PageContentContainer from "../../../containers/PageContentContainer";
@@ -50,7 +51,7 @@ const privacyOptions = [
   },
 ];
 
-function Collect() {
+function CreateThing() {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
@@ -136,12 +137,9 @@ function Collect() {
         </div>
       ) : (
         <>
-          <CreateHeader
-            disabled={media.length <= 0}
-            handleSubmit={handleSubmit}
-          >
+          <ExitableHeader>
             <p className={"font-semibold text-green-600"}>new thing</p>
-          </CreateHeader>
+          </ExitableHeader>
           <PageContentContainer>
             <Media media={media} setMedia={setMedia} />
             <div className="h-auto pb-48 overflow-y-visible">
@@ -167,14 +165,23 @@ function Collect() {
               </div>
             </div>
           </PageContentContainer>
+          <div className="absolute right-0 bottom-16 p-4">
+            <button
+              className="btn btn-primary btn-lg"
+              disabled={media.length <= 0}
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </div>
         </>
       )}
     </>
   );
 }
 
-export default Collect;
+export default CreateThing;
 
-Collect.getLayout = function getLayout(page) {
+CreateThing.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
 };

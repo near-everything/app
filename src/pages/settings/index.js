@@ -1,7 +1,7 @@
 import { useTheme } from "next-themes";
 import React from "react";
+import ExitableHeader from "../../components/ExitableHeader";
 import Logout from "../../components/Logout";
-import SettingsHeader from "../../components/Settings/SettingsHeader";
 import Layout from "../../containers/Layout";
 import PageContentContainer from "../../containers/PageContentContainer";
 
@@ -10,7 +10,9 @@ function Settings() {
 
   return (
     <>
-      <SettingsHeader />
+      <ExitableHeader href={"/profile"}>
+        <p className="font-semibold">Settings</p>
+      </ExitableHeader>
       <PageContentContainer>
         <label className="swap swap-rotate">
           <input
