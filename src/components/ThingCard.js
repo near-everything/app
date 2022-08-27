@@ -49,7 +49,7 @@ function ThingCard({ thingId }) {
         <div className="card card-compact bg-base-100 shadow-xl">
           <figure className="h-64 relative">
             <Image
-              src={thing.media[0]}
+              src={thing?.media[0]}
               layout="fill"
               objectFit="cover"
               alt=""
@@ -57,7 +57,7 @@ function ThingCard({ thingId }) {
           </figure>
           <div className="card-body">
             <div className="card-actions">
-              {thing.characteristics.edges?.map((it) => {
+              {thing?.characteristics.edges?.map((it) => {
                 return (
                   <Characteristic key={it.node.attributeId} char={it.node} />
                 );

@@ -44,7 +44,7 @@ function PhoneNumberVerification({ recaptcha, auth, phoneNumber, setPhoneNumber 
 
   return (
     <>
-      <div className="flex flex-row dark:text-black">
+      <div className="flex flex-row text-black">
         <PhoneInput
           country={"us"}
           containerStyle={{ width: "auto" }}

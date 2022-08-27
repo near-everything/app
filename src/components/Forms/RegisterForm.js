@@ -24,7 +24,7 @@ function RegisterForm({ recaptcha, auth }) {
       <h1 className="mb-4 text-xl">
         register for <span className="font-semibold">everything</span>
       </h1>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 text-black">
         <Input
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
