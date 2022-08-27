@@ -5,7 +5,17 @@ module.exports = {
     extend: {},
   },
   daisyui: {
-    themes: ["light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"],
+    themes: [{ dark: {
+      "primary": "#000000",          
+      "secondary": "#000000",
+      "accent": "#000000",
+      "neutral": "#6b7280",
+      "base-100": "#000000",
+      "info": "#000000",
+      "success": "#000000",
+      "warning": "#000000",
+      "error": "#000000",
+    } }],
   },
   plugins: [require("@tailwindcss/forms"), require("daisyui")],
 };

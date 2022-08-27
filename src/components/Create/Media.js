@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import MediaUpload from "../MediaUpload";
 import RemoveableMedia from "../RemoveableMedia";
+import RequestDragAndDrop from "./RequestDragAndDrop";
 
 function NewThingMedia({ media, setMedia }) {
   const [files, setFiles] = useState([...media]);
@@ -34,20 +34,7 @@ function NewThingMedia({ media, setMedia }) {
             />
             <div className="flex flex-row gap-2 overflow-x-auto my-2">
               <div className="w-48">
-                <MediaUpload
-                  onChange={(event) => {
-                    if (event.target.files.length > 0) {
-                      const urls = Array.from(event.target.files).map(
-                        (file) => ({
-                          data: file,
-                          url: URL.createObjectURL(file),
-                        })
-                      );
-                      setFiles([...files, ...urls]);
-                      event.target.value = null;
-                    }
-                  }}
-                />
+                <RequestDragAndDrop media={files} setMedia={setFiles} />
               </div>
               <div className="flex flex-row gap-2">
                 {files.slice(1).map((file, index) => (
@@ -66,19 +53,8 @@ function NewThingMedia({ media, setMedia }) {
             </div>
           </>
         ) : (
-          <div className="h-96">
-            <MediaUpload
-              onChange={(event) => {
-                if (event.target.files.length > 0) {
-                  const urls = Array.from(event.target.files).map((file) => ({
-                    data: file,
-                    url: URL.createObjectURL(file),
-                  }));
-                  setFiles([...files, ...urls]);
-                  event.target.value = null;
-                }
-              }}
-            />
+          <div className="h-full">
+            <RequestDragAndDrop media={files} setMedia={setFiles} />
           </div>
         )}
       </div>

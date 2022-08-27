@@ -1,4 +1,3 @@
-import { useTheme } from "next-themes";
 import React from "react";
 import ExitableHeader from "../../components/ExitableHeader";
 import Logout from "../../components/Logout";
@@ -6,8 +5,6 @@ import Layout from "../../containers/Layout";
 import PageContentContainer from "../../containers/PageContentContainer";
 
 function Settings() {
-  const { theme, setTheme } = useTheme();
-
   return (
     <>
       <ExitableHeader href={"/profile"}>
@@ -18,7 +15,8 @@ function Settings() {
           <input
             type="checkbox"
             className="hidden"
-            onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+            data-toggle-theme="black,light"
+            data-act-class="ACTIVECLASS"
           />
           <svg
             className="swap-on fill-current w-10 h-10"

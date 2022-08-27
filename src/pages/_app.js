@@ -1,10 +1,14 @@
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { ThemeProvider } from "next-themes";
-import Head from "next/head";
-import { useState } from "react";
-import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider
+} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import { themeChange } from "theme-change";
 
 import "react-toastify/dist/ReactToastify.css";
 import initFirebaseClientSDK from "../app/firebaseClient";
@@ -19,20 +23,22 @@ export default function App({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
   const getLayout = Component.getLayout || ((page) => page);
 
+  useEffect(() => {
+    themeChange(false);
+  }, []);
+
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <ThemeProvider attribute="class">
-            <Head>
-              <meta
-                name="viewport"
-                content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-              />
-            </Head>
-            {getLayout(<Component {...pageProps} />)}
-            <ReactQueryDevtools initialIsOpen={false} />
-          </ThemeProvider>
+          <Head>
+            <meta
+              name="viewport"
+              content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+            />
+          </Head>
+          {getLayout(<Component {...pageProps} />)}
+          <ReactQueryDevtools initialIsOpen={false} />
         </Hydrate>
       </QueryClientProvider>
     </AuthProvider>

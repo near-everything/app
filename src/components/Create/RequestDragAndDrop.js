@@ -4,7 +4,7 @@ function RequestDragAndDrop({ media, setMedia }) {
   return (
     <>
       <label
-        className="flex flex-col justify-center border-2  cursor-pointer rounded-2xl hover:border-green-300 h-full p-4 w-full mb-16"
+        className="flex flex-1 flex-col justify-center border-2 cursor-pointer rounded-2xl mb-16 hover:border-green-300"
         onChange={(event) => {
           if (event.target.files.length > 0) {
             const urls = Array.from(event.target.files).map((file) => ({

@@ -1,10 +1,8 @@
-import { useTheme } from "next-themes";
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import Navbar from "../components/Navbar";
 
 function Layout({ children }) {
-  const { theme } = useTheme();
   return (
     <div className="flex h-screen w-full">
       <ToastContainer
@@ -17,7 +15,6 @@ function Layout({ children }) {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme={theme}
       />
       <div className="flex-1 w-full">
         <main

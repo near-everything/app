@@ -2,7 +2,7 @@ import { Head, Html, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html lang="en" data-theme="cupcake">
+    <Html lang="en" data-theme="dark">
       <Head>
         <meta name='application-name' content='everything' />
         <meta name='apple-mobile-web-app-capable' content='yes' />
@@ -36,7 +36,7 @@ export default function Document() {
         <meta property='og:url' content='https://everything.dev' />
         <meta property='og:image' content='https://everything.dev/icons/apple-touch-icon.png' />
       </Head>
-      <body>
+      <body className="text-white">
         <Main />
         <NextScript />
       </body>

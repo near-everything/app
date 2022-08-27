@@ -9,7 +9,6 @@ import getFirebaseAdmin from "../../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../../app/firebaseClient";
 import Attributes from "../../../components/Collect/Attributes";
 import Media from "../../../components/Create/Media";
-import ExitableHeader from "../../../components/ExitableHeader";
 
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Layout from "../../../containers/Layout";
@@ -139,32 +138,28 @@ function CreateThing() {
         <>
           <PageContentContainer>
             <Media media={media} setMedia={setMedia} />
-            <div className="h-auto pb-48 overflow-y-visible">
-              <div className="collapse collapse-arrow border border-base-300 rounded-box overflow-y-visible">
-                <input type="checkbox" defaultChecked={true} />
-                <div className="collapse-title">Advanced</div>
-                <div className="collapse-content overflow-y-visible">
-                  <Attributes
-                    attributes={attributes}
-                    setAttributes={setAttributes}
-                  />
-                  <Select
-                    id="privacy_select"
-                    className="basic-single text-black"
-                    classNamePrefix={"select"}
-                    defaultValue={privacy}
-                    name="type"
-                    options={privacyOptions}
-                    onChange={setPrivacy}
-                    placeholder="Privacy setting"
-                  />
-                </div>
-              </div>
+            <div className="mx-4">
+              <Attributes
+                attributes={attributes}
+                setAttributes={setAttributes}
+              />
+              <Select
+                id="privacy_select"
+                className="basic-single text-black"
+                classNamePrefix={"select"}
+                defaultValue={privacy}
+                name="type"
+                options={privacyOptions}
+                onChange={setPrivacy}
+                placeholder="Privacy setting"
+              />
             </div>
           </PageContentContainer>
           <div className="absolute right-0 bottom-16 p-4">
             <button
-              className="btn btn-primary btn-lg"
+              className={`btn btn-primary btn-lg ${
+                media.length <= 0 ? "hidden" : ""
+              }`}
               disabled={media.length <= 0}
               onClick={handleSubmit}
             >

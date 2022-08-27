@@ -8,7 +8,6 @@ import getFirebaseAdmin from "../../../app/firebaseAdmin";
 import { getFirebaseStorage } from "../../../app/firebaseClient";
 import Media from "../../../components/Create/Media";
 import RequestDragAndDrop from "../../../components/Create/RequestDragAndDrop";
-import ExitableHeader from "../../../components/ExitableHeader";
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Description from "../../../components/Request/Description";
 import ReferenceLink from "../../../components/Request/ReferenceLink";
@@ -50,7 +49,7 @@ function CreateRequest() {
   const createRequest = useCreateRequest();
   const st = getFirebaseStorage();
   const [files, setFiles] = useState([...media]);
-  
+
   useEffect(() => {
     return setMedia(files);
   }, [files, setMedia]);
@@ -160,7 +159,9 @@ function CreateRequest() {
           </PageContentContainer>
           <div className="absolute right-0 bottom-16 p-4">
             <button
-              className="btn btn-primary btn-lg"
+              className={`btn btn-primary btn-lg ${
+                media.length <= 0 ? "hidden" : ""
+              }`}
               disabled={media.length <= 0}
               onClick={handleSubmit}
             >
