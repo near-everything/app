@@ -3,7 +3,6 @@ import Select from "react-select";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { useCreateFeedback } from "../../features/feedback/feedbackApi";
-import Button from "../Button";
 import TextArea from "../TextArea";
 
 const typeOptions = [
@@ -79,13 +78,13 @@ function ContactForm() {
           value={description}
           disabled={type === ""}
         />
-        <Button
-          className="w-full h-16"
+        <button
+          className="btn"
           onClick={handleSubmit}
           disabled={description === "" || type === ""}
         >
           Submit
-        </Button>
+        </button>
       </div>
     </>
   );

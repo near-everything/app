@@ -41,19 +41,21 @@ function Characteristic({ char }) {
 
   return (
     <>
-      <div className="badge badge-outline">
+      <button className="btn gap-2">
         {attributeIsLoading
           ? "Loading..."
           : attributeIsError
             ? "Error"
             : `${attr.name}`}
         {": "}
-        {optionIsLoading
-          ? "Loading..."
-          : optionIsError
-            ? "Error"
-            : `${opt.value}`}
-      </div>
+        <div className="badge badge-secondary">
+          {optionIsLoading
+            ? "Loading..."
+            : optionIsError
+              ? "Error"
+              : `${opt.value}`}
+        </div>
+      </button>
     </>
   );
 }

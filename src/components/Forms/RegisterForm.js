@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "../Button";
 import Input from "../Input";
 import PhoneNumberVerification from "../Register/PhoneNumberVerification";
 import PrivacyPolicy from "../Register/PrivacyPolicy";
@@ -54,9 +53,9 @@ function RegisterForm({ recaptcha, auth }) {
           handleConfirmed={handleConfirmed}
         />
         <PrivacyPolicy isAgree={isAgree} setIsAgree={setIsAgree} />
-        <Button className="h-16" disabled={true} onClick={handleRegister}>
+        <button className="btn" disabled={true} onClick={handleRegister}>
           Register
-        </Button>
+        </button>
       </div>
     </>
   );
