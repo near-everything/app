@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   useAttributes,
   useProposeAttribute,
@@ -72,6 +72,7 @@ function Attributes({ attributes, setAttributes }) {
         <CreatableSelect
           id="attribute_select"
           instanceId="attribute_select"
+          className="text-black"
           isMulti
           options={prepareOptions()}
           isDisabled={isLoading || isError}

@@ -1,6 +1,6 @@
 {
-  "name": "collect",
-  "version": "0.1.0",
+  "name": "everything",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
@@ -8,6 +8,8 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@reduxjs/toolkit": "^1.8.1",
+    "@tanstack/react-query": "^4.2.3",
+    "@tanstack/react-query-devtools": "^4.2.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -19,17 +21,17 @@
     "graphql-request": "^4.3.0",
     "next": "^12.2.3",
     "next-pwa": "5.5.4",
-    "next-themes": "^0.2.0",
     "nookies": "^2.5.2",
     "react": "^17.0.2",
+    "react-colorful": "^5.6.1",
     "react-dom": "^17.0.2",
     "react-infinite-scroll-component": "^6.1.0",
     "react-phone-input-2": "^2.15.1",
-    "react-query": "^3.39.1",
     "react-select": "^5.4.0",
     "react-spinners": "^0.13.3",
     "react-toastify": "^9.0.7",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "theme-change": "^2.2.0"
   },
   "scripts": {
     "dev": "next dev",

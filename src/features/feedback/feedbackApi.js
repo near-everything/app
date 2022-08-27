@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { graphqlClient } from "../../app/api";
 
 export function useCreateFeedback() {

@@ -2,7 +2,8 @@ import { getApp } from "firebase/app";
 import { getAuth, RecaptchaVerifier } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
 import "react-phone-input-2/lib/style.css";
-import PhoneNumberVerification from "../../features/auth/PhoneNumberVerification";
+import LoginForm from "../../components/Forms/LoginForm";
+import CenteredContainer from "../../containers/CenteredContainer";
 
 function Login() {
   const [recaptcha, setRecaptcha] = useState(null);
@@ -31,12 +32,14 @@ function Login() {
 
   return (
     <>
-      {recaptcha && (
-        <PhoneNumberVerification recaptcha={recaptcha} auth={auth} />
-      )}
+      {recaptcha && <LoginForm recaptcha={recaptcha} auth={auth} />}
       <div ref={element}></div>
     </>
   );
 }
 
 export default Login;
+
+Login.getLayout = function getLayout(page) {
+  return <CenteredContainer>{page}</CenteredContainer>;
+};

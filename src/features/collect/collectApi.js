@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { graphqlClient } from "../../app/api";
 
 export function useCategories(options) {
@@ -57,7 +57,7 @@ export function useSubcategoriesByCategoryId(categoryId, options) {
 
 export function useAttributes(options) {
   return useQuery(
-    "attributes",
+    ["attributes"],
     async () => {
       const {
         attributes: { edges },
@@ -81,7 +81,7 @@ export function useAttributes(options) {
   );
 }
 
-export function useAttributeById(attributeId) {
+export function useAttributeById(attributeId, options) {
   return useQuery(
     ["attributeById", attributeId],
     async () => {
@@ -91,42 +91,40 @@ export function useAttributeById(attributeId) {
             attribute(id: $attributeId) {
               name
               relationships {
-                 edges {
-                   node {
-                     option {
-                       id
-                       value
-                     }
-                   }
-                 }
-               }
+                edges {
+                  node {
+                    option {
+                      id
+                      value
+                    }
+                  }
+                }
+              }
             }
           }
         `,
         { attributeId }
       );
       return attribute;
-    }
+    },
+    options
   );
 }
 
 export function useOptionById(optionId) {
-  return useQuery(
-    ["optionById", optionId],
-    async () => {
-      const option = await graphqlClient.request(
-        gql`
-          query optionById($optionId: Int!) {
-            option(id: $optionId) {
-              value
-            }
+  return useQuery(["optionById", optionId], async () => {
+    const option = await graphqlClient.request(
+      gql`
+        query optionById($optionId: Int!) {
+          option(id: $optionId) {
+            value
           }
-        `,
-        { optionId }
-      );
-      return option;
-    }
-  );
+        }
+      `,
+      { optionId }
+    );
+    return option;
+  });
 }
 
 export function useCreateThing() {
@@ -151,9 +149,7 @@ export function useProposeCategory() {
     return graphqlClient.request(
       gql`
         mutation proposeCategory($name: String!) {
-          createCategory(
-            input: { category: { name: $name } }
-          ) {
+          createCategory(input: { category: { name: $name } }) {
             category {
               id
               name
@@ -172,12 +168,7 @@ export function useProposeSubcategory() {
       gql`
         mutation proposeSubcategory($categoryId: Int!, $name: String!) {
           createSubcategory(
-            input: {
-              subcategory: {
-                categoryId: $categoryId
-                name: $name
-              }
-            }
+            input: { subcategory: { categoryId: $categoryId, name: $name } }
           ) {
             subcategory {
               id
@@ -229,7 +220,7 @@ export function useProposeOption() {
       `,
       {
         value: newOption.value,
-        attributeId: newOption.attributeId
+        attributeId: newOption.attributeId,
       }
     );
   });

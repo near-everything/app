@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { graphqlClient } from "../../app/api";
 
 const THINGS_PER_PAGE = 10;
@@ -130,20 +130,81 @@ export function useThingById(thingId) {
   });
 }
 
-export function useRequestById(requestId){
-  return useQuery(["requestById",requestId], async ()=>{
+export function useThingsByOwner(ownerId, options) {
+  return useQuery(
+    ["thingsByOwner", ownerId],
+    async () => {
+      const {
+        things: { edges },
+      } = await graphqlClient.request(
+        gql`
+          query thingsByOwner($ownerId: String!) {
+            things(condition: { ownerId: $ownerId }) {
+              edges {
+                node {
+                  id
+                  media
+                  category {
+                    name
+                  }
+                  subcategory {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        `,
+        { ownerId }
+      );
+      return edges;
+    },
+    options
+  );
+}
+
+
+export function useRequestsByRequester(requesterId, options) {
+  return useQuery(
+    ["requestsByRequester", requesterId],
+    async () => {
+      const {
+        requests: { edges },
+      } = await graphqlClient.request(
+        gql`
+          query requestsByRequester($requesterId: String!) {
+            requests(condition: { requesterId: $requesterId }) {
+              edges {
+                node {
+                  id
+                  media
+                }
+              }
+            }
+          }
+        `,
+        { requesterId }
+      );
+      return edges;
+    },
+    options
+  );
+}
+
+export function useRequestById(requestId) {
+  return useQuery(["requestById", requestId], async () => {
     const { request } = await graphqlClient.request(
       gql`
-        query requestById($requestId: Int!){
+        query requestById($requestId: Int!) {
           request(id: $requestId) {
-              id
-              media
-              referenceLink
-              description
-            }
+            id
+            media
+            referenceLink
+            description
+          }
         }
       `,
-      {requestId}
+      { requestId }
     );
     return request;
   });
