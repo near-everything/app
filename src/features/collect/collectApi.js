@@ -144,6 +144,23 @@ export function useCreateThing() {
   });
 }
 
+export function useCreatePost() {
+  return useMutation((newPost) => {
+    return graphqlClient.request(
+      gql`
+        mutation createPost($input: PostInput!) {
+          createPost(input: { post: $input }) {
+            post {
+              id
+            }
+          }
+        }
+      `,
+      { input: newPost }
+    );
+  });
+}
+
 export function useProposeCategory() {
   return useMutation((name) => {
     return graphqlClient.request(

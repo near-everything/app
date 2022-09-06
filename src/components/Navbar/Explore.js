@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Explore() {
   return (
     <>
-      <Link href="/">
+      <Link href="/explore">
         <div className="flex justify-center items-center">
           <button className="btn btn-ghost hover:text-primary">
             <FontAwesomeIcon size="xl" icon={faMagnifyingGlass} />

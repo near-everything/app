@@ -1,4 +1,3 @@
-import { logEvent } from "firebase/analytics";
 import {
   browserLocalPersistence,
   setPersistence,
@@ -7,14 +6,18 @@ import {
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
-import { getGoogleAnalytics } from "../../app/firebaseClient";
-import Input from "../Input";
 import { useCreateUser } from "../../features/auth/authApi";
+import Input from "../Input";
 
-function PhoneNumberVerification({ recaptcha, auth, phoneNumber, setPhoneNumber }) {
+function PhoneNumberVerification({
+  recaptcha,
+  auth,
+  phoneNumber,
+  setPhoneNumber,
+}) {
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [code, setCode] = useState("");
-  const createUser = useCreateUser(); // TODO: I don't want this here 
+  const createUser = useCreateUser(); // TODO: I don't want this here
   const router = useRouter();
 
   useEffect(() => {
@@ -33,7 +36,6 @@ function PhoneNumberVerification({ recaptcha, auth, phoneNumber, setPhoneNumber 
       .confirm(code)
       .then((result) => {
         createUser.mutate(result.user.uid);
-        logEvent(getGoogleAnalytics(), "login");
         router.push("/");
       })
       .catch((error) => {
@@ -65,7 +67,7 @@ function PhoneNumberVerification({ recaptcha, auth, phoneNumber, setPhoneNumber 
       </div>
       <input type="checkbox" id="my-modal-6" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
+        <div className="modal-box text-black">
           <Input
             type="text"
             value={code}

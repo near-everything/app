@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }) {
             />
           </Head>
           {getLayout(<Component {...pageProps} />)}
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </Hydrate>
       </QueryClientProvider>
     </AuthProvider>
