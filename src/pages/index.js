@@ -1,31 +1,6 @@
-import { parseCookies } from "nookies";
 import React from "react";
-import getFirebaseAdmin from "../app/firebaseAdmin";
 import Header from "../components/Header";
 import Layout from "../containers/Layout";
-
-export const getServerSideProps = async (ctx) => {
-  try {
-    const admin = getFirebaseAdmin();
-    const cookies = parseCookies(ctx);
-    await admin.auth().verifyIdToken(cookies.__session);
-
-    return {
-      props: {},
-    };
-  } catch (err) {
-    // either the `__session` cookie didn't exist
-    // or token verification failed
-    // either way: redirect to the login page
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-      props: {},
-    };
-  }
-};
 
 function Home() {
   return (

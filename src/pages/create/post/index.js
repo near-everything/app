@@ -1,12 +1,7 @@
-import { Timestamp } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { parseCookies } from "nookies";
 import { useState } from "react";
 import Select from "react-select";
 import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import getFirebaseAdmin from "../../../app/firebaseAdmin";
-import { getFirebaseStorage } from "../../../app/firebaseClient";
 import Media from "../../../components/Create/Media";
 
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
@@ -16,28 +11,7 @@ import PageContentContainer from "../../../containers/PageContentContainer";
 import { useAuth } from "../../../context/AuthContext";
 import { useCreatePost } from "../../../features/collect/collectApi";
 
-export const getServerSideProps = async (ctx) => {
-  try {
-    const admin = getFirebaseAdmin();
-    const cookies = parseCookies(ctx);
-    await admin.auth().verifyIdToken(cookies.__session);
-
-    return {
-      props: {},
-    };
-  } catch (err) {
-    // either the `__session` cookie didn't exist
-    // or token verification failed
-    // either way: redirect to the login page
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-      props: {},
-    };
-  }
-};
+// export const getServerSideProps = withPageAuthRequired();
 
 const privacyOptions = [
   {

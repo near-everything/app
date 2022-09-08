@@ -12,26 +12,8 @@ function ThingCard({ thingId }) {
     isLoading,
     isError,
   } = useQuery(["thingById", thingId], async () => {
-    const { thing } = await graphqlClient.request(
-      gql`
-        query thingById($thingId: Int!) {
-          thing(id: $thingId) {
-            id
-            characteristics {
-              edges {
-                node {
-                  attributeId
-                  optionId
-                }
-              }
-            }
-            media
-          }
-        }
-      `,
-      { thingId: parseInt(thingId) }
-    );
-    return thing;
+    const response = await fetch(`/api/thing/${thingId}`);
+    return await response.json();
   });
 
   return (
