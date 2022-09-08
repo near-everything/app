@@ -1,3 +1,4 @@
+import { UserProvider } from "@auth0/nextjs-auth0";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import {
@@ -11,13 +12,9 @@ import { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 
 import "react-toastify/dist/ReactToastify.css";
-import initFirebaseClientSDK from "../app/firebaseClient";
-import { AuthProvider } from "../context/AuthContext";
 import "../styles/globals.css";
 
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
-
-initFirebaseClientSDK();
 
 export default function App({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -28,7 +25,7 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   return (
-    <AuthProvider>
+    <UserProvider>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <Head>
@@ -38,9 +35,9 @@ export default function App({ Component, pageProps }) {
             />
           </Head>
           {getLayout(<Component {...pageProps} />)}
-          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+          <ReactQueryDevtools initialIsOpen={false} />
         </Hydrate>
       </QueryClientProvider>
-    </AuthProvider>
+    </UserProvider>
   );
 }

@@ -1,4 +1,6 @@
+import { getAccessToken } from "@auth0/nextjs-auth0";
 import { gql } from "graphql-request";
+
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { graphqlClient } from "../../app/api";
 
@@ -101,32 +103,8 @@ export function useInfiniteRequests() {
 
 export function useThingById(thingId) {
   return useQuery(["thingById", thingId], async () => {
-    const { thing } = await graphqlClient.request(
-      gql`
-        query thingById($thingId: Int!) {
-          thing(id: $thingId) {
-            id
-            category {
-              name
-            }
-            subcategory {
-              name
-            }
-            characteristics {
-              edges {
-                node {
-                  attributeId
-                  optionId
-                }
-              }
-            }
-            media
-          }
-        }
-      `,
-      { thingId }
-    );
-    return thing;
+    const response = await fetch(`/api/thing/${thingId}`);
+    return await response.json();
   });
 }
 
@@ -162,7 +140,6 @@ export function useThingsByOwner(ownerId, options) {
     options
   );
 }
-
 
 export function useRequestsByRequester(requesterId, options) {
   return useQuery(

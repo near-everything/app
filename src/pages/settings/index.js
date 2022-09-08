@@ -1,6 +1,5 @@
 import React from "react";
 import ExitableHeader from "../../components/ExitableHeader";
-import Logout from "../../components/Logout";
 import Layout from "../../containers/Layout";
 import PageContentContainer from "../../containers/PageContentContainer";
 
@@ -35,9 +34,9 @@ function Settings() {
         </label>
         <ul className="menu">
           <li>
-            <Logout>
-              <a>Log out</a>
-            </Logout>
+            <a className="btn" href="/api/auth/logout">
+              Log out
+            </a>
           </li>
         </ul>
       </PageContentContainer>
