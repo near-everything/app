@@ -14,7 +14,7 @@ import CreateSuccessNotification from "../../../components/Notification/CreateSu
 import Layout from "../../../containers/Layout";
 import PageContentContainer from "../../../containers/PageContentContainer";
 import { useAuth } from "../../../context/AuthContext";
-import { useCreateThing } from "../../../features/collect/collectApi";
+import { useCreateMedia, useCreateThing } from "../../../features/collect/collectApi";
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -52,13 +52,12 @@ const privacyOptions = [
 
 function CreateThing() {
   const [loading, setLoading] = useState(false);
-  const [category, setCategory] = useState("");
-  const [subcategory, setSubcategory] = useState("");
   const [attributes, setAttributes] = useState([]);
   const [media, setMedia] = useState([]);
   const [privacy, setPrivacy] = useState(privacyOptions[0]);
   const { user } = useAuth();
   const createThing = useCreateThing();
+  const createMedia = useCreateMedia();
   const st = getFirebaseStorage();
 
   const storeImages = async (media, user) => {
@@ -72,6 +71,16 @@ function CreateThing() {
     return urls;
   };
 
+  const associateMedia = async (thingId) => {
+    const urls = await storeImages(media, user);
+    for (const url of urls) {
+      createMedia.mutate({
+        mediaUrl: url,
+        thingId,
+      });
+    }
+  };
+
   const handleSubmit = async () => {
     setLoading(true);
     let lat;
@@ -80,11 +89,8 @@ function CreateThing() {
       lat = position.coords.latitude;
       long = position.coords.longitude;
     });
-    const urls = await storeImages(media, user);
     createThing.mutate(
       {
-        categoryId: category.value,
-        subcategoryId: subcategory.value,
         attributes: attributes
           ?.filter((it) => it.options.value !== undefined)
           .map((attr) => {
@@ -93,14 +99,13 @@ function CreateThing() {
               optionId: attr.options.value,
             };
           }),
-        media: urls,
         ownerId: user.uid,
         geomPoint:
           lat && long ? { type: "Point", coordinates: [lat, long] } : null,
         privacyType: privacy.value,
       },
       {
-        onSuccess: (response) => {
+        onSuccess: async (response) => {
           toast.success(
             <CreateSuccessNotification
               type={"Thing"}
@@ -109,8 +114,7 @@ function CreateThing() {
               id={response.createThing.thing.id}
             />
           );
-          setCategory("");
-          setSubcategory("");
+          await associateMedia(response.createThing.thing.id);
           setAttributes([]);
           setMedia([]);
           setLoading(false);

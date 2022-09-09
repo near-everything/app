@@ -1,23 +1,20 @@
 import Link from "next/link";
 import { useAuth } from "../../../context/AuthContext";
-import { useRequestsByRequester } from "../../../features/organize/organizeApi";
+import { usePostsByPoster } from "../../../features/organize/organizeApi";
 import MediaGrid from "../../MediaGrid";
 import SquareImage from "../../SquareImage";
 
-function RequestGrid() {
+function PostGrid() {
   const { user } = useAuth();
-  const { data, isLoading, isError } = useRequestsByRequester(
-    user && user.uid,
-    {
-      enabled: !!user,
-    }
-  );
+  const { data, isLoading, isError } = usePostsByPoster(user && user.uid, {
+    enabled: !!user,
+  });
 
-  const renderRequestCard = (request) => {
+  const renderPostCard = (post) => {
     return (
-      <div key={request.node.id}>
-        <Link href={`/requests/${request.node.id}`}>
-          <SquareImage media={request.node.medias?.edges[0]?.node.mediaUrl} />
+      <div key={post.node.id}>
+        <Link href={`/posts/${post.node.id}`}>
+          <SquareImage media={post.node.medias?.edges[0]?.node.mediaUrl} />
         </Link>
       </div>
     );
@@ -30,12 +27,12 @@ function RequestGrid() {
           data={data}
           isLoading={isLoading}
           isError={isError}
-          renderGridCard={renderRequestCard}
+          renderGridCard={renderPostCard}
         />
       ) : (
         <div className="flex flex-1 flex-col justify-center items-center text-sm">
-          <p>no requests found!</p>
-          <Link href="/create/request">
+          <p>no posts found!</p>
+          <Link href="/create/post">
             <a className="text-blue-500">create one</a>
           </Link>
         </div>
@@ -44,4 +41,4 @@ function RequestGrid() {
   );
 }
 
-export default RequestGrid;
+export default PostGrid;

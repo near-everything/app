@@ -2,6 +2,7 @@ import { parseCookies } from "nookies";
 import React from "react";
 import getFirebaseAdmin from "../app/firebaseAdmin";
 import Header from "../components/Header";
+import InfinitePosts from "../components/Organize/InfinitePosts";
 import Layout from "../containers/Layout";
 
 export const getServerSideProps = async (ctx) => {
@@ -32,8 +33,8 @@ function Home() {
     <>
       <Header title="everything" />
       <div className="flex h-full">
-        <div className="flex flex-1 items-center justify-center">
-          <p>everything feed</p>
+        <div className="flex flex-1 justify-center" id="container">
+          <InfinitePosts />
         </div>
       </div>
     </>

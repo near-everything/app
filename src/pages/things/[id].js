@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { PulseLoader } from "react-spinners";
 import Characteristic from "../../components/Characteristic";
+import MediaDisplay from "../../components/Create/MediaDisplay";
 import Layout from "../../containers/Layout";
 import { useThingById } from "../../features/organize/organizeApi";
-import Media from "../../components/Create/Media";
 
 function Thing() {
   const router = useRouter();
@@ -27,7 +27,7 @@ function Thing() {
           </div>
         ) : (
           <>
-            <Media media={data.media} setMedia={() => false}/>
+            <MediaDisplay media={data.medias.edges} setMedia={() => false} />
             <div className="grid grid-flow-col gap-2">
               {data.characteristics?.edges.map((char) => (
                 <Characteristic key={char.node.attributeId} char={char.node} />

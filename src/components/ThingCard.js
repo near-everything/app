@@ -25,7 +25,13 @@ function ThingCard({ thingId }) {
                 }
               }
             }
-            media
+            medias {
+              edges {
+                node {
+                  mediaUrl
+                }
+              }
+            }
           }
         }
       `,
@@ -49,7 +55,7 @@ function ThingCard({ thingId }) {
         <div className="card card-compact bg-base-100 shadow-xl">
           <figure className="h-64 relative">
             <Image
-              src={thing?.media[0]}
+              src={thing?.medias?.edges[0]?.node.mediaUrl}
               layout="fill"
               objectFit="cover"
               alt=""

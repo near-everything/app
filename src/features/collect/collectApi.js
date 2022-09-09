@@ -2,59 +2,6 @@ import { gql } from "graphql-request";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { graphqlClient } from "../../app/api";
 
-export function useCategories(options) {
-  return useQuery(
-    "categories",
-    async () => {
-      const {
-        categories: { edges },
-      } = await graphqlClient.request(
-        gql`
-          query getCategories {
-            categories {
-              edges {
-                node {
-                  id
-                  name
-                }
-              }
-            }
-          }
-        `
-      );
-      return edges;
-    },
-    options
-  );
-}
-
-export function useSubcategoriesByCategoryId(categoryId, options) {
-  return useQuery(
-    ["subcategoriesByCategoryId", categoryId],
-    async () => {
-      const {
-        subcategories: { edges },
-      } = await graphqlClient.request(
-        gql`
-          query getSubcategoriesByCategoryId($categoryId: Int!) {
-            subcategories(condition: { categoryId: $categoryId }) {
-              edges {
-                node {
-                  id
-                  name
-                }
-              }
-            }
-          }
-        `,
-        { categoryId }
-      );
-      return edges;
-    },
-    options
-  );
-}
-
 export function useAttributes(options) {
   return useQuery(
     ["attributes"],
@@ -161,43 +108,19 @@ export function useCreatePost() {
   });
 }
 
-export function useProposeCategory() {
-  return useMutation((name) => {
+export function useCreateMedia() {
+  return useMutation((newMedia) => {
     return graphqlClient.request(
       gql`
-        mutation proposeCategory($name: String!) {
-          createCategory(input: { category: { name: $name } }) {
-            category {
+        mutation createMedia($input: MediaInput!) {
+          createMedia(input: { media: $input }) {
+            media {
               id
-              name
             }
           }
         }
       `,
-      { name }
-    );
-  });
-}
-
-export function useProposeSubcategory() {
-  return useMutation((newSubcategory) => {
-    return graphqlClient.request(
-      gql`
-        mutation proposeSubcategory($categoryId: Int!, $name: String!) {
-          createSubcategory(
-            input: { subcategory: { categoryId: $categoryId, name: $name } }
-          ) {
-            subcategory {
-              id
-              name
-            }
-          }
-        }
-      `,
-      {
-        name: newSubcategory.subcategory,
-        categoryId: newSubcategory.categoryId,
-      }
+      { input: newMedia }
     );
   });
 }

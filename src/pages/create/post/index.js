@@ -14,7 +14,10 @@ import Description from "../../../components/Request/Description";
 import Layout from "../../../containers/Layout";
 import PageContentContainer from "../../../containers/PageContentContainer";
 import { useAuth } from "../../../context/AuthContext";
-import { useCreatePost } from "../../../features/collect/collectApi";
+import {
+  useCreateMedia,
+  useCreatePost,
+} from "../../../features/collect/collectApi";
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -57,29 +60,39 @@ function CreatePost() {
   const [privacy, setPrivacy] = useState(privacyOptions[0]);
   const { user } = useAuth();
   const createPost = useCreatePost();
-  // const st = getFirebaseStorage();
+  const createMedia = useCreateMedia();
+  const st = getFirebaseStorage();
 
-  // const storeImages = async (media, user) => {
-  //   let urls = [];
-  //   for (const img of media) {
-  //     const storageRef = ref(st, `images/${user.uid}/${Timestamp.now()}`);
-  //     const snapshot = await uploadBytes(storageRef, img.data);
-  //     const downloadURL = await getDownloadURL(snapshot.ref);
-  //     urls.push(downloadURL);
-  //   }
-  //   return urls;
-  // };
+  const storeImages = async (media, user) => {
+    let urls = [];
+    for (const img of media) {
+      const storageRef = ref(st, `images/${user.uid}/${Timestamp.now()}`);
+      const snapshot = await uploadBytes(storageRef, img.data);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      urls.push(downloadURL);
+    }
+    return urls;
+  };
+
+  const associateMedia = async (postId) => {
+    const urls = await storeImages(media, user);
+    for (const url of urls) {
+      createMedia.mutate({
+        mediaUrl: url,
+        postId,
+      });
+    }
+  };
 
   const handleSubmit = async () => {
     setLoading(true);
-    // const urls = await storeImages(media, user);
     createPost.mutate(
       {
         posterId: user.uid,
         privacyType: privacy.value,
       },
       {
-        onSuccess: (response) => {
+        onSuccess: async (response) => {
           toast.success(
             <CreateSuccessNotification
               type={"Post"}
@@ -88,6 +101,7 @@ function CreatePost() {
               id={response.createPost.post.id}
             />
           );
+          await associateMedia(response.createPost.post.id);
           setMedia([]);
           setText("");
           setLoading(false);
