@@ -1,9 +1,10 @@
-import { gql } from "graphql-request";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { gql } from "graphql-request";
 import { graphqlClient } from "../../app/api";
 
 const THINGS_PER_PAGE = 10;
 const REQUESTS_PER_PAGE = 10;
+const POSTS_PER_PAGE = 10;
 
 export function useInfiniteThings() {
   const result = useInfiniteQuery(
@@ -17,12 +18,12 @@ export function useInfiniteThings() {
                 cursor
                 node {
                   id
-                  category {
-                    name
-                  }
-                  media
-                  subcategory {
-                    name
+                  medias {
+                    edges {
+                      node {
+                        mediaUrl
+                      }
+                    }
                   }
                 }
               }
@@ -66,9 +67,13 @@ export function useInfiniteRequests() {
                 cursor
                 node {
                   id
-                  media
-                  referenceLink
-                  description
+                  medias {
+                    edges {
+                      node {
+                        mediaUrl
+                      }
+                    }
+                  }
                 }
               }
               pageInfo {
@@ -99,6 +104,55 @@ export function useInfiniteRequests() {
   return result;
 }
 
+export function useInfinitePosts() {
+  const result = useInfiniteQuery(
+    ["infinitePosts"],
+    async ({ pageParam = 0 }) => {
+      const { posts } = await graphqlClient.request(
+        gql`
+          query posts($first: Int!, $after: Cursor) {
+            posts(first: $first, after: $after) {
+              edges {
+                cursor
+                node {
+                  id
+                  medias {
+                    edges {
+                      node {
+                        mediaUrl
+                      }
+                    }
+                  }
+                }
+              }
+              pageInfo {
+                endCursor
+                hasNextPage
+              }
+            }
+          }
+        `,
+        pageParam || {
+          first: POSTS_PER_PAGE,
+          after: null,
+        }
+      );
+      return posts;
+    },
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.pageInfo.hasNextPage) {
+          return {
+            first: POSTS_PER_PAGE,
+            after: lastPage.pageInfo.endCursor,
+          };
+        }
+      },
+    }
+  );
+  return result;
+}
+
 export function useThingById(thingId) {
   return useQuery(["thingById", thingId], async () => {
     const { thing } = await graphqlClient.request(
@@ -106,12 +160,6 @@ export function useThingById(thingId) {
         query thingById($thingId: Int!) {
           thing(id: $thingId) {
             id
-            category {
-              name
-            }
-            subcategory {
-              name
-            }
             characteristics {
               edges {
                 node {
@@ -120,7 +168,13 @@ export function useThingById(thingId) {
                 }
               }
             }
-            media
+            medias {
+              edges {
+                node {
+                  mediaUrl
+                }
+              }
+            }
           }
         }
       `,
@@ -143,12 +197,20 @@ export function useThingsByOwner(ownerId, options) {
               edges {
                 node {
                   id
-                  media
-                  category {
-                    name
+                  characteristics {
+                    edges {
+                      node {
+                        attributeId
+                        optionId
+                      }
+                    }
                   }
-                  subcategory {
-                    name
+                  medias {
+                    edges {
+                      node {
+                        mediaUrl
+                      }
+                    }
                   }
                 }
               }
@@ -163,7 +225,6 @@ export function useThingsByOwner(ownerId, options) {
   );
 }
 
-
 export function useRequestsByRequester(requesterId, options) {
   return useQuery(
     ["requestsByRequester", requesterId],
@@ -177,13 +238,52 @@ export function useRequestsByRequester(requesterId, options) {
               edges {
                 node {
                   id
-                  media
+                  medias {
+                    edges {
+                      node {
+                        mediaUrl
+                      }
+                    }
+                  }
                 }
               }
             }
           }
         `,
         { requesterId }
+      );
+      return edges;
+    },
+    options
+  );
+}
+
+export function usePostsByPoster(posterId, options) {
+  return useQuery(
+    ["postsByPoster", posterId],
+    async () => {
+      const {
+        posts: { edges },
+      } = await graphqlClient.request(
+        gql`
+          query postsByPoster($posterId: String!) {
+            posts(condition: { posterId: $posterId }) {
+              edges {
+                node {
+                  id
+                  medias {
+                    edges {
+                      node {
+                        mediaUrl
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `,
+        { posterId }
       );
       return edges;
     },
@@ -198,9 +298,13 @@ export function useRequestById(requestId) {
         query requestById($requestId: Int!) {
           request(id: $requestId) {
             id
-            media
-            referenceLink
-            description
+            medias {
+              edges {
+                node {
+                  mediaUrl
+                }
+              }
+            }
           }
         }
       `,

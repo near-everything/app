@@ -1,9 +1,8 @@
 import { parseCookies } from "nookies";
 import React from "react";
-import getFirebaseAdmin from "../app/firebaseAdmin";
-import Header from "../components/Header";
-import InfinitePosts from "../components/Organize/InfinitePosts";
-import Layout from "../containers/Layout";
+import getFirebaseAdmin from "../../app/firebaseAdmin";
+import Header from "../../components/Header";
+import Layout from "../../containers/Layout";
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -31,10 +30,10 @@ export const getServerSideProps = async (ctx) => {
 function Home() {
   return (
     <>
-      <Header title="everything" />
+      <Header title="everywhere" />
       <div className="flex h-full">
-        <div className="flex flex-1 justify-center" id="container">
-          <InfinitePosts />
+        <div className="flex flex-1 items-center justify-center">
+          <p>everywhere map view</p>
         </div>
       </div>
     </>

@@ -1,7 +1,8 @@
 import {
   faCube,
+  faSquare,
   faSquarePlus,
-  faStar
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -17,6 +18,14 @@ function Create() {
           tabIndex="0"
           className="dropdown-content menu menu-horizontal p-2 shadow bg-neutral rounded-box w-auto items-center"
         >
+          <li>
+            <Link href="/create/post">
+              <div className="flex flex-col align-middle hover:text-primary">
+                <FontAwesomeIcon size="xl" icon={faSquare} />
+                <p>POST</p>
+              </div>
+            </Link>
+          </li>
           <li>
             <Link href="/create/thing">
               <div className="flex flex-col align-middle hover:text-primary">

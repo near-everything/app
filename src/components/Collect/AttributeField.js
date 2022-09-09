@@ -58,6 +58,7 @@ const AttributeField = ({ attributeId, setAttributeOption, value }) => {
         <>Loading</>
       ) : (
         <CreatableSelect
+          className="text-black"
           options={prepareOptions()}
           isDisabled={isLoading || isError}
           isLoading={isLoading}
