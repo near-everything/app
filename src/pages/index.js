@@ -33,7 +33,7 @@ function Home() {
     <>
       <Header title="everything" />
       <div className="flex h-full">
-        <div className="flex flex-1 justify-center" id="container">
+        <div className="flex flex-1" id="container">
           <InfinitePosts />
         </div>
       </div>
