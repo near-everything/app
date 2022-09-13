@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+import { getAccessToken } from "@auth0/nextjs-auth0";
+import { gql } from "graphql-request";
+
+>>>>>>> 6adea3b45ab482150c72e543ee164984c677f516
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { gql } from "graphql-request";
 import { graphqlClient } from "../../app/api";
@@ -95,55 +101,6 @@ export function useInfiniteRequests() {
         if (lastPage.pageInfo.hasNextPage) {
           return {
             first: REQUESTS_PER_PAGE,
-            after: lastPage.pageInfo.endCursor,
-          };
-        }
-      },
-    }
-  );
-  return result;
-}
-
-export function useInfinitePosts() {
-  const result = useInfiniteQuery(
-    ["infinitePosts"],
-    async ({ pageParam = 0 }) => {
-      const { posts } = await graphqlClient.request(
-        gql`
-          query posts($first: Int!, $after: Cursor) {
-            posts(first: $first, after: $after) {
-              edges {
-                cursor
-                node {
-                  id
-                  medias {
-                    edges {
-                      node {
-                        mediaUrl
-                      }
-                    }
-                  }
-                }
-              }
-              pageInfo {
-                endCursor
-                hasNextPage
-              }
-            }
-          }
-        `,
-        pageParam || {
-          first: POSTS_PER_PAGE,
-          after: null,
-        }
-      );
-      return posts;
-    },
-    {
-      getNextPageParam: (lastPage) => {
-        if (lastPage.pageInfo.hasNextPage) {
-          return {
-            first: POSTS_PER_PAGE,
             after: lastPage.pageInfo.endCursor,
           };
         }
