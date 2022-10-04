@@ -1,20 +1,20 @@
+import { useUser } from "@auth0/nextjs-auth0";
+import { getDownloadURL, ref, Timestamp, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import Select from "react-select";
 import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { getFirebaseStorage } from "../../../app/firebaseClient";
 import Media from "../../../components/Create/Media";
 
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Description from "../../../components/Request/Description";
 import Layout from "../../../containers/Layout";
 import PageContentContainer from "../../../containers/PageContentContainer";
-import { useAuth } from "../../../context/AuthContext";
 import {
   useCreateMedia,
-  useCreatePost,
+  useCreatePost
 } from "../../../features/collect/collectApi";
-
-// export const getServerSideProps = withPageAuthRequired();
 
 const privacyOptions = [
   {
@@ -32,10 +32,10 @@ function CreatePost() {
   const [media, setMedia] = useState([]);
   const [text, setText] = useState("");
   const [privacy, setPrivacy] = useState(privacyOptions[0]);
-  const { user } = useAuth();
   const createPost = useCreatePost();
   const createMedia = useCreateMedia();
   const st = getFirebaseStorage();
+  const { user } = useUser();
 
   const storeImages = async (media, user) => {
     let urls = [];

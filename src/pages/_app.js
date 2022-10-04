@@ -13,8 +13,11 @@ import { themeChange } from "theme-change";
 
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
+import initFirebaseClientSDK from "../app/firebaseClient";
 
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
+
+initFirebaseClientSDK();
 
 export default function App({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());

@@ -1,11 +1,11 @@
+import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
-import { useAuth } from "../../../context/AuthContext";
 import { usePostsByPoster } from "../../../features/organize/organizeApi";
 import MediaGrid from "../../MediaGrid";
 import SquareImage from "../../SquareImage";
 
 function PostGrid() {
-  const { user } = useAuth();
+  const { user } = useUser();
   const { data, isLoading, isError } = usePostsByPoster(user && user.uid, {
     enabled: !!user,
   });
