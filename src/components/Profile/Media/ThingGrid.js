@@ -1,13 +1,13 @@
+import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useAuth } from "../../../context/AuthContext";
 import { useThingsByOwner } from "../../../features/organize/organizeApi";
 import MediaGrid from "../../MediaGrid";
 import SquareImage from "../../SquareImage";
 
 function ThingGrid() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user } = useUser();
   const { data, isLoading, isError } = useThingsByOwner(user && user.uid, {
     enabled: !!user,
   });
@@ -19,9 +19,7 @@ function ThingGrid() {
         className="cursor-pointer"
         onClick={() => router.push(`/things/${thing.node.id}`)}
       >
-        <SquareImage
-          media={thing.node.medias?.edges[0]?.node.mediaUrl}
-        />
+        <SquareImage media={thing.node.medias?.edges[0]?.node.mediaUrl} />
       </div>
     );
   };

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
-import { useAuth } from "../../context/AuthContext";
 import { useCreateFeedback } from "../../features/feedback/feedbackApi";
 import TextArea from "../TextArea";
 
@@ -23,7 +22,7 @@ const typeOptions = [
     value: "HELP",
   },
   {
-    label: "Other...",
+    label: "other...",
     value: "OTHER",
   },
 ];
@@ -31,7 +30,6 @@ const typeOptions = [
 function ContactForm() {
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
-  const { user } = useAuth();
   const createFeedback = useCreateFeedback();
 
   const handleSubmit = () => {
@@ -39,7 +37,6 @@ function ContactForm() {
       {
         type: type.value,
         description: description,
-        userId: user.uid,
       },
       {
         onSuccess: () => {
