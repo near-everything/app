@@ -1,8 +1,11 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  purge: [],
+  darkMode: 'media',
   theme: {
-    extend: {
-    },
+    extend: {},
   },
-  plugins: [require("@tailwindcss/forms"), require("daisyui")],
+  variants: {
+    extend: {},
+  },
+  plugins: [],
 };

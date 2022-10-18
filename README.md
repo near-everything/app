@@ -1,202 +1,65 @@
-<div id="top"></div>
+# Next.js + Tailwind CSS + Ionic Framework + Capacitor Mobile Starter
 
-<!-- PROJECT SHIELDS -->
+![Screenshot](./screenshot.png)
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+This repo is a conceptual starting point for building an iOS, Android, and Progressive Web App with Next.js, Tailwind CSS, [Ionic Framework](https://ionicframework.com/), and [Capacitor](https://capacitorjs.com/).
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/near-everything/app">
-    <img src="public/icons/everything.png" alt="Logo" width="80" height="80">
-  </a>
+Next.js handles the production React app experience, Tailwind can be used to style each page of your app, Ionic Framework provides the cross-platform system controls (navigation/transitions/tabs/etc.), and then Capacitor bundles all of it up and runs it on iOS, Android, and Web with full native access.
 
-<h2 align="center">everything</h3>
-
-  <p align="center">
-    An all-in-one tool interacting with the inventory of everything.
-    <br />
-    <!-- <a href="https://documentation.everything.dev"><strong>Explore the docs »</strong></a> -->
-    <!-- <br /> -->
-    <br />
-    <a href="https://everything.dev">Use App</a>
-    ·
-    <a href="https://github.com/near-everything/app/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/near-everything/app/issues">Request Feature</a>
-  </p>
-</div>
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-<!-- ABOUT THE PROJECT -->
-
-## About The Project
-
-<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
-
-everything is one of several applications to aid in the creation of the [inventory of everything](https://everything.dev): a centralized database of real, tangible assets that can then be used as the foundation for decentralized marketplaces, services, tools-- in the effort to create a circular economy that makes sense for everyone.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### Built With
-
-- [![Next][next.js]][next-url]
-- [![React][react.js]][react-url]
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- GETTING STARTED -->
-
-## Getting Started
-
-### Prerequisites
-
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/near-everything/app.git
-   ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- USAGE EXAMPLES -->
+See this blog post for an overview of the stack and how it all works: https://dev.to/ionic/build-mobile-apps-with-tailwind-css-next-js-ionic-framework-and-capacitor-3kij
 
 ## Usage
 
-**Make sure you have the [everything-api](https://github.com/near-everything/api) running locally!**
+This project is a standard Next.js app, so the typical Next.js development process applies (`npm run dev` for browser-based development). However, there is one caveat: the app must be exported to deploy to iOS and Android, since it must run purely client-side. ([more on Next.js export](https://nextjs.org/docs/advanced-features/static-html-export))
 
-1. Run the app in development mode:
+To build the app, run:
 
-```sh
- npm run dev
+```bash
+npm run build
+npm run export
 ```
 
-2. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+All the client side files will be sent to the `./out/` directory. These files need to be copied to the native iOS and Android projects, and this is where Capacitor comes in:
 
-   The page will reload if you make edits.<br />
-   You will also see any lint errors in the console.
+```bash
+npx cap sync
+```
 
-3. When prompted (/login), login with any phone number, real or fake. This will be saved locally to the firebase emulator and will not be available for anyone else to see. Once you enter in your phone number and submit, check the docker logs for container "firebase-emulator:firebase-emulator" and there should be a message "To verify the phone number \_**\_, use the code \_\_\_**". Enter in this code on the login page.
+Finally, to run the app, use Capacitor 3 new awesome run command:
 
-![Logging in tutorial][logging-in-tutorial]
+```
+npx cap run ios
+npx cap run android
+```
 
-<!--
-<br/>
-Launch the test runner in the interactive watch mode:
+## Livereload/Instant Refresh
 
-```sh
-  npm run test
-  ```
+To enable Livereload and Instant Refresh during development (when running `npm run dev`), find the IP address of your local interface (ex: `192.168.1.2`) and port your Next.js server is running on, and then set the server url config value to point to it in `capacitor.config.json`:
 
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```json
+{
+  "server": {
+    "url": "http://192.168.1.2:3000"
+  }
+}
+```
 
+Note: this configuration wil be easier in Capacitor 3 which [recently went into beta](https://capacitorjs.com/blog/announcing-capacitor-3-0-beta).
 
-_For more examples, please refer to the [Documentation](https://example.com)_ -->
+## API Routes
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+API Routes can be used but some minimal configuration is required. See [this discussion](https://github.com/mlynch/nextjs-tailwind-ionic-capacitor-starter/issues/4#issuecomment-754030049) for more information.
 
-<!-- ROADMAP -->
+## Caveats
 
-## Roadmap
+One caveat with this project: Because the app must be able to run purely client-side and use [Next.js's Export command](https://nextjs.org/docs/advanced-features/static-html-export), that means no Server Side Rendering in this code base. There is likely a way to SSR and a fully static Next.js app in tandem but it requires [a Babel plugin](https://github.com/erzr/next-babel-conditional-ssg-ssr) or would involve a more elaborate monorepo setup with code sharing that is out of scope for this project.
 
-- [ ] TBD...
+Additionally, Next.js routing is not really used much in this app beyond a catch-all route to render the native app shell and engage the Ionic React Router. This is primarily because Next.js routing is not set up to enable native-style transitions and history state management like the kind Ionic uses. 
 
-See the [open issues](https://github.com/near-everything/app/issues) for a full list of proposed features (and known issues).
+## What is Capacitor?
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+You can think of [Capacitor](https://capacitorjs.com/) as a sort of "electron for mobile" that runs standard web apps on iOS, Android, Desktop, and Web.
 
-<!-- CONTRIBUTING -->
+Capacitor provides access to Native APIs and a plugin system for building any native functionality your app needs.
 
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- LICENSE -->
-
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- CONTACT -->
-
-## Contact
-
-Elliot Braem - elliot@everything.dev
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
-
-## Acknowledgments
-
-- README adapted from [Best-README-Template](https://github.com/othneildrew/Best-README-Template/blob/master/BLANK_README.md).
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/near-everything/app.svg?style=for-the-badge
-[contributors-url]: https://github.com/near-everything/app/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/near-everything/app.svg?style=for-the-badge
-[forks-url]: https://github.com/near-everything/app/network/members
-[stars-shield]: https://img.shields.io/github/stars/near-everything/app.svg?style=for-the-badge
-[stars-url]: https://github.com/near-everything/app/stargazers
-[issues-shield]: https://img.shields.io/github/issues/near-everything/app.svg?style=for-the-badge
-[issues-url]: https://github.com/near-everything/app/issues
-[license-shield]: https://img.shields.io/github/license/near-everything/app.svg?style=for-the-badge
-[license-url]: https://github.com/near-everything/app/blob/main/LICENSE.txt
-[logging-in-tutorial]: docs/logging-in.gif
-[next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[next-url]: https://nextjs.org/
-[react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[react-url]: https://reactjs.org/
+Capacitor apps can also run in the browser as a Progressive Web App with the same code.

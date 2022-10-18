@@ -1,24 +1,14 @@
-/** @type {import('next').NextConfig} */
+const withTM = require('next-transpile-modules')([
+  '@ionic/react',
+  '@ionic/core',
+  '@stencil/core',
+  'ionicons',
+]);
 
-const withPWA = require("next-pwa");
-
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
+module.exports = withTM({
+  basePath: '',
   images: {
-    domains: ["firebasestorage.googleapis.com", "localhost"],
+    domains: ['images.unsplash.com'],
   },
-  pwa: {
-    dest: "public",
-    disable: process.env.NODE_ENV !== "production",
-    register: false,
-  },
-  rewrites: async () => [
-    {
-      source: "/public/privacy-policy.html",
-      destination: "/pages/api/privacy-policy.js",
-    },
-  ],
-};
-
-module.exports = withPWA(nextConfig);
+  swcMinify: true,
+});
