@@ -10,31 +10,46 @@ import {
   globeOutline,
   personCircleOutline,
 } from "ionicons/icons";
+import { lazy, Suspense } from "react";
 import { Redirect, Route } from "react-router-dom";
 
-import Home from "./Feed";
-import Lists from "./Lists";
-import PostDetail from "./PostDetail";
-import Profile from "./Profile";
+const Home = lazy(() => import("./Feed"));
+const Lists = lazy(() => import("./Lists"));
+const PostDetail = lazy(() => import("./PostDetail"));
+const Posts = lazy(() => import("./Posts"));
+const Profile = lazy(() => import("./Profile"));
+const Things = lazy(() => import("./Things"));
 
 const Tabs = () => {
   return (
     <IonTabs>
-      <IonRouterOutlet>
-        <Route path="/tabs/feed" render={() => <Home />} exact={true} />
-        <Route
-          path="/tabs/feed/:postId"
-          render={() => <PostDetail />}
-          exact={true}
-        />
-        <Route path="/tabs/create" render={() => <Lists />} exact={true} />
-        <Route path="/tabs/profile" render={() => <Profile />} exact={true} />
-        <Route
-          path="/tabs"
-          render={() => <Redirect to="/tabs/feed" />}
-          exact={true}
-        />
-      </IonRouterOutlet>
+        <IonRouterOutlet>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Route path="/tabs/feed" render={() => <Home />} exact={true} />
+          <Route
+            path="/tabs/feed/:postId"
+            render={() => <PostDetail />}
+            exact={true}
+          />
+          <Route path="/tabs/create" render={() => <Lists />} exact={true} />
+          <Route path="/tabs/profile" render={() => <Profile />} exact={true} />
+          <Route
+            path="/tabs/profile/things"
+            render={() => <Things />}
+            exact={true}
+          />
+          <Route
+            path="/tabs/profile/posts"
+            render={() => <Posts />}
+            exact={true}
+          />
+          <Route
+            path="/tabs"
+            render={() => <Redirect to="/tabs/feed" />}
+            exact={true}
+          />
+          </Suspense>
+        </IonRouterOutlet>
       <IonTabBar slot="bottom">
         <IonTabButton tab="tab1" href="/tabs/feed">
           <IonIcon icon={globeOutline} />

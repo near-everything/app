@@ -8,6 +8,7 @@ const withTM = require('next-transpile-modules')([
 module.exports = withTM({
   basePath: '',
   images: {
+    unoptimized: true,
     domains: ['images.unsplash.com'],
   },
   swcMinify: true,
