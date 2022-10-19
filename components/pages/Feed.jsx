@@ -19,6 +19,8 @@ import { getHomeItems } from "../../store/selectors";
 import Notifications from "./Notifications";
 import Avatar from "../Avatar";
 import Post from "../Post";
+import { useQuery } from "@tanstack/react-query";
+import { gql, GraphQLClient } from "graphql-request";
 
 const Feed = () => {
   const homeItems = Store.useState(getHomeItems);
