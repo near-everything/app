@@ -1,23 +1,39 @@
-import { Redirect, Route } from 'react-router-dom';
-import { IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import { addCircleOutline, cog, globeOutline, list, personCircleOutline } from 'ionicons/icons';
+import {
+  IonIcon,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+} from "@ionic/react";
+import {
+  addCircleOutline,
+  globeOutline,
+  personCircleOutline,
+} from "ionicons/icons";
+import { Redirect, Route } from "react-router-dom";
 
-import Home from './Feed';
-import Lists from './Lists';
-import ListDetail from './ListDetail';
-import Settings from './Settings';
-import Profile from './Profile';
+import Home from "./Feed";
+import Lists from "./Lists";
+import PostDetail from "./PostDetail";
+import Profile from "./Profile";
 
 const Tabs = () => {
   return (
     <IonTabs>
       <IonRouterOutlet>
         <Route path="/tabs/feed" render={() => <Home />} exact={true} />
+        <Route
+          path="/tabs/feed/:postId"
+          render={() => <PostDetail />}
+          exact={true}
+        />
         <Route path="/tabs/create" render={() => <Lists />} exact={true} />
-        <Route path="/tabs/lists/:listId" render={() => <ListDetail />} exact={true} />
         <Route path="/tabs/profile" render={() => <Profile />} exact={true} />
-        <Route path="/tabs" render={() => <Redirect to="/tabs/feed" />} exact={true} />
+        <Route
+          path="/tabs"
+          render={() => <Redirect to="/tabs/feed" />}
+          exact={true}
+        />
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
         <IonTabButton tab="tab1" href="/tabs/feed">
