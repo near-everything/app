@@ -1,8 +1,5 @@
 function Camera() {
-  return (
-    <>
-    </>
-  )
+  return <></>;
 }
 
 export default Camera;
