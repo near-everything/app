@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import ExitableHeader from "../../components/ExitableHeader";
 import Layout from "../../containers/Layout";
@@ -34,9 +35,9 @@ function Settings() {
         </label>
         <ul className="menu">
           <li>
-            <a className="btn" href="/api/auth/logout">
+            <Link className="btn" href="/api/auth/logout">
               Log out
-            </a>
+            </Link>
           </li>
         </ul>
       </PageContentContainer>

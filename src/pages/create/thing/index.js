@@ -1,21 +1,15 @@
 import { useUser } from "@auth0/nextjs-auth0";
-import { Timestamp } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import Select from "react-select";
 import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import { getFirebaseStorage } from "../../../app/firebaseClient";
 import Attributes from "../../../components/Collect/Attributes";
 import Media from "../../../components/Create/Media";
 
 import CreateSuccessNotification from "../../../components/Notification/CreateSuccessNotification";
 import Layout from "../../../containers/Layout";
 import PageContentContainer from "../../../containers/PageContentContainer";
-import {
-  useCreateMedia,
-  useCreateThing
-} from "../../../features/collect/collectApi";
+import { useCreateThing } from "../../../features/collect/collectApi";
 
 const privacyOptions = [
   {
@@ -36,7 +30,6 @@ function CreateThing() {
   const { user } = useUser();
   const createThing = useCreateThing();
   // const createMedia = useCreateMedia();
-  const st = getFirebaseStorage();
 
   // const storeImages = async (media) => {
   //   let urls = [];
@@ -70,7 +63,10 @@ function CreateThing() {
     createThing.mutate(
       {
         attributes: attributes
-          ?.filter((it) => it.options?.value !== undefined && it.options?.value !== null)
+          ?.filter(
+            (it) =>
+              it.options?.value !== undefined && it.options?.value !== null
+          )
           .map((attr) => {
             return {
               attributeId: parseInt(attr.value),
