@@ -14,7 +14,6 @@ function Profile() {
         <div className="divider" />
         <ProfileMedia />
       </PageContentContainer>
-      
     </>
   );
 }

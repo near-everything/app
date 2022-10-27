@@ -24,18 +24,6 @@ function ProfileMenu() {
                 </span>
               </Link>
             </li>
-            <li>
-              <Link href="/feedback">
-                <span>
-                  <FontAwesomeIcon
-                    className="transition ease-in-out duration-500 hover:text-gray-400 cursor-pointer"
-                    size="xl"
-                    icon={faGear}
-                  />
-                  Provide feedback
-                </span>
-              </Link>
-            </li>
           </ul>
         </label>
       </label>

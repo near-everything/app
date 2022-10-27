@@ -1,6 +1,5 @@
 import Link from "next/link";
-import "react-phone-input-2/lib/style.css";
-import CenteredContainer from "../../containers/CenteredContainer";
+import Layout from "../../containers/Layout";
 
 function Login() {
   return (
@@ -15,5 +14,5 @@ function Login() {
 export default Login;
 
 Login.getLayout = function getLayout(page) {
-  return <CenteredContainer>{page}</CenteredContainer>;
+  return <Layout>{page}</Layout>;
 };
