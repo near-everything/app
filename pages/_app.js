@@ -8,8 +8,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Head from "next/head";
-import { useEffect, useState } from "react";
-import { themeChange } from "theme-change";
+import { useState } from "react";
 
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
@@ -19,10 +18,6 @@ config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatic
 export default function App({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
   const getLayout = Component.getLayout || ((page) => page);
-
-  useEffect(() => {
-    themeChange(false);
-  }, []);
 
   return (
     <UserProvider>
