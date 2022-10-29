@@ -12,7 +12,7 @@ function Profile() {
       <PageContentContainer>
         <ProfileData />
         <div className="divider" />
-        <ProfileMedia />
+        {/* <ProfileMedia /> */}
       </PageContentContainer>
     </>
   );

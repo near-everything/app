@@ -66,8 +66,6 @@ function Description({ attributes, setAttributes }) {
     }
   };
 
-  const executeScroll= () => textBar.current.scrollIntoView();
-
   return (
     <>
       {loading ? (
@@ -83,7 +81,6 @@ function Description({ attributes, setAttributes }) {
           isLoading={isLoading}
           onChange={handleOnChange}
           onCreateOption={handleProposeAttribute}
-          onClick={executeScroll}
           defaultValue={attributes}
           value={attributes}
           placeholder={"begin typing characteristics..."}
@@ -101,7 +98,7 @@ function Description({ attributes, setAttributes }) {
             />
           ))}
           <div className="flex flex-1 flex-col items-center justify-center h-full p-16">
-            <div className="btn" ref={textBar}>submit</div>
+            <div className="btn">submit</div>
           </div>
         </div>
       ) : null}
