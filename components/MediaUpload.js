@@ -2,8 +2,12 @@ import React from "react";
 import ImageIcon from "../icons/image";
 
 const MediaUpload = React.forwardRef(function MediaUpload(props, ref) {
+  const { onUpload } = props;
   return (
-    <label className="flex flex-col justify-center border-4 cursor-pointer rounded-lg hover:border-primary h-full p-4 w-full">
+    <label
+      className="flex flex-1 flex-col justify-center cursor-pointer w-full h-full hover:border-green-300"
+      onChange={onUpload}
+    >
       <div className="flex flex-col items-center pt-6">
         <ImageIcon />
         <div className="flex flex-col text-sm text-center text-gray-400">
@@ -17,7 +21,6 @@ const MediaUpload = React.forwardRef(function MediaUpload(props, ref) {
         className="opacity-0"
         multiple
         ref={ref}
-        {...props}
       />
     </label>
   );

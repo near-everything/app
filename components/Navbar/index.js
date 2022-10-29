@@ -5,7 +5,7 @@ import Profile from "./Profile";
 
 function Navbar() {
   return (
-    <div className="btm-nav">
+    <div className="btm-nav bg-transparent">
       <Home />
       <Create />
       <Profile />

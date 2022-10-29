@@ -7,19 +7,27 @@ import Layout from "../../../containers/Layout";
 function CreateThing() {
   const [showCamera, setShowCamera] = useState(false);
   const [images, setImages] = useState([]);
+  const [attributes, setAttributes] = useState([]);
 
   return (
     <>
       {showCamera ? (
-        <Camera
-          hideCamera={() => setShowCamera(false)}
-          images={images}
-          setImages={setImages}
-        />
+        <div className="flex flex-col h-full">
+          <Camera
+            hideCamera={() => setShowCamera(false)}
+            images={images}
+            setImages={setImages}
+          />
+        </div>
       ) : (
         <>
-          <CreateThingForm />
-          <button className="btn" onClick={() => setShowCamera(true)} />
+          <CreateThingForm
+            showCamera={() => setShowCamera(true)}
+            images={images}
+            setImages={setImages}
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
         </>
       )}
     </>

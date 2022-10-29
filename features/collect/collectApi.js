@@ -28,6 +28,38 @@ export function useAttributes(options) {
   );
 }
 
+export function useRelationships(options) {
+  return useQuery(
+    ["relationships"],
+    async () => {
+      const {
+        relationships: { edges },
+      } = await graphqlClient.request(
+        gql`
+          query getRelationships {
+            relationships {
+              edges {
+                node {
+                  attribute {
+                    id
+                    name
+                  }
+                  option {
+                    id
+                    value
+                  }
+                }
+              }
+            }
+          }
+        `
+      );
+      return edges;
+    },
+    options
+  );
+}
+
 export function useAttributeById(attributeId, options) {
   return useQuery(
     ["attributeById", attributeId],

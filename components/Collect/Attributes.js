@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRef, useState } from "react";
 import {
   useAttributes,
   useProposeAttribute,
@@ -7,16 +7,18 @@ import {
 import CreatableSelect from "../CreatableSelect";
 import AttributeField from "./AttributeField";
 
-function Attributes({ attributes, setAttributes }) {
+function Description({ attributes, setAttributes }) {
   const { data, isLoading, isError } = useAttributes();
   const proposeAttribute = useProposeAttribute();
   const [loading, setLoading] = useState(false);
   const queryClient = useQueryClient();
-
+  
   const prepareOptions = () => {
     return data?.map((option) => ({
       value: option?.node?.id,
       label: option?.node?.name,
+      // value: option?.node?.attribute?.name + option?.node?.option?.value,
+      // label: `${option?.node?.attribute?.name}: ${option?.node?.option?.value}`,
     }));
   };
 
@@ -64,6 +66,8 @@ function Attributes({ attributes, setAttributes }) {
     }
   };
 
+  const executeScroll= () => textBar.current.scrollIntoView();
+
   return (
     <>
       {loading ? (
@@ -72,29 +76,37 @@ function Attributes({ attributes, setAttributes }) {
         <CreatableSelect
           id="attribute_select"
           instanceId="attribute_select"
-          className="text-black"
           isMulti
+          className="text-gray-800"
           options={prepareOptions()}
           isDisabled={isLoading || isError}
           isLoading={isLoading}
           onChange={handleOnChange}
           onCreateOption={handleProposeAttribute}
+          onClick={executeScroll}
           defaultValue={attributes}
           value={attributes}
-          placeholder={"Attributes..."}
+          placeholder={"begin typing characteristics..."}
+          formatCreateLabel={() => "not showing up? create new option"}
         />
       )}
-      <br />
-      {attributes?.map((attr) => (
-        <AttributeField
-          key={attr.value}
-          attributeId={attr.value}
-          setAttributeOption={setAttributeOption}
-          value={handleValue(attr.value)}
-        />
-      ))}
+      {attributes?.length > 0 ? (
+        <div className="grid gap-4" id="thing-form">
+          {attributes.map((attr) => (
+            <AttributeField
+              key={attr.value}
+              attributeId={attr.value}
+              setAttributeOption={setAttributeOption}
+              value={handleValue(attr.value)}
+            />
+          ))}
+          <div className="flex flex-1 flex-col items-center justify-center h-full p-16">
+            <div className="btn" ref={textBar}>submit</div>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }
 
-export default Attributes;
+export default Description;
