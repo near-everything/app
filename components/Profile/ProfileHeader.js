@@ -5,7 +5,6 @@ function ProfileHeader({ username }) {
     <>
       <div className="navbar">
         <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-4xl">{username}</a>
         </div>
         <div className="flex-none">
           <label

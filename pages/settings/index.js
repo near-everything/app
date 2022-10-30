@@ -2,7 +2,6 @@ import Link from "next/link";
 import React from "react";
 import ExitableHeader from "../../components/ExitableHeader";
 import Layout from "../../containers/Layout";
-import PageContentContainer from "../../containers/PageContentContainer";
 
 function Settings() {
   return (
@@ -10,7 +9,7 @@ function Settings() {
       <ExitableHeader href={"/profile"}>
         <p className="font-semibold">Settings</p>
       </ExitableHeader>
-      <PageContentContainer>
+      <div className="flex flex-1 flex-col">
         <label className="swap swap-rotate">
           <input
             type="checkbox"
@@ -40,7 +39,7 @@ function Settings() {
             </Link>
           </li>
         </ul>
-      </PageContentContainer>
+      </div>
     </>
   );
 }

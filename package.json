@@ -19,6 +19,7 @@
     "fs": "^0.0.1-security",
     "graphql-request": "^4.3.0",
     "next": "^12.2.3",
+    "next-auth": "^4.15.0",
     "next-http-proxy-middleware": "^1.2.4",
     "next-pwa": "5.5.4",
     "react": "^17.0.2",
@@ -27,7 +28,10 @@
     "react-select": "^5.4.0",
     "react-spinners": "^0.13.3",
     "react-toastify": "^9.0.7",
+    "react-virtualized-auto-sizer": "^1.0.7",
     "react-webcam": "^7.0.1",
+    "react-window": "^1.8.7",
+    "react-window-infinite-loader": "^1.0.8",
     "swiper": "^8.4.4"
   },
   "scripts": {

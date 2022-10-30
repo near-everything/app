@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import MediaUpload from "../MediaUpload";
 import MediaSlide from "./MediaSlide";
 
-function MediaReel({ images, setImages }) {
+function MediaReel({ images, setImages, allowUpload, allowRemove }) {
   const removeMedia = (index) => {
     setImages((old) => {
       return old.filter((value, i) => i !== index);
@@ -29,22 +29,26 @@ function MediaReel({ images, setImages }) {
   };
 
   return (
-    <div
-      className="flex flex-col justify-center items-center w-full"
-      id="media-reel"
-    >
-      <Swiper pagination={pagination} modules={[Pagination]}>
+    <div className="flex flex-col justify-center items-center w-full h-full">
+      <Swiper
+        pagination={pagination}
+        modules={[Pagination]}
+        className="rounded-2xl"
+      >
         {images?.map((imgSrc, index) => (
           <SwiperSlide key={index}>
             <MediaSlide
               imgSrc={imgSrc}
               removeMedia={() => removeMedia(index)}
+              allowRemove={allowRemove}
             />
           </SwiperSlide>
         ))}
-        <SwiperSlide>
-          <MediaUpload onUpload={addMedia} />
-        </SwiperSlide>
+        {allowUpload ? (
+          <SwiperSlide>
+            <MediaUpload onUpload={addMedia} />
+          </SwiperSlide>
+        ) : null}
       </Swiper>
     </div>
   );

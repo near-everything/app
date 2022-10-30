@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
-function Avatar({ color }) {
+function Avatar({ color, size  }) {
   const ref = useRef();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ function Avatar({ color }) {
 
   return (
     <div className="avatar">
-      <div className="w-24 rounded-full" ref={ref}></div>
+      <div className={`w-36 rounded-full`} ref={ref}></div>
     </div>
   );
 }

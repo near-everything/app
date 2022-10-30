@@ -13,11 +13,15 @@ function CreateThingForm({
   return (
     <>
       <div className="relative">
-        <MediaReel
-          showCamera={showCamera}
-          images={images}
-          setImages={setImages}
-        />
+        <div id="create-media-reel">
+          <MediaReel
+            showCamera={showCamera}
+            images={images}
+            setImages={setImages}
+            allowUpload={true}
+            allowRemove={true}
+          />
+        </div>
         <div className="absolute bottom-4 left-4 z-50">
           <div className="flex justify-center items-center">
             <button

@@ -1,19 +1,19 @@
 import React from "react";
 import ProfileData from "../../components/Profile/ProfileData";
 import ProfileHeader from "../../components/Profile/ProfileHeader";
-import ProfileMedia from "../../components/Profile/ProfileMedia";
+import ThingList from "../../components/ThingList";
 import Layout from "../../containers/Layout";
-import PageContentContainer from "../../containers/PageContentContainer";
 
 function Profile() {
   return (
     <>
-      <ProfileHeader username="efizzysnaps" />
-      <PageContentContainer>
+      <ProfileHeader />
+      <div className="flex flex-1 flex-col">
         <ProfileData />
         <div className="divider" />
+        <ThingList />
         {/* <ProfileMedia /> */}
-      </PageContentContainer>
+      </div>
     </>
   );
 }

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React from "react";
 
-const MediaSlide = React.forwardRef(function MediaSlide({ imgSrc, removeMedia }, ref) {
+const MediaSlide = React.forwardRef(function MediaSlide({ imgSrc, removeMedia, allowRemove }, ref) {
   return (
     <div className="relative w-full h-full" ref={ref}>
-      {removeMedia ? (
+      {allowRemove ? (
         <div className="absolute z-50 left-2 top-2">
           <button
             className="btn btn-ghost btn-circle bg-white text-gray-800 opacity-20 shadow-lg"

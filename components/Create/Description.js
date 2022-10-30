@@ -66,6 +66,7 @@ function Description({ attributes, setAttributes }) {
     }
   };
 
+
   return (
     <>
       {loading ? (
@@ -88,7 +89,7 @@ function Description({ attributes, setAttributes }) {
         />
       )}
       {attributes?.length > 0 ? (
-        <div className="grid gap-4" id="thing-form">
+        <div className="grid gap-4 mt-4" id="thing-form">
           {attributes.map((attr) => (
             <AttributeField
               key={attr.value}
