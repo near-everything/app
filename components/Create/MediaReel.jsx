@@ -14,15 +14,16 @@ function MediaReel({ images, setImages, allowUpload, allowRemove }) {
   const pagination = {
     clickable: true,
     renderBullet: function (index, className) {
-      return '<div class="' + className + '"> </div>';
+      return `<div class="${className}"> </div>`;
     },
   };
 
   const addMedia = (event) => {
     if (event.target.files.length > 0) {
-      const urls = Array.from(event.target.files).map((file) =>
-        URL.createObjectURL(file)
-      );
+      const urls = Array.from(event.target.files).map((file) => ({
+        data: file,
+        url: URL.createObjectURL(file),
+      }));
       setImages([...images, ...urls]);
       event.target.value = null;
     }
@@ -38,7 +39,7 @@ function MediaReel({ images, setImages, allowUpload, allowRemove }) {
         {images?.map((imgSrc, index) => (
           <SwiperSlide key={index}>
             <MediaSlide
-              imgSrc={imgSrc}
+              imgSrc={imgSrc?.url || imgSrc}
               removeMedia={() => removeMedia(index)}
               allowRemove={allowRemove}
             />
@@ -48,6 +49,17 @@ function MediaReel({ images, setImages, allowUpload, allowRemove }) {
           <SwiperSlide>
             <MediaUpload onUpload={addMedia} />
           </SwiperSlide>
+        ) : images.length === 0 ? (
+          <>
+            <SwiperSlide>
+              <div className="flex flex-col items-center pt-6">
+                <div className="flex flex-col text-sm text-center text-gray-400">
+                  <span className="font-semibold">no images found</span>
+                  <span className="">please edit and upload images</span>
+                </div>
+              </div>
+            </SwiperSlide>
+          </>
         ) : null}
       </Swiper>
     </div>

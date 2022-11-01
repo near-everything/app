@@ -1,8 +1,8 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   useAttributes,
-  useProposeAttribute,
+  useProposeAttribute
 } from "../../features/collect/collectApi";
 import CreatableSelect from "../CreatableSelect";
 import AttributeField from "./AttributeField";
@@ -12,7 +12,7 @@ function Description({ attributes, setAttributes }) {
   const proposeAttribute = useProposeAttribute();
   const [loading, setLoading] = useState(false);
   const queryClient = useQueryClient();
-  
+
   const prepareOptions = () => {
     return data?.map((option) => ({
       value: option?.node?.id,
@@ -65,7 +65,6 @@ function Description({ attributes, setAttributes }) {
       return match.options;
     }
   };
-
 
   return (
     <>

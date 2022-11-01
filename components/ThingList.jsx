@@ -1,8 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { gql } from "graphql-request";
-import Link from "next/link";
-import React from "react";
-import { useState } from "react";
+import Image from "next/image";
+import React, { useState } from "react";
 import { graphqlClient } from "../app/api";
 import DetailsModal from "./DetailsModal";
 import InfiniteList from "./InfiniteList";
@@ -77,20 +76,28 @@ function ThingList() {
 
   const renderThing = (thing) => {
     return (
-      <>
-        <div className=" bg-gray-800 border-black border-2 h-full rounded-xl shadow-xl">
-          <div className="flex flex-row">
-            <div className="flex w-12 justify-center items-center">{thing.id}</div>
-            <label
-              htmlFor="thing-details"
-              className="btn btn-xs modal-button"
-              onClick={() => setDetails(thing)}
-            >
-              details
-            </label>
-          </div>
+      <div className=" bg-gray-800 border-black border-2 h-full rounded-xl shadow-xl">
+        <div className="flex flex-row">
+          {thing.medias?.edges < 1 ? null : (
+            <div className="relative w-32 h-32">
+              <Image
+                src={thing.medias.edges[0]?.node.mediaUrl}
+                alt=""
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+          )}
+
+          <label
+            htmlFor="thing-details"
+            className="btn btn-xs modal-button"
+            onClick={() => setDetails(thing)}
+          >
+            details
+          </label>
         </div>
-      </>
+      </div>
     );
   };
 

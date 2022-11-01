@@ -30,7 +30,7 @@ function InfiniteList({
       content = items[index].node;
     }
 
-    return <div style={style}>{renderListItem(content)}</div>;
+    return <div style={style} key={index}>{renderListItem(content)}</div>;
   };
 
   return (

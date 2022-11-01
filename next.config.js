@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
 const withPWA = require("next-pwa");
 
@@ -10,7 +10,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["firebasestorage.googleapis.com", "localhost"],
+    domains: ["everything-1.s3.us-east-1.amazonaws.com", "localhost"],
   },
   pwa: {
     dest: "public",

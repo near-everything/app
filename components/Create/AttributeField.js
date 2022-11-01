@@ -6,7 +6,7 @@ import {
 } from "../../features/collect/collectApi";
 import CreatableSelect from "../CreatableSelect";
 
-const AttributeField = ({ attributeId, setAttributeOption, value }) => {
+const AttributeField = React.forwardRef(function AttributeField({ attributeId, setAttributeOption, value }, ref) {
   const { data, isLoading, isError } = useAttributeById(attributeId, {
     enabled: !!attributeId,
   });
@@ -66,10 +66,11 @@ const AttributeField = ({ attributeId, setAttributeOption, value }) => {
           defaultValue={value}
           value={value}
           placeholder={`${data?.attribute?.name}`}
+          ref={ref}
         />
       )}
     </>
   );
-};
+});
 
 export default AttributeField;

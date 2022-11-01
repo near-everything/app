@@ -3,7 +3,7 @@ import Layout from "../../containers/Layout";
 function Login() {
   return (
     <>
-      <a className="btn normal-case" href="/api/auth/signin">
+      <a className="btn normal-case" href="/api/auth/login">
         login
       </a>
     </>
