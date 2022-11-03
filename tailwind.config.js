@@ -1,22 +1,28 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  darkMode: "class",
+  content: [
+    "./components/**/*.{js,jsx,ts,tsx}",
+    "./containers/**/*.{js,jsx,ts,tsx}",
+    "./pages/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
-    extend: {
-    },
+    extend: {},
   },
   daisyui: {
-    themes: [{ dark: {
-      "primary": "#000000",          
-      "secondary": "#000000",
-      "accent": "#000000",
-      "neutral": "#6b7280",
-      "base-100": "#000000",
-      "info": "#000000",
-      "success": "#000000",
-      "warning": "#000000",
-      "error": "#000000",
-    } }],
+    themes: [
+      {
+        primary: {
+          primary: "#16a34a",
+          secondary: "#86B0DA",
+          accent: "#bdbdbd",
+          neutral: "#16a34a",
+          "base-100": "#000000",
+          info: "#303f9f",
+          success: "#00890B",
+          warning: "#ffa000",
+          error: "#FA0F1B",
+        },
+      },
+    ],
   },
-  plugins: [require("@tailwindcss/forms"), require("daisyui")],
+  plugins: [require("daisyui")],
 };
