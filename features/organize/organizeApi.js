@@ -4,8 +4,6 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { graphqlClient } from "../../app/api";
 
 const THINGS_PER_PAGE = 10;
-const REQUESTS_PER_PAGE = 10;
-const POSTS_PER_PAGE = 10;
 
 export function useInfiniteThings() {
   const result = useInfiniteQuery(
@@ -47,104 +45,6 @@ export function useInfiniteThings() {
         if (lastPage.pageInfo.hasNextPage) {
           return {
             first: THINGS_PER_PAGE,
-            after: lastPage.pageInfo.endCursor,
-          };
-        }
-      },
-    }
-  );
-  return result;
-}
-
-export function useInfiniteRequests() {
-  const result = useInfiniteQuery(
-    ["infiniteRequests"],
-    async ({ pageParam = 0 }) => {
-      const { requests } = await graphqlClient.request(
-        gql`
-          query requests($first: Int!, $after: Cursor) {
-            requests(first: $first, after: $after) {
-              edges {
-                cursor
-                node {
-                  id
-                  medias {
-                    edges {
-                      node {
-                        mediaUrl
-                      }
-                    }
-                  }
-                }
-              }
-              pageInfo {
-                endCursor
-                hasNextPage
-              }
-            }
-          }
-        `,
-        pageParam || {
-          first: REQUESTS_PER_PAGE,
-          after: null,
-        }
-      );
-      return requests;
-    },
-    {
-      getNextPageParam: (lastPage) => {
-        if (lastPage.pageInfo.hasNextPage) {
-          return {
-            first: REQUESTS_PER_PAGE,
-            after: lastPage.pageInfo.endCursor,
-          };
-        }
-      },
-    }
-  );
-  return result;
-}
-
-export function useInfinitePosts() {
-  const result = useInfiniteQuery(
-    ["infinitePosts"],
-    async ({ pageParam = 0 }) => {
-      const { posts } = await graphqlClient.request(
-        gql`
-          query posts($first: Int!, $after: Cursor) {
-            posts(first: $first, after: $after) {
-              edges {
-                cursor
-                node {
-                  id
-                  medias {
-                    edges {
-                      node {
-                        mediaUrl
-                      }
-                    }
-                  }
-                }
-              }
-              pageInfo {
-                endCursor
-                hasNextPage
-              }
-            }
-          }
-        `,
-        pageParam || {
-          first: POSTS_PER_PAGE,
-          after: null,
-        }
-      );
-      return posts;
-    },
-    {
-      getNextPageParam: (lastPage) => {
-        if (lastPage.pageInfo.hasNextPage) {
-          return {
-            first: POSTS_PER_PAGE,
             after: lastPage.pageInfo.endCursor,
           };
         }
