@@ -97,9 +97,6 @@ function Description({ attributes, setAttributes }) {
               value={handleValue(attr.value)}
             />
           ))}
-          <div className="flex flex-1 flex-col items-center justify-center h-full p-16">
-            <div className="btn">submit</div>
-          </div>
         </div>
       ) : null}
     </>

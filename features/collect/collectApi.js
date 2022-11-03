@@ -123,6 +123,21 @@ export function useCreateThing() {
   });
 }
 
+export function useDeleteThing() {
+  return useMutation((thingId) => {
+    return graphqlClient.request(
+      gql`
+        mutation deleteThing($id: Int!) {
+          deleteThing(input: { id: $id }) {
+            clientMutationId
+          }
+        }
+      `,
+      { id: thingId }
+    );
+  });
+}
+
 export function useCreatePost() {
   return useMutation((newPost) => {
     return graphqlClient.request(

@@ -49,7 +49,7 @@ function MediaReel({ images, setImages, allowUpload, allowRemove }) {
           <SwiperSlide>
             <MediaUpload onUpload={addMedia} />
           </SwiperSlide>
-        ) : images.length === 0 ? (
+        ) : images?.length === 0 ? (
           <>
             <SwiperSlide>
               <div className="flex flex-col items-center pt-6">

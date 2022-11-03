@@ -81,7 +81,7 @@ function ThingList() {
           {thing.medias?.edges < 1 ? null : (
             <div className="relative w-32 h-32">
               <Image
-                src={thing.medias.edges[0]?.node.mediaUrl}
+                src={thing.medias?.edges[0]?.node.mediaUrl}
                 alt=""
                 layout="fill"
                 objectFit="cover"

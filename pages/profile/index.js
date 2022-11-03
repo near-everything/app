@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import React from "react";
 import ProfileData from "../../components/Profile/ProfileData";
 import ProfileHeader from "../../components/Profile/ProfileHeader";
@@ -17,6 +18,8 @@ function Profile() {
     </>
   );
 }
+
+export const getServerSideProps = withPageAuthRequired();
 
 Profile.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;

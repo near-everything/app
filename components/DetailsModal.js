@@ -1,16 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { useCreateMedia } from "../features/collect/collectApi";
 import collapse from "../utils/collapse";
 import MediaReel from "./Create/MediaReel";
 
-const BUCKET_URL = "https://everything-1.s3.us-east-1.amazonaws.com/";
-
 function DetailsModal({ thing }) {
-  const [isEditEnabled, toggleEdit] = useState(false);
-  const [images, setImages] = useState([]);
-  const createMedia = useCreateMedia();
+  const [images, setImages] = useState();
 
   useEffect(() => {
     if (thing.medias !== null && thing.medias !== undefined) {
@@ -20,42 +13,6 @@ function DetailsModal({ thing }) {
       setImages(isolatedUrls);
     }
   }, [thing]);
-
-  const uploadFile = async (file) => {
-    let { data } = await axios.post("/api/s3/uploadFile", {
-      name: file.data.name,
-      type: file.data.type,
-    });
-
-    const url = data.url;
-    await axios.put(url, file.data, {
-      headers: {
-        "Content-Type": file.data.type,
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
-
-    createMedia.mutate(
-      {
-        mediaUrl: BUCKET_URL + data.name,
-        thingId: thing.id,
-      },
-      {
-        onSuccess: async () => {
-          toast.success("created media successfully");
-        },
-        onError: () => {
-          toast.error("error creating media, please try again.");
-        },
-      }
-    );
-  };
-
-  const uploadImages = async () => {
-    for (const img of images) {
-      await uploadFile(img);
-    }
-  };
 
   return (
     <>
@@ -73,12 +30,7 @@ function DetailsModal({ thing }) {
           </label>
           <div className="flex flex-col justify-between">
             <div className="h-96 my-8">
-              <MediaReel
-                images={images}
-                setImages={setImages}
-                allowUpload={isEditEnabled}
-                allowRemove={isEditEnabled}
-              />
+              <MediaReel images={images} setImages={setImages} />
             </div>
             <div className="grid gap-2">
               {thing.characteristics?.edges.map((char, index) => (
@@ -91,7 +43,7 @@ function DetailsModal({ thing }) {
                   <div className="flex flex-1 leading-5">
                     {/* <div className="divide-y" /> */}
                     {/* this may have to be per component, give them their own state and mutation */}
-                    {isEditEnabled ? (
+                    {/* {isEditEnabled ? (
                       <>
                         <div className="flex flex-row w-full">
                           <input
@@ -100,36 +52,36 @@ function DetailsModal({ thing }) {
                           />
                           <span className="px-2">
                             <button className="btn btn-ghost btn-xs">
-                              {/* <CheckmarkIcon /> */}
+                              {/* <CheckmarkIcon />
                               edit
                             </button>
                             <button className="btn btn-ghost btn-xs">
-                              {/* <CheckmarkIcon /> */}
+                              {/* <CheckmarkIcon />
                               delete
                             </button>
                           </span>
                         </div>
                       </>
-                    ) : (
-                      <>{char.node.option.value}</>
-                    )}
+                    ) : ( */}
+                    <>{char.node.option.value}</>
+                    {/* )} */}
                   </div>
                 </div>
               ))}
             </div>
             <div className="grid grid-flow-col gap-2 mt-4">
-              <button
+              {/* <button
                 className="btn"
                 onClick={() => toggleEdit(!isEditEnabled)}
               >
                 Edit
               </button>
-              <button className="btn">Delete</button>
+              <button className="btn" onClick={() => deleteThing.mutate(thing.id)}>Delete</button>
               <div className="">
                 <button className="btn w-full" onClick={() => uploadImages()}>
                   upload
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </label>

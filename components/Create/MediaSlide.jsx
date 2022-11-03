@@ -27,7 +27,7 @@ const MediaSlide = React.forwardRef(function MediaSlide({ imgSrc, removeMedia, a
           </button>
         </div>
       ) : null}
-      <Image src={imgSrc} alt="" layout="fill" objectFit="cover" />
+      <Image src={imgSrc} alt="" layout="fill" objectFit="contain" />
     </div>
   );
 });
