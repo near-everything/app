@@ -7,12 +7,12 @@ const CreatableSelect = React.forwardRef(function CreatableSelect(props, ref) {
   const Input = ({ ...rest }) => <components.Input {...rest} />;
 
   const customStyles = {
-    control: (base, state) => ({
+    control: (base) => ({
       ...base,
       background: "#1f2937",
       color: "#9ca3af",
       border: 0,
-      boxShadow: 'none'
+      boxShadow: "none"
     }),
     menu: base => ({
       ...base,

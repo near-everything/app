@@ -21,6 +21,7 @@ function Camera({ hideCamera, images, setImages }) {
   const [facingMode, setFacingMode] = useState({ exact: "environment" });
   const [imageSrc, setImageSrc] = useState(null);
   const webcamRef = useRef(null);
+  
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImageSrc(imageSrc);
@@ -30,7 +31,7 @@ function Camera({ hideCamera, images, setImages }) {
     if (imageSrc !== null) {
       setImages([...images, imageSrc]);
     }
-  }, [imageSrc]);
+  }, [imageSrc, images, setImages]);
 
   const videoConstraints = {
     facingMode: facingMode,
@@ -76,7 +77,7 @@ function Camera({ hideCamera, images, setImages }) {
                       className={`absolute ${imagePositions[index]}`}
                       key={index}
                     >
-                      <div className={`w-16 h-16 `}>
+                      <div className={"w-16 h-16"}>
                         <Image
                           src={imgSrc}
                           alt=""

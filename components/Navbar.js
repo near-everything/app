@@ -1,4 +1,8 @@
-import { faGlobe, faSquarePlus, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGlobe,
+  faSquarePlus,
+  faUser
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,8 +22,8 @@ function Navbar() {
   );
 }
 
-function NavbarItem({href, icon, color}) {
-  const router = useRouter()
+function NavbarItem({ href, icon, color }) {
+  const router = useRouter();
   return (
     <>
       <Link href={href}>
