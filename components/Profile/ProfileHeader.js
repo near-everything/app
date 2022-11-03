@@ -1,11 +1,10 @@
 import ProfileMenu from "./ProfileMenu";
 
-function ProfileHeader({ username }) {
+function ProfileHeader() {
   return (
     <>
       <div className="navbar">
-        <div className="flex-1">
-        </div>
+        <div className="flex-1"></div>
         <div className="flex-none">
           <label
             htmlFor="profile-menu"
