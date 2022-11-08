@@ -1,10 +1,9 @@
 import {
-  faArrowUpFromBracket,
-  faRotate,
+  faArrowUpFromBracket, faRotate
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Webcam from "react-webcam";
 import Layout from "../containers/Layout";
 
@@ -18,44 +17,22 @@ const imagePositions = [
 ];
 
 function Camera({ hideCamera, images, setImages }) {
-  const [facingMode, setFacingMode] = useState({ exact: "environment" });
-  const [imageSrc, setImageSrc] = useState(null);
   const webcamRef = useRef(null);
-  
-  const capture = useCallback(() => {
+
+  const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    setImageSrc(imageSrc);
-  }, [webcamRef]);
-
-  useEffect(() => {
-    if (imageSrc !== null) {
-      setImages([...images, imageSrc]);
-    }
-  }, [imageSrc, images, setImages]);
-
-  const videoConstraints = {
-    facingMode: facingMode,
-  };
-
-  const swapFacingMode = () => {
-    setFacingMode(facingMode === "user" ? { exact: "environment" } : "user");
+    setImages([...images, imageSrc]);
   };
 
   return (
     <>
-      <Webcam
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        mirrored
-        videoConstraints={videoConstraints}
-      />
+      <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
       <div className="relative h-full">
         <div className="w-full absolute bottom-8">
           <div className="flex flex-row justify-center">
             <div
               className="flex justify-center items-center cursor-pointer"
-              onClick={swapFacingMode}
+              // onClick={swapFacingMode}
             >
               <FontAwesomeIcon size="xl" icon={faRotate} />
             </div>

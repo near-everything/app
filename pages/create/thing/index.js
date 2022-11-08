@@ -6,7 +6,7 @@ import CreateThingForm from "../../../components/Create/CreateThingForm";
 import Layout from "../../../containers/Layout";
 
 function CreateThing() {
-  const [showCamera, setShowCamera] = useState(false);
+  const [showCamera, setShowCamera] = useState(true);
   const [images, setImages] = useState([]);
   const [attributes, setAttributes] = useState([]);
 
