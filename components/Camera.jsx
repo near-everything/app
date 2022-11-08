@@ -1,9 +1,10 @@
 import {
-  faArrowUpFromBracket, faRotate
+  faArrowUpFromBracket,
+  faRotate
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Layout from "../containers/Layout";
 
@@ -17,6 +18,7 @@ const imagePositions = [
 ];
 
 function Camera({ hideCamera, images, setImages }) {
+  const [facingMode, setFacingMode] = useState({ exact: "environment" });
   const webcamRef = useRef(null);
 
   const capture = () => {
@@ -24,15 +26,28 @@ function Camera({ hideCamera, images, setImages }) {
     setImages([...images, imageSrc]);
   };
 
+  const videoConstraints = {
+    facingMode: facingMode,
+  };
+
+  const swapFacingMode = () => {
+    setFacingMode(facingMode === "user" ? { exact: "environment" } : "user");
+  };
+
   return (
     <>
-      <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
+      <Webcam
+        audio={false}
+        ref={webcamRef}
+        videoConstraints={videoConstraints}
+        screenshotFormat="image/jpeg"
+      />
       <div className="relative h-full">
         <div className="w-full absolute bottom-8">
           <div className="flex flex-row justify-center">
             <div
               className="flex justify-center items-center cursor-pointer"
-              // onClick={swapFacingMode}
+              onClick={swapFacingMode}
             >
               <FontAwesomeIcon size="xl" icon={faRotate} />
             </div>
