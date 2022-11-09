@@ -4,7 +4,7 @@ function ProfileHeader() {
   return (
     <>
       <div className="navbar">
-        <div className="flex-1"></div>
+        {/* <div className="flex-1"></div>
         <div className="flex-none">
           <label
             htmlFor="profile-menu"
@@ -24,7 +24,7 @@ function ProfileHeader() {
               ></path>
             </svg>
           </label>
-        </div>
+        </div> */}
       </div>
       <ProfileMenu />
     </>

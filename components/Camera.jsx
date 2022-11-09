@@ -43,7 +43,7 @@ function Camera({ hideCamera, images, setImages }) {
         screenshotFormat="image/jpeg"
       />
       <div className="relative h-full">
-        <div className="w-full absolute bottom-8">
+        <div className="w-full absolute bottom-16">
           <div className="flex flex-row justify-center">
             <div
               className="flex justify-center items-center cursor-pointer"

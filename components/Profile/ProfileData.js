@@ -12,9 +12,9 @@ function ProfileData() {
               <p>elliot braem</p>
             </div>
           </div>
-          <label htmlFor="edit-profile" className="btn modal-button w-48">
+          {/* <label htmlFor="edit-profile" className="btn modal-button w-48">
             edit profile
-          </label>
+          </label> */}
         </div>
       </div>
       <EditProfile />

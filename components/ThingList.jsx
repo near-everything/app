@@ -74,28 +74,31 @@ function ThingList() {
   const { data, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteThings();
 
-  const renderThing = (thing) => {
+  const renderThing = (thing, index) => {
     return (
       <div className=" bg-gray-800 border-black border-2 h-full rounded-xl shadow-xl">
-        <div className="flex flex-row">
+        <div className="flex flex-row items-center h-full px-4">
           {thing.medias?.edges < 1 ? null : (
-            <div className="relative w-32 h-32">
+            <div className="relative w-56 h-56">
               <Image
                 src={thing.medias?.edges[0]?.node.mediaUrl}
                 alt=""
                 layout="fill"
                 objectFit="cover"
+                priority={index < 5}
+                className="rounded-xl"
               />
             </div>
           )}
-
-          <label
-            htmlFor="thing-details"
-            className="btn btn-xs modal-button"
-            onClick={() => setDetails(thing)}
-          >
-            details
-          </label>
+          <div className="flex flex-1 items-center justify-center">
+            <label
+              htmlFor="thing-details"
+              className="btn modal-button"
+              onClick={() => setDetails(thing)}
+            >
+              details
+            </label>
+          </div>
         </div>
       </div>
     );
@@ -109,7 +112,7 @@ function ThingList() {
         isNextPageLoading={isFetchingNextPage}
         loadNextPage={fetchNextPage}
         renderListItem={renderThing}
-        listItemHeight={128}
+        listItemHeight={256}
       />
       <DetailsModal thing={details} />
     </>
