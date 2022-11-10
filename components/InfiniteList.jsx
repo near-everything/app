@@ -30,13 +30,17 @@ function InfiniteList({
       content = items[index].node;
     }
 
-    return <div style={style} key={index}>{renderListItem(content, index)}</div>;
+    return (
+      <div style={style} key={index}>
+        {renderListItem(content, index)}
+      </div>
+    );
   };
 
   return (
     <div className="h-full">
       <AutoSizer>
-        {({ height, width }) => (
+        {({ width }) => (
           <InfiniteLoader
             isItemLoaded={isItemLoaded}
             itemCount={itemCount}
@@ -48,7 +52,7 @@ function InfiniteList({
                 onItemsRendered={onItemsRendered}
                 ref={ref}
                 {...props}
-                height={height}
+                height={10 * listItemHeight}
                 itemSize={listItemHeight}
                 width={width}
               >

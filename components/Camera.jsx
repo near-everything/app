@@ -53,7 +53,7 @@ function Camera({ hideCamera, images, setImages }) {
             </div>
             <div className="flex justify-center items-center w-1/3">
               <button
-                className="w-16 h-16 rounded-full border-primary hover:bg-primary border-4 disabled:bg-primary"
+                className="w-16 h-16 rounded-full border-primary active:bg-primary border-4 disabled:bg-primary"
                 onClick={capture}
                 disabled={images.length > 5}
               ></button>
