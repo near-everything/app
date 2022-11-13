@@ -3,8 +3,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   useAttributeById,
   useProposeOption,
-} from "../../features/collect/collectApi";
-import CreatableSelect from "../CreatableSelect";
+} from "../features/collect/collectApi";
+import CreatableSelect from "./CreatableSelect";
 
 const AttributeField = React.forwardRef(function AttributeField({ attributeId, setAttributeOption, value }, ref) {
   const { data, isLoading, isError } = useAttributeById(attributeId, {

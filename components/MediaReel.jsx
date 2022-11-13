@@ -1,7 +1,7 @@
 import React from "react";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import MediaUpload from "../MediaUpload";
+import MediaUpload from "./MediaUpload";
 import MediaSlide from "./MediaSlide";
 
 function MediaReel({ images, setImages, allowUpload, allowRemove }) {
@@ -39,7 +39,7 @@ function MediaReel({ images, setImages, allowUpload, allowRemove }) {
         {images?.map((imgSrc, index) => (
           <SwiperSlide key={index}>
             <MediaSlide
-              imgSrc={imgSrc?.url || imgSrc}
+              imgSrc={imgSrc?.url || imgSrc }
               removeMedia={() => removeMedia(index)}
               allowRemove={allowRemove}
             />

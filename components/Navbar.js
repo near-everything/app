@@ -13,7 +13,7 @@ function Navbar() {
     <div className="btm-nav text-gray-200">
       <NavbarItem href="/" icon={faGlobe} color={"text-green-600"} />
       <NavbarItem
-        href="/create/thing"
+        href="/create"
         icon={faSquarePlus}
         color={"text-green-600"}
       />

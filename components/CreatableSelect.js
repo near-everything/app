@@ -36,7 +36,11 @@ const CreatableSelect = React.forwardRef(function CreatableSelect(props, ref) {
     }),
     singleValue: base => ({
       ...base,
-      color: "#9ca3af",
+      color: "#fff",
+    }),
+    input: base => ({
+      ...base,
+      color: "#9ca3af"
     })
   };
 

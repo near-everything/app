@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RgbaStringColorPicker } from "react-colorful";
-import Avatar from "../Avatar";
+import Avatar from "./Avatar";
 
 function EditProfile() {
   const [color, setColor] = useState("#ffffff");

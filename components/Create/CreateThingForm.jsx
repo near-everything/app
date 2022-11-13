@@ -1,13 +1,16 @@
 import { useUser } from "@auth0/nextjs-auth0";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { BUCKET_URL } from "../../app/api";
-import { useCreateMedia, useCreateThing } from "../../features/collect/collectApi";
-import Description from "./Description";
-import MediaReel from "./MediaReel";
+import {
+  useCreateMedia,
+  useCreateThing,
+} from "../../features/collect/collectApi";
+import Description from "./../Description";
+import MediaReel from "./../MediaReel";
+import LoadingOverlay from "./LoadingOverlay";
+import ShowCameraButton from "./ShowCameraButton";
 
 function CreateThingForm({
   showCamera,
@@ -37,7 +40,7 @@ function CreateThingForm({
             };
           }),
         ownerId: user.sub,
-        privacyType: "PRIVATE"
+        privacyType: "PRIVATE",
       },
       {
         onSuccess: async (response) => {
@@ -45,8 +48,8 @@ function CreateThingForm({
             `successfully created thing ${response.createThing.thing.id}`
           );
           await associateMedia(response.createThing.thing.id);
-          // setAttributes([]);
-          // setImages([]);
+          setAttributes([]);
+          setImages([]);
           setLoading(false);
         },
         onError: (err) => {
@@ -60,14 +63,16 @@ function CreateThingForm({
 
   const uploadFile = async (file, thingId) => {
     let { data } = await axios.post("/api/s3/uploadFile", {
-      name: file.data.name,
+      nickname: user.nickname,
       type: file.data.type,
+      base64: file.base64 || false,
     });
 
     const url = data.url;
-    await axios.put(url, file.data, {
+    await axios.put(url, file.base64 ? file.body : file.data, {
       headers: {
         "Content-Type": file.data.type,
+        "Content-Encoding": file.base64 ? "base64" : null,
         "Access-Control-Allow-Origin": "*",
       },
     });
@@ -96,38 +101,30 @@ function CreateThingForm({
 
   return (
     <>
-      <div className="relative">
-        {loading ? <p>loading</p> : null}
-        <div id="create-media-reel">
-          <MediaReel
-            showCamera={showCamera}
-            images={images}
-            setImages={setImages}
-            allowUpload={true}
-            allowRemove={true}
-          />
-        </div>
-        <div className="absolute bottom-4 left-4 z-50">
-          <div className="flex justify-center items-center">
-            <button
-              className="btn btn-primary btn-circle text-gray-200 shadow-lg"
-              onClick={showCamera}
-            >
-              <FontAwesomeIcon size="xl" icon={faCamera} />
-            </button>
-          </div>
-        </div>
+      <div id="create-media-reel">
+        <MediaReel
+          images={images}
+          setImages={setImages}
+          allowUpload={!loading}
+          allowRemove={!loading}
+        />
+        {loading ? null : <ShowCameraButton showCamera={showCamera} />}
       </div>
-      <div className="flex flex-col pt-4 px-2">
+      <div className="flex flex-col flex-1 pt-4 px-2 pb-16">
         <div className="flex flex-1 flex-col">
           <Description attributes={attributes} setAttributes={setAttributes} />
-          <div className="flex flex-1 flex-col items-center justify-center h-full p-16">
-            <button className="btn" onClick={handleSubmit} disabled={images.length < 1 || loading}>
-              submit
-            </button>
-          </div>
         </div>
       </div>
+      <div className="absolute bottom-4 right-4 z-30">
+        <button
+          className="btn"
+          onClick={handleSubmit}
+          disabled={images.length < 1 || loading}
+        >
+          create new thing
+        </button>
+      </div>
+      {loading ? <LoadingOverlay /> : null}
     </>
   );
 }

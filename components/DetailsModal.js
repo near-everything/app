@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import collapse from "../utils/collapse";
-import MediaReel from "./Create/MediaReel";
+import MediaReel from "./MediaReel";
 
 function DetailsModal({ thing }) {
   const [images, setImages] = useState();
@@ -8,7 +8,7 @@ function DetailsModal({ thing }) {
   useEffect(() => {
     if (thing.medias !== null && thing.medias !== undefined) {
       const isolatedUrls = collapse(thing.medias).map(
-        (it) => (it = it.mediaUrl)
+        (it) => (it.url = it.mediaUrl)
       );
       setImages(isolatedUrls);
     }

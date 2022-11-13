@@ -2,9 +2,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import {
   useAttributes,
-  useProposeAttribute
-} from "../../features/collect/collectApi";
-import CreatableSelect from "../CreatableSelect";
+  useProposeAttribute,
+} from "../features/collect/collectApi";
+import CreatableSelect from "./CreatableSelect";
 import AttributeField from "./AttributeField";
 
 function Description({ attributes, setAttributes }) {
@@ -71,21 +71,24 @@ function Description({ attributes, setAttributes }) {
       {loading ? (
         <>Loading...</>
       ) : (
-        <CreatableSelect
-          id="attribute_select"
-          instanceId="attribute_select"
-          isMulti
-          className="text-gray-800"
-          options={prepareOptions()}
-          isDisabled={isLoading || isError}
-          isLoading={isLoading}
-          onChange={handleOnChange}
-          onCreateOption={handleProposeAttribute}
-          defaultValue={attributes}
-          value={attributes}
-          placeholder={"begin typing characteristics..."}
-          formatCreateLabel={() => "not showing up? create new option"}
-        />
+        <div>
+          <p className="font-semibold mb-2">enter details below</p>
+          <CreatableSelect
+            id="attribute_select"
+            instanceId="attribute_select"
+            isMulti
+            className="text-gray-800"
+            options={prepareOptions()}
+            isDisabled={isLoading || isError}
+            isLoading={isLoading}
+            onChange={handleOnChange}
+            onCreateOption={handleProposeAttribute}
+            defaultValue={attributes}
+            value={attributes}
+            placeholder={"begin typing characteristics here..."}
+            formatCreateLabel={() => "not showing up? create new option"}
+          />
+        </div>
       )}
       {attributes?.length > 0 ? (
         <div className="grid gap-4 mt-4" id="thing-form">

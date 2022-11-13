@@ -5,7 +5,7 @@ const MediaSlide = React.forwardRef(function MediaSlide({ imgSrc, removeMedia, a
   return (
     <div className="relative w-full h-full" ref={ref}>
       {allowRemove ? (
-        <div className="absolute z-50 left-2 top-2">
+        <div className="absolute z-30 left-2 top-2">
           <button
             className="btn btn-ghost btn-circle bg-white text-gray-800 opacity-20 shadow-lg"
             onClick={removeMedia}
