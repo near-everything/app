@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   try {
     let { type, nickname, base64 } = req.body;
     const now = Date.now().toString();
-    const name = `${now}${nickname}.${type.split("/")[1]}`
+    const name = `${now}${nickname}.${type.split("/")[1]}`;
 
     const fileParams = {
       Bucket: process.env.BUCKET_NAME,
