@@ -110,8 +110,8 @@ function CreateThingForm({
         />
         {loading ? null : <ShowCameraButton showCamera={showCamera} />}
       </div>
-      <div className="flex flex-col flex-1 pt-4 px-2 pb-16">
-        <div className="flex flex-1 flex-col">
+      <div className="flex flex-col flex-1 pt-4 px-2">
+        <div className="flex flex-1 flex-col pb-64">
           <Description attributes={attributes} setAttributes={setAttributes} />
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
-import React from "react";
+import React, { useState } from "react";
+import { RgbaStringColorPicker } from "react-colorful";
 import Avatar from "../../components/Avatar";
 import EditProfile from "../../components/EditProfile";
 import ProfileMenu from "../../components/ProfileMenu";
@@ -8,6 +9,8 @@ import Layout from "../../containers/Layout";
 
 function Profile() {
   const { user } = useUser();
+  const [color, setColor] = useState("#ffffff");
+
   return (
     <>
       <div className="navbar">
@@ -36,7 +39,17 @@ function Profile() {
       <div className="flex flex-1 flex-col">
         <div className="flex ml-2">
           <div className="flex flex-col">
-            <Avatar color={"#ffffff"} size="36" />
+            <div className="dropdown dropdown-right">
+              <label tabIndex="0">
+                <Avatar color={color} size="36" />
+              </label>
+              <ul
+                tabIndex="0"
+                className="dropdown-content p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <RgbaStringColorPicker color={color} onChange={setColor} />
+              </ul>
+            </div>
             <div>
               <div className="mt-2 mb-4 text-4xl">
                 <p>{user?.nickname}</p>
