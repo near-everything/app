@@ -1,82 +1,21 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { gql } from "graphql-request";
 import Image from "next/image";
 import React, { useState } from "react";
-import { graphqlClient } from "../app/api";
+import { PulseLoader } from "react-spinners";
+import { useThingsByOwner } from "../utils/queries";
 import DetailsModal from "./DetailsModal";
-import InfiniteList from "./InfiniteList";
 
-const useInfiniteThings = () => {
-  const result = useInfiniteQuery(
-    ["infiniteThings"],
-    async ({ pageParam = 0 }) => {
-      const { things } = await graphqlClient.request(
-        gql`
-          query things($first: Int!, $after: Cursor) {
-            things(first: $first, after: $after) {
-              edges {
-                cursor
-                node {
-                  id
-                  characteristics {
-                    edges {
-                      node {
-                        attribute {
-                          id
-                          name
-                        }
-                        option {
-                          id
-                          value
-                        }
-                      }
-                    }
-                  }
-                  medias {
-                    edges {
-                      node {
-                        mediaUrl
-                      }
-                    }
-                  }
-                }
-              }
-              pageInfo {
-                endCursor
-                hasNextPage
-              }
-            }
-          }
-        `,
-        pageParam || {
-          first: 20,
-          after: null,
-        }
-      );
-      return things;
-    },
+function ThingList({ ownerId }) {
+  const [details, setDetails] = useState({});
+  const { data, isLoading, isError, error } = useThingsByOwner(
+    ownerId,
     {
-      getNextPageParam: (lastPage) => {
-        if (lastPage.pageInfo.hasNextPage) {
-          return {
-            first: 20,
-            after: lastPage.pageInfo.endCursor,
-          };
-        }
-      },
+      enabled: !!ownerId,
     }
   );
-  return result;
-};
-
-function ThingList() {
-  const [details, setDetails] = useState({});
-  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useInfiniteThings();
 
   const renderThing = (thing, index) => {
     return (
-      <div className=" bg-gray-800 border-black border-2 h-full rounded-xl shadow-xl">
+      <div className=" bg-gray-800 border-black border-2 rounded-xl shadow-xl h-64">
         <div className="flex flex-row items-center h-full px-4">
           {thing.medias?.edges < 1 ? null : (
             <div className="relative w-56 h-56">
@@ -103,17 +42,29 @@ function ThingList() {
       </div>
     );
   };
+  if (isLoading) {
+    return (
+      <div className="flex flex-col justify-center items-center h-full w-full">
+        <PulseLoader
+          size={10}
+          color={"#e5e7eb"}
+          loading={isLoading}
+          speedMultiplier={1.5}
+        />
+      </div>
+    );
+  }
+  if (isError) {
+    return (
+      <div className="flex flex-col justify-center items-center h-full w-full">
+        <h1>{error.message}</h1>
+      </div>
+    );
+  }
 
   return (
     <>
-      <InfiniteList
-        items={data?.pages.map((it) => (it = it.edges)).flat()}
-        hasNextPage={hasNextPage}
-        isNextPageLoading={isFetchingNextPage}
-        loadNextPage={fetchNextPage}
-        renderListItem={renderThing}
-        listItemHeight={256}
-      />
+      {data && data.map((it, index) => renderThing(it.node, index))}
       <DetailsModal thing={details} />
     </>
   );

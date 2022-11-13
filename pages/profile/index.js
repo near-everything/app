@@ -62,7 +62,7 @@ function Profile() {
         </div>
         <EditProfile />
         <div className="divider" />
-        <ThingList />
+        <ThingList ownerId={user?.sub}/>
       </div>
       <ProfileMenu />
     </>
