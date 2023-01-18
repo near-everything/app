@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      colors: {
+        blacklight: "#242424",
+      },
       fontSize: {
         "Large-Title": [
           "32px",
@@ -60,56 +63,56 @@ module.exports = {
             fontWeight: "700",
           },
         ],
-        "Body": [
+        Body: [
           "16px",
           {
             lineHeight: "24px",
             fontWeight: "400",
           },
         ],
-        "Bodyb": [
+        Bodyb: [
           "16px",
           {
             lineHeight: "22.4px",
             fontWeight: "700",
           },
         ],
-        "Button": [
+        Button: [
           "16px",
           {
             lineHeight: "22.4px",
             fontWeight: "500",
           },
         ],
-        "Buttonb": [
+        Buttonb: [
           "16px",
           {
             lineHeight: "22.4px",
             fontWeight: "600",
           },
         ],
-        "Callout": [
+        Callout: [
           "15px",
           {
             lineHeight: "21px",
             fontWeight: "400",
           },
         ],
-        "Calloutb": [
+        Calloutb: [
           "15px",
           {
             lineHeight: "21px",
             fontWeight: "600",
           },
         ],
-        "Subheadline": [
+        Subheadline: [
           "14px",
           {
             lineHeight: "19.6px",
             fontWeight: "400",
           },
         ],
-        "Subheadlineb": [
+        Subheadlineb: [
           "14px",
           {
             lineHeight: "19.6px",
