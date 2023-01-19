@@ -1,75 +1,73 @@
-import React, { useState, FC } from "react";
+import React, { useState } from "react";
 import { AnimateSharedLayout, motion, Transition } from "framer-motion";
-import styled from "styled-components";
 
 type Props = {};
 interface IColorItem {
   isSelected?: boolean;
   onClick?: () => void;
 }
+interface ITab {
+  tabIndex: number;
+  description: string;
+}
 
-const ColorListStyled = styled(motion.ul)`
-  margin: 0;
-  padding: 0;
-`;
 const transition: Transition = {
   type: "spring",
   stiffness: 500,
   damping: 30,
   duration: 1,
 };
-const ColorOutLineStyled = styled(motion.div)`
-  margin: 0;
-  padding: 0;
-`;
-function Index({}: Props) {
-  const [activetab, setActivetab] = useState(0);
-  const handleToggle = (id: number) => {
-    setActivetab(id);
-  };
-  return (
-    <div className=" bg-black px-[16px] h-full">
-      <AnimateSharedLayout>
-        <ColorListStyled transition={transition}>
-          <div className=" grid grid-cols-3 gap-x-[4px] pt-[8px]">
-            {tab.map((item, id) => (
-              <ColorItem
-                key={id}
-                isSelected={id === activetab}
-                onClick={() => handleToggle(id)}
-              />
-            ))}
-          </div>
-        </ColorListStyled>
-      </AnimateSharedLayout>
-    </div>
-  );
-}
 
-export default Index;
-
-const tab = [
+const tabs: ITab[] = [
   {
-    tab: 1,
+    tabIndex: 0,
+    description: "a streamlined tool for uploading things to the inventory of everything.",
   },
   {
-    tab: 2,
+    tabIndex: 1,
+    description: "open source. offline first. community owned.",
   },
   {
-    tab: 3,
+    tabIndex: 2,
+    description: "with everything in your pocket, you can do anything.",
   },
 ];
 
-const ColorItem: FC<IColorItem> = ({ isSelected, onClick }) => {
+const ColorItem: React.FC<IColorItem> = ({ isSelected, onClick }) => {
   return (
-    <ColorOutLineStyled
+    <motion.div
       onClick={onClick}
       transition={transition}
       className={
         isSelected
-          ? " bg-white h-[4px] cursor-pointer rounded-[100px]"
-          : " bg-blacklight h-[4px]  cursor-pointer rounded-[100px]"
+          ? "bg-white h-[4px] cursor-pointer rounded-[100px]"
+          : "bg-blacklight h-[4px] cursor-pointer rounded-[100px]"
       }
     />
   );
 };
+
+const Index: React.FC<Props> = ({}: Props) => {
+  const [activeTab, setActiveTab] = useState(0);
+  const handleToggle = (id: number) => {
+    setActiveTab(id);
+  };
+
+  return (
+    <div className=" bg-black px-[16px] h-full">
+      <AnimateSharedLayout>
+        <motion.ul className="h-full flex flex-col" transition={transition}>
+          <div className="grid grid-cols-3 gap-x-[4px] pt-[8px]">
+            {tabs.map(({ tabIndex }, id) => (
+              <ColorItem key={id} isSelected={tabIndex === activeTab} onClick={() => handleToggle(tabIndex)} />
+            ))}
+          </div>
+          <h1 className="text-white">everything</h1>
+          <p className="text-white">{tabs[activeTab].description}</p>
+        </motion.ul>
+      </AnimateSharedLayout>
+    </div>
+  );
+};
+
+export default Index;
