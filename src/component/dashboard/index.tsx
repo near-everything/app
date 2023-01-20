@@ -21,7 +21,8 @@ const transition: Transition = {
 const tabs: ITab[] = [
   {
     tabIndex: 0,
-    description: "a streamlined tool for uploading things to the inventory of everything.",
+    description:
+      "a streamlined tool for uploading things to the inventory of everything.",
   },
   {
     tabIndex: 1,
@@ -37,12 +38,13 @@ const ColorItem: React.FC<IColorItem> = ({ isSelected, onClick }) => {
   return (
     <motion.div
       onClick={onClick}
-      transition={transition}
-      className={
-        isSelected
-          ? "bg-white h-[4px] cursor-pointer rounded-[100px]"
-          : "bg-blacklight h-[4px] cursor-pointer rounded-[100px]"
-      }
+      initial={{ opacity: 1 }}
+      animate={{
+        opacity: 1,
+        background: isSelected ? "#fff" : "#242424",
+      }}
+      transition={{ duration: 0.5 }}
+      className={"bg-blacklight h-[4px] cursor-pointer rounded-[100px]"}
     />
   );
 };
@@ -59,7 +61,11 @@ const Index: React.FC<Props> = ({}: Props) => {
         <motion.ul className="h-full flex flex-col" transition={transition}>
           <div className="grid grid-cols-3 gap-x-[4px] pt-[8px]">
             {tabs.map(({ tabIndex }, id) => (
-              <ColorItem key={id} isSelected={tabIndex === activeTab} onClick={() => handleToggle(tabIndex)} />
+              <ColorItem
+                key={id}
+                isSelected={tabIndex === activeTab}
+                onClick={() => handleToggle(tabIndex)}
+              />
             ))}
           </div>
           <h1 className="text-white">everything</h1>
