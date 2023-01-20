@@ -5,8 +5,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+code,
+kbd,
+samp,
+pre {
+  font-family: "Inter" !important;
 }
 @tailwind base;
 @tailwind components;
@@ -15,4 +18,39 @@ code {
   width: 100%;
 
   height: 100%;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-Black.ttf");
+  src: url("./assets/fonts/Inter-Thin.ttf") format("embedded-opentype");
+  font-weight: thin;
+  font-style: thin;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-Black.ttf");
+  src: url("./assets/fonts/Inter-Light.ttf") format("embedded-opentype");
+  font-weight: light;
+  font-style: light;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-Black.ttf");
+  src: url("./assets/fonts/Inter-Regular.ttf") format("embedded-opentype");
+  font-weight: 400;
+  font-style: 400;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-Black.ttf");
+  src: url("./assets/fonts/Inter-Medium.ttf") format("embedded-opentype");
+  font-weight: 500;
+  font-style: 500;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-Black.ttf");
+  src: url("./assets/fonts/Inter-SemiBold.ttf") format("embedded-opentype");
+  font-weight: 600;
+  font-style: 600;
 }

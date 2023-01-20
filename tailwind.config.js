@@ -6,12 +6,15 @@ module.exports = {
       colors: {
         blacklight: "#242424",
       },
+      translate: {
+        center: "50%",
+      },
       fontSize: {
         "Large-Title": [
           "32px",
           {
             lineHeight: "44.8px",
-            fontWeight: "400",
+            fontWeight: 400,
           },
         ],
         "Large-Titleb": [
@@ -39,14 +42,13 @@ module.exports = {
           "24px",
           {
             lineHeight: "33.6px",
-            fontWeight: "400",
+            fontWeight: 400,
           },
         ],
         "Title-Xb": [
           "24px",
           {
-            lineHeight: "33.6px",
-            fontWeight: "400",
+            lineHeight: 700,
           },
         ],
         "Title-3": [
