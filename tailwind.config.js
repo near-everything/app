@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         blacklight: "#242424",
+        blackdark: "#0D0D0D",
       },
       translate: {
         center: "50%",

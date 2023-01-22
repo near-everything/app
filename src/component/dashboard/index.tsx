@@ -8,6 +8,7 @@ import {
   CircleItem2,
   TextItem,
 } from "./animations";
+import { PrimaryBtn, SecondaryBtn } from "component/shared/btn";
 
 type Props = {};
 
@@ -58,7 +59,7 @@ const Index: React.FC<Props> = ({}: Props) => {
   return (
     <div className=" bg-black px-[16px] h-full">
       <AnimateSharedLayout>
-        <motion.ul className="h-full flex flex-col" transition={transition}>
+        <motion.ul className=" flex flex-col" transition={transition}>
           <div className="grid grid-cols-3 gap-x-[4px] pt-[8px]">
             {tabs.map(({ tabIndex }, id) => (
               <ColorItem
@@ -96,6 +97,22 @@ const Index: React.FC<Props> = ({}: Props) => {
           </div>
         </motion.ul>
       </AnimateSharedLayout>
+      <div className=" absolute bottom-[14px] right-0 left-0 px-[16px]">
+        <PrimaryBtn
+          type="button"
+          disabled={false}
+          className=" py-[17px] w-full flex items-center justify-center text-center "
+        >
+          <p>Connect to everything</p>
+        </PrimaryBtn>
+        <SecondaryBtn
+          type="button"
+          disabled={false}
+          className=" py-[17px] w-full flex items-center justify-center text-center mt-[8px]"
+        >
+          <p>Start without account</p>
+        </SecondaryBtn>
+      </div>
     </div>
   );
 };
