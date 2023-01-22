@@ -43,14 +43,9 @@ export const CircleItem: React.FC<IColorItemread> = ({ isSelected }) => {
 export const TextItem: React.FC<ITextItem> = ({ text }) => {
   return (
     <motion.div
-      initial={{
-        x: 100,
-      }}
+
       animate={{
-        x: 0,
-      }}
-      exit={{
-        x: -100,
+        x: [150, -20, 0],
       }}
       transition={{
         type: "tween",
