@@ -54,3 +54,6 @@ pre {
   font-weight: 600;
   font-style: 600;
 }
+.slick-track {
+  height: auto !important;
+}

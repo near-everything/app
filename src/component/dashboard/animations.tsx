@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { AnimateSharedLayout, motion, Transition } from "framer-motion";
 type Props = {};
 interface IColorItem {
@@ -41,11 +41,13 @@ export const CircleItem: React.FC<IColorItemread> = ({ isSelected }) => {
   );
 };
 export const TextItem: React.FC<ITextItem> = ({ text }) => {
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
   return (
     <motion.div
 
       animate={{
-        x: [150, -20, 0],
+        x: [windowSize.current[0], -20, 0],
       }}
       transition={{
         type: "tween",

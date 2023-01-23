@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         blacklight: "#242424",
         blackdark: "#0D0D0D",
+        input: "#242424",
       },
       translate: {
         center: "50%",
