@@ -5,178 +5,112 @@ module.exports = {
     extend: {
       colors: {
         blacklight: "#242424",
-        blackdark: "#0D0D0D",
+        black: "#0D0D0D",
         input: "#242424",
+        red: "#DD4E68",
+        green: "#27AE60",
+        yellow: "#F2C94C",
+        black80: "#1F1F1FCC",
+        black50: "#1F1F1F80",
+        black20: "#1F1F1F4D",
+        white80: "#F2F2F2CC",
+        white20: "#F2F2F233",
+        blurbackground: "#1f1f1f33",
+        gray: {
+          95: "#191919",
+          90: "#262626",
+          80: "#404040",
+          70: "#595959",
+          60: "#737373",
+          50: "#8C8C8C",
+          40: "#A6A6A6",
+          30: "#BFBFBF",
+          20: "#D9D9D9",
+          10: "#F2F2F2",
+        },
+        backgroundImage: {
+          "Gradient/Pile":
+            " linear-gradient(180deg, rgba(31, 31, 31, 0) 0%, rgba(13, 13, 13, 0.8) 100%)",
+          "Gradient/Top":
+            "linear-gradient(180deg, rgba(13, 13, 13, 0.3) 0%, rgba(31, 31, 31, 0) 100%, rgba(31, 31, 31, 0) 100%)",
+          "Gradient/Top60":
+            "linear-gradient(180deg, rgba(13, 13, 13, 0.6) 0%, rgba(31, 31, 31, 0) 100%)",
+        },
       },
       translate: {
         center: "50%",
       },
       fontSize: {
-        "Large-Title": [
-          "32px",
-          {
-            lineHeight: "44.8px",
-            fontWeight: 400,
-          },
-        ],
-        "Large-Titleb": [
-          "32px",
-          {
-            lineHeight: "44.8px",
-            fontWeight: "700",
-          },
-        ],
-        "Title-1": [
-          "26px",
-          {
-            lineHeight: "36.4px",
-            fontWeight: "400",
-          },
-        ],
-        "Title-1b": [
-          "26px",
-          {
-            lineHeight: "36.4px",
-            fontWeight: "700",
-          },
-        ],
-        "Title-X": [
+        title24: [
           "24px",
           {
             lineHeight: "33.6px",
+            letterSpacing: "-1%",
             fontWeight: 400,
           },
         ],
-        "Title-Xb": [
-          "24px",
-          {
-            lineHeight: 700,
-          },
-        ],
-        "Title-3": [
+        title18: [
           "18px",
           {
-            lineHeight: "25.2px",
-            fontWeight: "400",
+            lineHeight: "25px",
+            letterSpacing: "-1%",
+            fontWeight: 400,
           },
         ],
-        "Title-3b": [
-          "18px",
+        title20: [
+          "20px",
           {
-            lineHeight: "25.2px",
-            fontWeight: "700",
+            lineHeight: "28px",
+            letterSpacing: "-1%",
+            fontWeight: 400,
           },
         ],
-        Body: [
-          "16px",
-          {
-            lineHeight: "24px",
-            fontWeight: "400",
-          },
-        ],
-        Bodyb: [
-          "16px",
-          {
-            lineHeight: "22.4px",
-            fontWeight: "700",
-          },
-        ],
-        Button: [
-          "16px",
-          {
-            lineHeight: "22.4px",
-            fontWeight: "500",
-          },
-        ],
-        Buttonb: [
-          "16px",
-          {
-            lineHeight: "22.4px",
-            fontWeight: "600",
-          },
-        ],
-        Callout: [
-          "15px",
-          {
-            lineHeight: "21px",
-            fontWeight: "400",
-          },
-        ],
-        Calloutb: [
-          "15px",
-          {
-            lineHeight: "21px",
-            fontWeight: "600",
-          },
-        ],
-        Subheadline: [
-          "14px",
-          {
-            lineHeight: "19.6px",
-            fontWeight: "400",
-          },
-        ],
-        Subheadlineb: [
-          "14px",
-          {
-            lineHeight: "19.6px",
-            fontWeight: "600",
-          },
-        ],
-        "Caption-1": [
+        caption13: [
           "13px",
           {
-            lineHeight: "15.6px",
-            fontWeight: "400",
+            lineHeight: "16px",
+            letterSpacing: "-1%",
+            fontWeight: 400,
           },
         ],
-        "Caption-1b": [
-          "13px",
-          {
-            lineHeight: "18.2px",
-            fontWeight: "600",
-          },
-        ],
-        "Caption-2": [
+        caption12: [
           "12px",
           {
-            lineHeight: "16.8px",
-            fontWeight: "400",
+            lineHeight: "16px",
+            letterSpacing: "-1%",
+            fontWeight: 400,
           },
         ],
-        "Caption-2b": [
-          "12px",
+        Button16: [
+          "16px",
           {
-            lineHeight: "16.8px",
-            fontWeight: "500",
+            lineHeight: "22.4px",
+            letterSpacing: "-1%",
+            fontWeight: 500,
           },
         ],
-        "Caption-3": [
-          "11px",
+        Button14: [
+          "14px",
           {
-            lineHeight: "15.4px",
-            fontWeight: "400",
+            lineHeight: "20px",
+            letterSpacing: "-1%",
+            fontWeight: 500,
           },
         ],
-        "Caption-3b": [
-          "11px",
+        Body16: [
+          "16px",
           {
-            lineHeight: "15.4px",
-            fontWeight: "600",
+            lineHeight: "21px",
+            letterSpacing: "-1%",
+            fontWeight: 400,
           },
         ],
-        "Caption-4": [
-          "10px",
+        Body14: [
+          "14px",
           {
-            lineHeight: "14px",
-            fontWeight: "400",
-          },
-        ],
-        "Caption-4b": [
-          "10px",
-          {
-            lineHeight: "14px",
-            fontWeight: "600",
+            lineHeight: "20px",
+            letterSpacing: "-1%",
+            fontWeight: 400,
           },
         ],
       },
