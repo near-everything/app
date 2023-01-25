@@ -11,6 +11,10 @@ interface IColorItemread {
 interface ITextItem {
   text?: string;
 }
+interface IInfoItem {
+  children: JSX.Element;
+}
+
 export const ColorItem: React.FC<IColorItem> = ({ isSelected, onClick }) => {
   return (
     <motion.div
@@ -153,5 +157,26 @@ export const CircleItem2: React.FC<IColorItemread> = ({ isSelected }) => {
         />
       </motion.g>
     </motion.svg>
+  );
+};
+export const Info: React.FC<IInfoItem> = ({ children }) => {
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
+  return (
+    <motion.div
+      animate={{
+        y: [windowSize.current[1], 0],
+        width: "100%",
+        height: "85%",
+      }}
+      transition={{
+        type: "tween",
+        ease: "easeInOut",
+        repeatDelay: 1,
+        duration: 2,
+      }}
+    >
+      {children}
+    </motion.div>
   );
 };

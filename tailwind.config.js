@@ -35,6 +35,8 @@ module.exports = {
             "linear-gradient(180deg, rgba(13, 13, 13, 0.3) 0%, rgba(31, 31, 31, 0) 100%, rgba(31, 31, 31, 0) 100%)",
           "Gradient/Top60":
             "linear-gradient(180deg, rgba(13, 13, 13, 0.6) 0%, rgba(31, 31, 31, 0) 100%)",
+          header:
+            "linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), #FFFFFF",
         },
       },
       translate: {

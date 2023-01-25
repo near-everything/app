@@ -60,3 +60,6 @@ pre {
 .react-photo-gallery--gallery img {
   border-radius: 20px !important;
 }
+.headergradient {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), #ffffff;
+}
