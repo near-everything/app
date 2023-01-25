@@ -20,7 +20,7 @@ function Searchbox({}: Props) {
   });
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
   return (
-    <div className="flex items-center justify-between pt-[8px] w-full">
+    <div className="flex items-center justify-between  w-full">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <Input
           name="search"

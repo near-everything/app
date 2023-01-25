@@ -57,3 +57,6 @@ pre {
 .slick-track {
   height: auto !important;
 }
+.react-photo-gallery--gallery img {
+  border-radius: 20px !important;
+}

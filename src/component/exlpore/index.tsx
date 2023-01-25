@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import Slider from "react-slick";
-import img from "assets/image/img.png";
+import { ReactComponent as Arrow } from "assets/icon/arrowleft.svg";
+import { ReactComponent as Close } from "assets/icon/close.svg";
 import { ReactComponent as Search } from "assets/icon/search.svg";
 import { ReactComponent as Notification } from "assets/icon/notification.svg";
 import { ReactComponent as People } from "assets/icon/people.svg";
 import { ReactComponent as Add } from "assets/icon/add.svg";
 import { SerchItem } from "./animations";
 import Searchbox from "./searchbox";
+import Gallery from "react-photo-gallery";
+import { photos } from "./photos";
 
 type Props = {};
 const settings = {
@@ -36,11 +38,26 @@ function Index({}: Props) {
               <Notification className=" ml-[16px]" />
             </div>
           </div>
-          <div className=" rounded-[20px] overflow-auto bg-blackdark w-full h-[85%]"></div>{" "}
+          <div className=" rounded-[20px] overflow-auto bg-blackdark w-full h-[85%]">
+            <Gallery
+              photos={photos}
+              direction={"column"}
+              columns={2}
+              margin={2}
+            />
+          </div>
         </>
       ) : (
         <SerchItem>
-          <Searchbox />
+          <div className=" flex items-center justify-between pt-[8px]">
+            <Arrow onClick={() => setSate(false)} />
+            <div className=" relative w-[92%] h-auto">
+              <Searchbox />
+              <div className=" absolute right-[14px] top-[50%] -translate-y-center">
+                <Close />
+              </div>
+            </div>
+          </div>
         </SerchItem>
       )}
 
@@ -54,30 +71,6 @@ function Index({}: Props) {
           <People />
         </div>
       </div>
-      {/* <Slider {...settings}>
-        <div   className=" inline-block w-[185.5px] h-[177px]">
-          <img
-            src={img}
-            alt={img}
-            className=" inline-block w-[185.5px] h-[177px]"
-          />
-        </div>
-        <div >
-          <img src={img} alt={img} className=" inline-block w-[185.5px] h-[313px]"/>
-        </div>
-        <div>
-          <img src={img} alt={img} className=" inline-block w-[185.5px] h-[234px]" />
-        </div>
-        <div>
-          <img src={img} alt={img} className=" inline-block w-[185.5px] h-[210px]" />
-        </div>
-        <div>
-          <img src={img} alt={img} className=" inline-block w-[185.5px] h-[419px]" />
-        </div>
-        <div>
-          <img src={img} alt={img} className=" inline-block w-[185.5px] h-[177px]" />
-        </div>
-      </Slider> */}
     </div>
   );
 }
