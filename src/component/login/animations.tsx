@@ -32,8 +32,8 @@ export const CircleItem: React.FC<IColorItemread> = ({ isSelected }) => {
       animate={{
         opacity: 1,
         background: isSelected ? "#fff" : "#242424",
-        width: isSelected ? "40px" : "16px",
-        height: isSelected ? "40px" : "16px",
+        width: isSelected ? "32px" : "16px",
+        height: isSelected ? "32px" : "16px",
       }}
       transition={{ duration: 0.5 }}
       className={" w-[16px] h-[16px] rounded-[50%] bg-blacklight "}
@@ -56,7 +56,7 @@ export const TextItem: React.FC<ITextItem> = ({ text }) => {
         duration: 2,
       }}
     >
-      <pre className="text-white text-center  text-Title-X ">{text}</pre>
+      <pre className="text-white text-center  text-title24 ">{text}</pre>
     </motion.div>
   );
 };
@@ -67,8 +67,8 @@ export const CircleItem1: React.FC<IColorItemread> = ({ isSelected }) => {
       animate={{
         opacity: 1,
         borderColor: isSelected ? "#fff" : "#242424",
-        width: isSelected ? "40px" : "16px",
-        height: isSelected ? "40px" : "16px",
+        width: isSelected ? "32px" : "16px",
+        height: isSelected ? "32px" : "16px",
         backgroundColor: "transparent",
         borderWidth: isSelected ? "5px" : "3px",
       }}
@@ -89,8 +89,8 @@ export const CircleItem2: React.FC<IColorItemread> = ({ isSelected }) => {
       initial={{ opacity: 1 }}
       animate={{
         opacity: 1,
-        width: isSelected ? "40px" : "16px",
-        height: isSelected ? "40px" : "16px",
+        width: isSelected ? "32px" : "16px",
+        height: isSelected ? "32px" : "16px",
       }}
       transition={{ duration: 0.5 }}
     >

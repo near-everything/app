@@ -3,8 +3,15 @@ import React from "react";
 type Props = {
   type: "submit" | "button" | "reset";
   disabled: boolean;
-  className: string;
+  className?: string;
   size: `L` | `M` | `S`;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  children: JSX.Element;
+};
+type PropsInter = {
+  type: "submit" | "button" | "reset";
+  disabled: boolean;
+  className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children: JSX.Element;
 };
@@ -98,7 +105,7 @@ function Interactionmain({
   disabled,
   className,
   children,
-}: Props) {
+}: PropsInter) {
   return (
     <button
       type={type}
@@ -117,7 +124,7 @@ function InteractionSecondarywhite({
   disabled,
   className,
   children,
-}: Props) {
+}: PropsInter) {
   return (
     <button
       type={type}
@@ -136,7 +143,7 @@ function InteractionSecondaryblack({
   disabled,
   className,
   children,
-}: Props) {
+}: PropsInter) {
   return (
     <button
       type={type}
@@ -155,7 +162,7 @@ function Interactiontetriary({
   disabled,
   className,
   children,
-}: Props) {
+}: PropsInter) {
   return (
     <button
       type={type}

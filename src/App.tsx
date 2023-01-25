@@ -1,9 +1,9 @@
 import React from "react";
-import Dashboard from "component/dashboard";
+import Login from "component/login";
 function App() {
   return (
     <div className="w-full h-full">
-      <Dashboard />
+      <Login />
     </div>
   );
 }
