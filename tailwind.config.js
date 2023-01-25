@@ -41,6 +41,14 @@ module.exports = {
         center: "50%",
       },
       fontSize: {
+        title28: [
+          "28px",
+          {
+            lineHeight: "34px",
+            letterSpacing: "-1%",
+            fontWeight: 400,
+          },
+        ],
         title24: [
           "24px",
           {
