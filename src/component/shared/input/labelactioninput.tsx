@@ -19,21 +19,21 @@ const Index: FC<InputProps> = ({
   ...rest
 }) => {
   return (
-    <div className={wrapperClass}>
-      {label && (
-        <label
-          htmlFor={name}
-          className=" flex justify-start w-full mb-[13px] text-[#4A4844] text-[14px] font-medium leading-[14px]"
-        >
-          {label}
-        </label>
-      )}
+    <div className={`floating-label-group ${wrapperClass}`}>
       <input
+        type="text"
+        id={name}
         aria-invalid={error ? "true" : "false"}
         {...register(name)}
         {...rest}
-        className={`bg-input rounded-[100px] border-none w-full focus:outline-none ${className}`}
+        className={`form-control bg-input rounded-[100px] border-none w-full focus:outline-none ${className}`}
+        autoComplete="off"
+        required
       />
+      <label className="floating-label text-gray-40 text-Body16  cursor-text">
+        {label}
+      </label>
+
       {error && (
         <span
           className="text-[color:var(--btn-color-1)]  font-medium font_size_10 leading-[12px] mt_10"

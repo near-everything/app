@@ -16,6 +16,7 @@ module.exports = {
         white80: "#F2F2F2CC",
         white20: "#F2F2F233",
         blurbackground: "#1f1f1f33",
+        blue: "#0A84FF",
         gray: {
           95: "#191919",
           90: "#262626",
@@ -27,6 +28,12 @@ module.exports = {
           30: "#BFBFBF",
           20: "#D9D9D9",
           10: "#F2F2F2",
+        },
+        boxShadow: {
+          header: " 0px 0.480769px 0px rgba(0, 0, 0, 0.3)",
+        },
+        backdropBlur: {
+          header: "9.61538px",
         },
         backgroundImage: {
           "Gradient/Pile":
@@ -65,6 +72,14 @@ module.exports = {
             lineHeight: "25px",
             letterSpacing: "-1%",
             fontWeight: 400,
+          },
+        ],
+        title17: [
+          "17px",
+          {
+            lineHeight: "22px",
+            letterSpacing: "-0.408px",
+            fontWeight: 600,
           },
         ],
         title20: [
@@ -111,6 +126,14 @@ module.exports = {
           "16px",
           {
             lineHeight: "21px",
+            letterSpacing: "-1%",
+            fontWeight: 400,
+          },
+        ],
+        Body17: [
+          "17px",
+          {
+            lineHeight: "22px",
             letterSpacing: "-1%",
             fontWeight: 400,
           },

@@ -149,7 +149,7 @@ const Index: React.FC<Props> = ({}: Props) => {
         </div>
       ) : (
         <Info>
-          <Logininfo />
+          <Logininfo setInfo={setInfo} />
         </Info>
       )}
     </>

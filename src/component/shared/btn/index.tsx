@@ -175,3 +175,79 @@ function Interactiontetriary({
   );
 }
 export { Interactiontetriary };
+function Iconmain({
+  type,
+  onClick,
+  disabled,
+  className,
+  children,
+}: PropsInter) {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`bg-white rounded-[50%] text-black px-[20px] py-[22px] ${className}`}
+    >
+      {children}
+    </button>
+  );
+}
+export { Iconmain };
+function Iconsecondarywhite({
+  type,
+  onClick,
+  disabled,
+  className,
+  children,
+}: PropsInter) {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`bg-white20 rounded-[50%] active:bg-white80 text-white  ${className}`}
+    >
+      {children}
+    </button>
+  );
+}
+export { Iconsecondarywhite };
+function Iconsecondaryblack({
+  type,
+  onClick,
+  disabled,
+  className,
+  children,
+}: PropsInter) {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`bg-black80 rounded-[50%] active:bg-black20 text-white px-[20px] py-[22px] ${className}`}
+    >
+      {children}
+    </button>
+  );
+}
+export { Iconsecondaryblack };
+function Icontetriary({
+  type,
+  onClick,
+  disabled,
+  className,
+  children,
+}: PropsInter) {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={` text-Button bg-transparent active:bg-white20  text-white rounded-[50%]  px-[20px] py-[22px] ${className}`}
+    >
+      {children}
+    </button>
+  );
+}
+export { Icontetriary };

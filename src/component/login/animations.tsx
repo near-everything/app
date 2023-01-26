@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { AnimateSharedLayout, motion, Transition } from "framer-motion";
+import { AnimateSharedLayout, motion, useTime, useTransform } from "framer-motion";
 type Props = {};
 interface IColorItem {
   isSelected?: boolean;
@@ -167,7 +167,7 @@ export const Info: React.FC<IInfoItem> = ({ children }) => {
       animate={{
         y: [windowSize.current[1], 0],
         width: "100%",
-        height: "85%",
+        height: "100%",
       }}
       transition={{
         type: "tween",

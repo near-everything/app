@@ -1,15 +1,16 @@
 body {
   margin: 0;
-  font-family: "Inter";
+  font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: white;
 }
 
 code,
 kbd,
 samp,
 pre {
-  font-family: "Inter" !important;
+  font-family: "Inter", sans-serif !important;
 }
 @tailwind base;
 @tailwind components;
@@ -62,4 +63,32 @@ pre {
 }
 .headergradient {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), #ffffff;
+}
+.floating-label-group {
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 16px;
+  transition: all 0.1s ease;
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 400;
+}
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label {
+  top: 40%;
+  transform: translateY(-50%);
+  bottom: 0px;
+  left: 16px;
+  opacity: 1;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
 }
