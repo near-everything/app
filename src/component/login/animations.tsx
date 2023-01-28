@@ -1,9 +1,6 @@
 import React, { useRef } from "react";
 import {
-  AnimateSharedLayout,
   motion,
-  useTime,
-  useTransform,
 } from "framer-motion";
 type Props = {};
 interface IColorItem {

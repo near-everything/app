@@ -48,12 +48,8 @@ function Index({ setInfo }: Props) {
           {email}{" "}
         </div>
       )}
-      {step ? (
-        <Registercode setStep={setStep} setFinal={setFinal} />
-      ) : (
-        <Form setStep={setStep} setEmail={setEmail} />
-      )}
-    </div>
+      <Form setStep={setStep} setEmail={setEmail} step={step} />
+    </div> 
   );
 }
 
