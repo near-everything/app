@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import { ReactComponent as Arrow } from "assets/icon/arrowleft.svg";
-import { ReactComponent as Close } from "assets/icon/close.svg";
-import { ReactComponent as Search } from "assets/icon/search.svg";
-import { ReactComponent as Notification } from "assets/icon/notification.svg";
-import { ReactComponent as People } from "assets/icon/people.svg";
-import { ReactComponent as Add } from "assets/icon/add.svg";
-import { SerchItem } from "./animations";
-import Searchbox from "./searchbox";
-import Gallery from "react-photo-gallery";
-import { photos } from "./photos";
-
+import { ReactComponent as ArrowDown } from "assets/icon/arrowdown.svg";
+import { ReactComponent as Arrowupright } from "assets/icon/arrowupright.svg";
+import { ReactComponent as Smile } from "assets/icon/smile.svg";
+import { ReactComponent as Iconc } from "assets/icon/iconc.svg";
+import Circles from "component/shared/circles";
+import { InteractionSecondarywhite } from "component/shared/btn";
+import Header from "component/shared/header";
 type Props = {};
 const settings = {
   className: "center",
@@ -23,52 +19,64 @@ const settings = {
   verticalSwiping: true,
 };
 function Index({}: Props) {
-  const [state, setSate] = useState(false);
   return (
-    <div className=" bg-black px-[16px] h-full overflow-hidden">
-      {!state ? (
-        <>
-          <div className=" flex items-center justify-between pt-[8px]">
-            <p className=" text-white text-[28px] ">explore</p>
-            <div className=" flex items-center justify-start">
-              <Search
-                className=" cursor-pointer"
-                onClick={() => setSate(true)}
-              />
-              <Notification className=" ml-[16px]" />
+    <div className="  h-full overflow-auto ">
+      <div className="bg-white w-full  h-full">
+        <p className=" text-black py-[11px] text-[28px] leading-[34px] px-[16px]">
+          explore
+        </p>
+        <div className=" bg-black p-[4px]  rounded-t-[24px] min-h-[93.5%]">
+          <div className=" bg-gray-95 rounded-[22px] w-full py-[31px] px-[50px]">
+            <Circles />
+            <div className=" mt-[36px] text-center flex flex-col items-center justify-center">
+              <p className=" text-gray-40 text-Body14">welcome to everything</p>
+              <p className=" text-white text-title24">
+                let’s add your first thing.
+              </p>
+              <pre className=" mt-[36px] text-gray-40 text-Body14">
+                {"the plus button on the" + "\n" + " navbar to start"}
+              </pre>
+              <ArrowDown className=" mt-[8px] text-center" />
             </div>
           </div>
-          <div className=" rounded-[20px] overflow-auto bg-blackdark w-full h-[85%]">
-            <Gallery
-              photos={photos}
-              direction={"column"}
-              columns={2}
-              margin={2}
-            />
+          <div className=" bg-gray-95 rounded-[22px] mt-[4px] w-full pt-[12px] pl-[12px] pb-[4px] pr-[4px]">
+            <p className=" text-title18">invite friends</p>
+            <pre className=" mt-[4px] text-gray-40 text-Body14">
+              {"encourage your friends to join the new " + "\n" + "economy!"}
+            </pre>
+            <div className=" w-full flex items-center justify-end mt-[32px]">
+              <InteractionSecondarywhite disabled={false} type="button">
+                <p>invite friends</p>
+              </InteractionSecondarywhite>
+            </div>
           </div>
-        </>
-      ) : (
-        <SerchItem>
-          <div className=" flex items-center justify-between pt-[8px]">
-            <Arrow onClick={() => setSate(false)} />
-            <div className=" relative w-[92%] h-auto">
-              <Searchbox />
-              <div className=" absolute right-[14px] top-[50%] -translate-y-center">
-                <Close />
+          <div className=" grid grid-cols-2 gap-x-[4px] mt-[4px] mb-[7px]">
+            <div className="bg-gray-95 rounded-[22px] pt-[4px] pl-[4px] pb-[12px] pr-[16.5px]">
+              <div className=" flex items-center justify-between">
+                <div className=" py-[12px] px-[8.75px] bg-gray-90 rounded-[18px]">
+                  <Smile className=" text-white" />
+                </div>
+                <Arrowupright className=" text-gray-60" />
               </div>
+              <pre className=" mt-[54px] pl-[6px] text-white text-Body16">
+                {"join our Discord" + "\n" + "community"}
+              </pre>
+            </div>
+            <div className="bg-gray-95 rounded-[22px] pt-[4px] pl-[4px] pb-[12px] pr-[16.5px]">
+              <div className=" flex items-center justify-between">
+                <div className=" py-[12px] px-[8.75px] bg-gray-90 rounded-[18px]">
+                  <Iconc className=" text-white" />
+                </div>
+                <Arrowupright className=" text-gray-60" />
+              </div>
+              <pre className=" mt-[54px] pl-[6px] text-white text-Body16">
+                {"share ideas &" + "\n" + "feedback"}
+              </pre>
             </div>
           </div>
-        </SerchItem>
-      )}
-
-      <div className=" absolute bottom-[14px] right-0 left-0 px-[16px]">
-        <div className=" flex items-center justify-between">
-          <div className=" flex flex-col items-center justify-center">
-            <div className=" w-[5px] h-[5px] rounded-[50%] bg-white mb-[4.5px]" />
-            <p className=" text-Caption-1 text-white">explore</p>
+          <div className=" mb-[4px]">
+            <Header />
           </div>
-          <Add />
-          <People />
         </div>
       </div>
     </div>

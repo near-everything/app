@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { ReactComponent as Mazecircle } from "assets/icon/mazecircle.svg";
 import Form from "./form";
-import Registercode from "./registercode";
 import Connect from "./connect";
+import Circles from "component/shared/circles";
 
 type Props = {
   setInfo: (info: boolean) => void;
@@ -30,10 +29,8 @@ function Index({ setInfo }: Props) {
           Close
         </p>
       </div>
-      <div className=" flex items-center justify-center mt-[40px]">
-        <div className="w-[20px] h-[20px] rounded-[50%] bg-white mr-[8px]" />
-        <div className="w-[20px] h-[20px] rounded-[50%] bg-transparent border-solid border-white border-[3px] mr-[8px]" />
-        <Mazecircle className=" text-white" />
+      <div className="mt-[40px]">
+        <Circles />
       </div>
       <div className=" mt-[31px] flex items-center justify-center text-center text-title24">
         connect to everything
@@ -49,7 +46,7 @@ function Index({ setInfo }: Props) {
         </div>
       )}
       <Form setStep={setStep} setEmail={setEmail} step={step} />
-    </div> 
+    </div>
   );
 }
 
