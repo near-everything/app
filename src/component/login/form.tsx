@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { MainBtn, Iconsecondarywhite } from "component/shared/btn";
 import { ReactComponent as Arrow } from "assets/icon/arrowleft.svg";
+import { ReactComponent as Error } from "assets/icon/error.svg";
 import { motion } from "framer-motion";
 
 type Inputs = {
@@ -40,7 +41,9 @@ function Form({ setStep, setEmail, step }: Props) {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setStep(true);
     setEmail(data?.email);
+    setErr(true);
   };
+  const [err, setErr] = useState(false);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -58,6 +61,7 @@ function Form({ setStep, setEmail, step }: Props) {
           autoComplete="nope"
           className="rounded-[16px] pt-[20px] pb-[23px]"
           wrapperClass="text-start"
+          err={err}
         />
       ) : (
         <div className=" relative">
@@ -70,13 +74,21 @@ function Form({ setStep, setEmail, step }: Props) {
             autoFocus
             register={register}
             autoComplete="nope"
-            className="rounded-[16px] pt-[20px] pb-[23px]"
+            className={"rounded-[16px] pt-[20px] pb-[23px]"}
             wrapperClass="text-start"
+            err={err}
           />
           <p className=" absolute top-[32%] right-[21.4px]">resend</p>
         </div>
       )}
-
+      {err && (
+        <div className=" flex items-center justify-start">
+          <Error />
+          <p className=" text-red text-caption13 ml-[5px]">
+            {step ? "wrong code" : "this email is already used"}
+          </p>
+        </div>
+      )}
       <div className=" flex items-center justify-between text-center mt-[48px] max-w-[343px] mx-auto">
         {step ? (
           <motion.div

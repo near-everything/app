@@ -7,6 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   register?: any;
   wrapperClass?: string;
   className?: string;
+  err?: boolean;
 }
 
 const Index: FC<InputProps> = ({
@@ -16,6 +17,7 @@ const Index: FC<InputProps> = ({
   label,
   wrapperClass,
   className,
+  err,
   ...rest
 }) => {
   return (
@@ -26,7 +28,11 @@ const Index: FC<InputProps> = ({
         aria-invalid={error ? "true" : "false"}
         {...register(name)}
         {...rest}
-        className={`form-control bg-input rounded-[100px] border-none w-full focus:outline-none ${className}`}
+        className={
+          err
+            ? `form-control bg-input rounded-[100px]  w-full focus:outline-none border-solid border-red ${className}`
+            : `form-control bg-input rounded-[100px] border-none w-full focus:outline-none ${className}`
+        }
         autoComplete="off"
         required
       />
