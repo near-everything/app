@@ -74,7 +74,7 @@ function Index({}: Props) {
               </pre>
             </div>
           </div>
-          <div className=" mb-[4px]">
+          <div className=" h-[80px]">
             <Header />
           </div>
         </div>
