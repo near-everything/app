@@ -1,11 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+
 import reportWebVitals from "./reportWebVitals";
-import "@fontsource/inter";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+
 import { RouterProvider } from "react-router-dom";
-import {router} from './routes'
+import { router } from "./routes";
+
+import "@fontsource/inter";
+import "./index.css";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

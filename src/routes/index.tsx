@@ -1,13 +1,15 @@
-import App from "../App";
 import { createBrowserRouter } from "react-router-dom";
-import Exlpore from "component/exlpore";
+
+import App from "../App";
+import Explore from "component/explore";
+
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
   {
-    path: "/exlpore",
-    element: <Exlpore />,
+    path: "/explore",
+    element: <Explore />,
   },
 ]);
