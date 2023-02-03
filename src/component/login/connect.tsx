@@ -4,13 +4,7 @@ import {
   Connectemptycircle,
   Connectmulticircle,
 } from "./animations";
-import {
-  AnimateSharedLayout,
-  motion,
-  Transition,
-  useTime,
-  useTransform,
-} from "framer-motion";
+import { AnimateSharedLayout, motion, Transition } from "framer-motion";
 import { ReactComponent as Everything } from "assets/icon/enerythingicon.svg";
 
 type Props = {};
@@ -25,17 +19,6 @@ const transition: Transition = {
   duration: 1,
 };
 
-const tabs: ITab[] = [
-  {
-    tabIndex: 0,
-  },
-  {
-    tabIndex: 1,
-  },
-  {
-    tabIndex: 2,
-  },
-];
 const text = "setting up your" + "\n" + "everything";
 function Connect({}: Props) {
   const [activeTab, setActiveTab] = useState(0);

@@ -7,17 +7,6 @@ import Circles from "component/shared/circles";
 import { InteractionSecondarywhite } from "component/shared/btn";
 import Header from "component/shared/header";
 type Props = {};
-const settings = {
-  className: "center",
-  centerMode: false,
-  infinite: false,
-  centerPadding: "0px",
-  slidesToShow: 3,
-  rows: 2,
-  slidesPerRow: 2,
-  vertical: true,
-  verticalSwiping: true,
-};
 function Index({}: Props) {
   return (
     <div className="  h-full overflow-auto ">
