@@ -12,6 +12,7 @@ samp,
 pre {
   font-family: "Inter", sans-serif !important;
 }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,6 +21,7 @@ pre {
 
   height: 100%;
 }
+
 @font-face {
   font-family: "Inter";
   src: url("./assets/fonts/Inter-Black.ttf");
@@ -27,6 +29,7 @@ pre {
   font-weight: thin;
   font-style: thin;
 }
+
 @font-face {
   font-family: "Inter";
   src: url("./assets/fonts/Inter-Black.ttf");
@@ -34,6 +37,7 @@ pre {
   font-weight: light;
   font-style: light;
 }
+
 @font-face {
   font-family: "Inter";
   src: url("./assets/fonts/Inter-Black.ttf");
@@ -41,6 +45,7 @@ pre {
   font-weight: 400;
   font-style: 400;
 }
+
 @font-face {
   font-family: "Inter";
   src: url("./assets/fonts/Inter-Black.ttf");
@@ -48,6 +53,7 @@ pre {
   font-weight: 500;
   font-style: 500;
 }
+
 @font-face {
   font-family: "Inter";
   src: url("./assets/fonts/Inter-Black.ttf");
@@ -55,15 +61,19 @@ pre {
   font-weight: 600;
   font-style: 600;
 }
+
 .slick-track {
   height: auto !important;
 }
+
 .react-photo-gallery--gallery img {
   border-radius: 20px !important;
 }
+
 .headergradient {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), #ffffff;
 }
+
 .floating-label-group {
   position: relative;
   margin-top: 15px;
@@ -81,6 +91,7 @@ pre {
   line-height: 21px;
   font-weight: 400;
 }
+
 input:focus ~ .floating-label,
 input:not(:focus):valid ~ .floating-label {
   top: 40%;
