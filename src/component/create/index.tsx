@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState, useEffect } from "react";
 import { ReactComponent as Arrow } from "assets/icon/close.svg";
 import { ReactComponent as Gallery } from "assets/icon/gallery.svg";
+import { ReactComponent as Brightness } from "assets/icon/brightness.svg";
 import { Secondarywhite } from "component/shared/btn";
 import { MediaOnboardingDialog } from "component/shared/mediaonboardingdialog";
 import Webcam from "react-webcam";
@@ -18,11 +19,12 @@ function Index({}: Props) {
     }
   }, [webcamRef]);
   const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
   let videoConstraints: MediaTrackConstraints = {
     facingMode: facingMode,
-    width: 270,
-    height: 480,
+    width: (97 * windowSize.current[0]) / 100,
+    height: (60 * windowSize.current[1]) / 100,
   };
 
   const handleClick = React.useCallback(() => {
@@ -32,9 +34,15 @@ function Index({}: Props) {
         : FACING_MODE_USER
     );
   }, []);
-
+  const [brightnes, setBrightnes] = useState(1);
   return (
-    <div className=" bg-black  h-full">
+    <div
+      className={
+        url
+          ? " h-full bg-[#0D0D0D80] backdrop-blur-[12px]"
+          : " bg-black  h-full"
+      }
+    >
       <MediaOnboardingDialog />
       <div className=" flex items-center justify-start pt-[6px] pl-[16px]">
         <div className=" bg-white20 rounded-[50%] p-[14px]  cursor-pointer">
@@ -42,9 +50,13 @@ function Index({}: Props) {
         </div>
       </div>
 
-      <div className=" mt-[16px] bg-white20  w-[97%] h-[60%]  rounded-[24px] mx-auto overflow-hidden">
+      <div className=" mt-[16px] bg-white20  w-[97%] h-[60%]  rounded-[24px] mx-auto overflow-hidden relative">
         {url ? (
-          <img src={url} alt="Screenshot" />
+          <img
+            src={url}
+            alt="Screenshot"
+            style={{ filter: `brightness(${brightnes})` }}
+          />
         ) : (
           <Webcam
             audio={false}
@@ -53,6 +65,12 @@ function Index({}: Props) {
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             videoConstraints={videoConstraints}
+          />
+        )}
+        {url && (
+          <Brightness
+            className=" absolute top-[50%] left-[50%] -translate-x-center -translate-y-center"
+            onClick={() => setBrightnes((perv) => perv + 0.1)}
           />
         )}
       </div>
