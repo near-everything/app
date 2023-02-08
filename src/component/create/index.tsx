@@ -1,27 +1,39 @@
 import React, { useCallback, useRef, useState, useEffect } from "react";
-import { ReactComponent as Arrow } from "assets/icon/close.svg";
 import { ReactComponent as Gallery } from "assets/icon/gallery.svg";
 import { ReactComponent as Brightness } from "assets/icon/brightness.svg";
 import { Secondarywhite } from "component/shared/btn";
 import { MediaOnboardingDialog } from "component/shared/mediaonboardingdialog";
 import Webcam from "react-webcam";
-import Toggel from "component/shared/toggel";
+import Header from "./header";
+import Body from "./body";
 type Props = {};
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
 function Index({}: Props) {
   const webcamRef = useRef<Webcam>(null);
   const [url, setUrl] = useState<string | null>(null);
+  const [photo, setPhoto] = useState<boolean>(false);
+  const [list, setList] = useState<string[]>([]);
   const [bulk, setBulk] = useState<boolean>(false);
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
+    setPhoto(true);
     if (imageSrc) {
       setUrl(imageSrc);
     }
   }, [webcamRef]);
+  useEffect(() => {
+    if (photo && bulk && url) {
+      setList((perv) => [...perv, url]);
+      setPhoto(false);
+    }
+  }, [photo]);
+
   const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
-
+  console.log("bulk", bulk);
+  console.log("list", list);
+  console.log("url", url);
   let videoConstraints: MediaTrackConstraints = {
     facingMode: facingMode,
     width: (97 * windowSize.current[0]) / 100,
@@ -29,13 +41,7 @@ function Index({}: Props) {
       ? (60 * windowSize.current[1]) / 100
       : (75 * windowSize.current[1]) / 100,
   };
-  const handleClick = React.useCallback(() => {
-    setFacingMode((prevState) =>
-      prevState === FACING_MODE_USER
-        ? FACING_MODE_ENVIRONMENT
-        : FACING_MODE_USER
-    );
-  }, []);
+
   const [brightnes, setBrightnes] = useState(1);
   return (
     <div
@@ -45,12 +51,7 @@ function Index({}: Props) {
           : " bg-black  h-full"
       }
     >
-      <div className=" flex items-center justify-between pt-[6px] px-[16px]">
-        <div className=" bg-white20 rounded-[50%] p-[14px]  cursor-pointer">
-          <Arrow className="text-white" />
-        </div>
-        <Toggel text="bulk upload" setBulk={setBulk} bulk={bulk} />
-      </div>
+      <Header setBulk={setBulk} bulk={bulk} />
 
       <div
         className={
@@ -60,7 +61,7 @@ function Index({}: Props) {
         }
       >
         <MediaOnboardingDialog />
-        {url ? (
+        {url && !bulk ? (
           <img
             src={url}
             alt="Screenshot"
@@ -74,6 +75,7 @@ function Index({}: Props) {
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             videoConstraints={videoConstraints}
+            mirrored
           />
         )}
         {url && (
@@ -83,6 +85,7 @@ function Index({}: Props) {
           />
         )}
       </div>
+      {bulk && <Body list={list} />}
       <div className=" absolute bottom-[30px] left-0 right-[-16px]  flex items-center justify-between w-[85%] mx-auto">
         <div className=" p-[15px] rounded-[50%] bg-white20 text-white flex items-center justify-center cursor-pointer">
           <Gallery />
