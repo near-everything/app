@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { ReactComponent as ArrowDown } from "assets/icon/arrowdown.svg";
+import React, { useRef, useState } from "react";
+import { Secondarywhite } from "component/shared/btn";
 import Bowser from "bowser";
 
 import {
@@ -20,7 +20,7 @@ enum DialogType {
 
 const MediaOnboardingDialog: React.FC = () => {
   const [showDialog, setShowDialog] = React.useState<DialogType | null>(null);
-
+  const [havePermissions, setHavePermissions] = useState(false);
   const [audioAllowed, setAudioAllowed] = React.useState<boolean>(false);
   const [videoAllowed, setVideoAllowed] = React.useState<boolean>(false);
 
@@ -126,38 +126,60 @@ const MediaOnboardingDialog: React.FC = () => {
 
   const _renderExplanationDialog = () => {
     return (
-      <div>
-        <p>Allow App to use your camera and microphone</p>
-        <p>
-          App needs access to your camera and microphone so that other
-          participants can see and hear you.
-        </p>
+      <div className=" absolute top-[50%] left-[50%] -translate-x-center -translate-y-center text-center">
+        <pre className=" text-Body16 ">
+          {" We don’t have access to your camera " +
+            "\n" +
+            "  Go to settings to change the access"}
+        </pre>
+        <Secondarywhite
+          disabled={false}
+          type="button"
+          size="M"
+          className="py-[13px] px-[24px] mt-[19px]"
+        >
+          <p>change access</p>
+        </Secondarywhite>
       </div>
     );
   };
 
   const _renderUserDeniedDialog = () => {
+    const checkForPermission = () => {
+      var constraints = { audio: true, video: { width: 1280, height: 720 } };
+
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then(function (stream) {
+          /* use the stream */
+        })
+        .catch(function (err) {
+          /* handle the error */
+        });
+    };
+
+    // checkForPermission('clipboard-read');
+    // checkForPermission('clipboard-write');
     return (
       <div>
-        <p>Camera and microphone are blocked</p>
-        <p>
-          App requires access to your camera and microphone.{" "}
-          {browser.getBrowserName() !== "Safari" && (
-            <p>
-              Click the camera blocked icon{" "}
-              <img
-                alt="icon"
-                src={
-                  "https://www.gstatic.com/meet/ic_blocked_camera_dark_f401bc8ec538ede48315b75286c1511b.svg"
-                }
-                style={{ display: "inline" }}
-              />{" "}
-              in your browser's address bar.
-            </p>
-          )}
-        </p>
-        {_renderErrorMessage()}
-        {_renderTryAgain()}
+        <div className=" absolute top-[50%] left-[50%] -translate-x-center -translate-y-center text-center">
+          <pre className=" text-Body16 ">
+            {" We don’t have access to your camera " +
+              "\n" +
+              "  Go to settings to change the access"}
+          </pre>
+          <Secondarywhite
+            disabled={false}
+            type="button"
+            size="M"
+            className="py-[13px] px-[24px] mt-[19px]"
+            onClick={() => checkForPermission()}
+          >
+            <p>change access</p>
+          </Secondarywhite>
+        </div>
+        {/* {_renderErrorMessage()}
+        {_renderTryAgain()} */}
       </div>
     );
   };
@@ -199,8 +221,8 @@ const MediaOnboardingDialog: React.FC = () => {
           }
           .
         </p>
-        {_renderErrorMessage()}
-        {_renderTryAgain()}
+        {/* {_renderErrorMessage()}
+        {_renderTryAgain()} */}
       </div>
     );
   };
@@ -208,14 +230,14 @@ const MediaOnboardingDialog: React.FC = () => {
   const _renderTrackErrorDialog = () => {
     return (
       <div>
-        <p>Can't start your camera or microphone</p>
-        <p>
-          Another application (Zoom, Webex) or browser tab (Google Meet,
-          Messenger Video) might already be using your webcam. Please turn off
-          other cameras before proceeding.
-        </p>
-        {_renderErrorMessage()}
-        {_renderTryAgain()}
+        <pre className=" text-Body16">
+          {" We don’t have access to your camera " +
+            "\n" +
+            "  Go to settings to change the access"}
+        </pre>
+
+        {/* {_renderErrorMessage()}
+        {_renderTryAgain()} */}
       </div>
     );
   };

@@ -5,13 +5,14 @@ import { ReactComponent as Brightness } from "assets/icon/brightness.svg";
 import { Secondarywhite } from "component/shared/btn";
 import { MediaOnboardingDialog } from "component/shared/mediaonboardingdialog";
 import Webcam from "react-webcam";
-
+import Toggel from "component/shared/toggel";
 type Props = {};
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
 function Index({}: Props) {
   const webcamRef = useRef<Webcam>(null);
   const [url, setUrl] = useState<string | null>(null);
+  const [bulk, setBulk] = useState<boolean>(false);
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
@@ -24,9 +25,10 @@ function Index({}: Props) {
   let videoConstraints: MediaTrackConstraints = {
     facingMode: facingMode,
     width: (97 * windowSize.current[0]) / 100,
-    height: (60 * windowSize.current[1]) / 100,
+    height: bulk
+      ? (60 * windowSize.current[1]) / 100
+      : (75 * windowSize.current[1]) / 100,
   };
-
   const handleClick = React.useCallback(() => {
     setFacingMode((prevState) =>
       prevState === FACING_MODE_USER
@@ -43,14 +45,21 @@ function Index({}: Props) {
           : " bg-black  h-full"
       }
     >
-      <MediaOnboardingDialog />
-      <div className=" flex items-center justify-start pt-[6px] pl-[16px]">
+      <div className=" flex items-center justify-between pt-[6px] px-[16px]">
         <div className=" bg-white20 rounded-[50%] p-[14px]  cursor-pointer">
           <Arrow className="text-white" />
         </div>
+        <Toggel text="bulk upload" setBulk={setBulk} bulk={bulk} />
       </div>
 
-      <div className=" mt-[16px] bg-white20  w-[97%] h-[60%]  rounded-[24px] mx-auto overflow-hidden relative">
+      <div
+        className={
+          bulk
+            ? " mt-[16px] bg-white20  w-[97%] h-[60%]  rounded-[24px] mx-auto overflow-hidden relative"
+            : " mt-[16px] bg-white20  w-[97%] h-[75%]  rounded-[24px] mx-auto overflow-hidden relative"
+        }
+      >
+        <MediaOnboardingDialog />
         {url ? (
           <img
             src={url}

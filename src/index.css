@@ -103,3 +103,17 @@ input:not(:focus):valid ~ .floating-label {
   line-height: 16px;
   font-weight: 400;
 }
+input:checked ~ .dot {
+  transform: translateX(100%);
+}
+input:checked ~ .block {
+  background-color: #27AE60;
+}
+
+/* Toggle B */
+input:checked ~ .dot {
+  transform: translateX(100%);
+}
+input:checked ~ .block {
+  background-color: #27AE60;
+}

@@ -59,7 +59,7 @@ function Secondarywhite({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={` text-Button text-white text-Button16 py-[16px] bg-white20  rounded-[100px] ${sizes[size]} ${className}`}
+      className={` text-Button cursor-pointer text-white text-Button16 py-[16px] bg-white20  rounded-[100px] ${sizes[size]} ${className}`}
     >
       {children}
     </button>
