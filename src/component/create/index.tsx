@@ -6,6 +6,8 @@ import { MediaOnboardingDialog } from "component/shared/mediaonboardingdialog";
 import Webcam from "react-webcam";
 import Header from "./header";
 import Body from "./body";
+import Logout from "./logout";
+import { Info } from "./animations";
 type Props = {};
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -15,6 +17,7 @@ function Index({}: Props) {
   const [photo, setPhoto] = useState<boolean>(false);
   const [list, setList] = useState<string[]>([]);
   const [bulk, setBulk] = useState<boolean>(false);
+  const [close, setClose] = useState<boolean>(false);
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     setPhoto(true);
@@ -31,9 +34,6 @@ function Index({}: Props) {
 
   const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
-  console.log("bulk", bulk);
-  console.log("list", list);
-  console.log("url", url);
   let videoConstraints: MediaTrackConstraints = {
     facingMode: facingMode,
     width: (97 * windowSize.current[0]) / 100,
@@ -46,12 +46,14 @@ function Index({}: Props) {
   return (
     <div
       className={
-        url
-          ? " h-full bg-[#0D0D0D80] backdrop-blur-[12px]"
-          : " bg-black  h-full"
+        close
+          ? " bg-[#0D0D0D99] h-full backdrop-blur-[10px] relative"
+          : url
+          ? " h-full bg-[#0D0D0D80] backdrop-blur-[12px] relative"
+          : " bg-black  h-full relative"
       }
     >
-      <Header setBulk={setBulk} bulk={bulk} />
+      <Header setBulk={setBulk} bulk={bulk} setClose={setClose} />
 
       <div
         className={
@@ -103,6 +105,11 @@ function Index({}: Props) {
           <p className="text-Button16">upload</p>
         </Secondarywhite>
       </div>
+      {close ? (
+        <Info>
+          <Logout setClose={setClose} />
+        </Info>
+      ) : null}
     </div>
   );
 }

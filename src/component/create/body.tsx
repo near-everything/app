@@ -17,10 +17,6 @@ function Body({ list }: Props) {
       const wi = (list.length - minlist) * 72;
       setMinWidth(wi);
     }
-    const wi = (windowSize.current[0] * 4) / (list.length * 72);
-    console.log("first", (windowSize.current[0] * 4) / (list.length * 72));
-    console.log("first1", windowSize.current[0]);
-    console.log("first2", list.length * 72);
   }, [list]);
 
   return (
