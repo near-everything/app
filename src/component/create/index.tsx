@@ -7,7 +7,9 @@ import Webcam from "react-webcam";
 import Header from "./header";
 import Body from "./body";
 import Logout from "./logout";
-import { Info, Uploadpart, Bulkpart } from "./animations";
+import Template from "component/template";
+import { Info, Uploadpart, Bulkpart,Bodyanimation } from "./animations";
+
 type Props = {};
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -91,6 +93,11 @@ function Index({}: Props) {
           />
         )}
       </div>
+      {upload && (
+        <Bodyanimation>
+          <Template list={list} />
+        </Bodyanimation>
+      )}
       {upload ? (
         <>
           <Bulkpart>

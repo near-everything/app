@@ -1,10 +1,14 @@
 import React from 'react'
 
-type Props = {}
+type Props = {
+    list: string[];
+}
 
-function Index({}: Props) {
+function Index({list}: Props) {
   return (
-    <div>index</div>
+    <div className=' bg-black  h-full  relative z-10'>
+
+    </div>
   )
 }
 
