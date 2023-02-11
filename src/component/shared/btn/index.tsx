@@ -39,7 +39,7 @@ function MainBtn({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={` text-Button text-Button16 py-[16px] bg-white  text-black rounded-[100px] ${sizes[size]} ${className}`}
+      className={` text-Button text-Button16 py-[16px] cursor-pointer bg-white  text-black rounded-[100px] ${sizes[size]} ${className}`}
     >
       {children}
     </button>
@@ -79,7 +79,7 @@ function Secondaryblack({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={` text-Button text-white text-Button16 py-[16px] bg-black80  rounded-[100px] ${sizes[size]} ${className}`}
+      className={` text-Button text-white cursor-pointer text-Button16 py-[16px] bg-black80  rounded-[100px] ${sizes[size]} ${className}`}
     >
       {children}
     </button>
@@ -92,7 +92,7 @@ function SecondaryBtn({ type, onClick, disabled, className, children }: Props) {
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={` text-Button bg-transparent text-Button16 py-[16px] text-white rounded-[100px] ${className}`}
+      className={` text-Button bg-transparent cursor-pointer text-Button16 py-[16px] text-white rounded-[100px] ${className}`}
     >
       {children}
     </button>
@@ -111,7 +111,7 @@ function Interactionmain({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={` text-Button active:bg-gray-20 bg-white text-Button16 text-black rounded-[100px] px-[24px] py-[16px] ${className}`}
+      className={` text-Button active:bg-gray-20 cursor-pointer bg-white text-Button16 text-black rounded-[100px] px-[24px] py-[16px] ${className}`}
     >
       {children}
     </button>
@@ -130,7 +130,7 @@ function InteractionSecondarywhite({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={` text-Button bg-white20 active:bg-white80 text-Button16 text-white rounded-[100px] px-[24px] py-[16px] ${className}`}
+      className={` text-Button bg-white20 cursor-pointer active:bg-white80 text-Button16 text-white rounded-[100px] px-[24px] py-[16px] ${className}`}
     >
       {children}
     </button>
@@ -149,7 +149,7 @@ function InteractionSecondaryblack({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={` text-Button bg-black80 active:bg-black20 text-Button16 text-white rounded-[100px] px-[24px] py-[16px] ${className}`}
+      className={` text-Button bg-black80 cursor-pointer active:bg-black20 text-Button16 text-white rounded-[100px] px-[24px] py-[16px] ${className}`}
     >
       {children}
     </button>
@@ -168,7 +168,7 @@ function Interactiontetriary({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={` text-Button bg-transparent active:bg-white20 text-Button16 text-white rounded-[100px] px-[24px] py-[16px] ${className}`}
+      className={` text-Button bg-transparent cursor-pointer active:bg-white20 text-Button16 text-white rounded-[100px] px-[24px] py-[16px] ${className}`}
     >
       {children}
     </button>
@@ -187,7 +187,7 @@ function Iconmain({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`bg-white rounded-[50%] text-black px-[20px] py-[22px] ${className}`}
+      className={`bg-white rounded-[50%] cursor-pointer text-black px-[20px] py-[22px] ${className}`}
     >
       {children}
     </button>
@@ -206,7 +206,7 @@ function Iconsecondarywhite({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`bg-white20 rounded-[50%] active:bg-white80 text-white  ${className}`}
+      className={`bg-white20 rounded-[50%] cursor-pointer active:bg-white80 text-white  ${className}`}
     >
       {children}
     </button>
@@ -225,7 +225,7 @@ function Iconsecondaryblack({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`bg-black80 rounded-[50%] active:bg-black20 text-white px-[20px] py-[22px] ${className}`}
+      className={`bg-black80 rounded-[50%] cursor-pointer active:bg-black20 text-white px-[20px] py-[22px] ${className}`}
     >
       {children}
     </button>
@@ -244,7 +244,7 @@ function Icontetriary({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={` text-Button bg-transparent active:bg-white20  text-white rounded-[50%]  px-[20px] py-[22px] ${className}`}
+      className={` text-Button bg-transparent cursor-pointer active:bg-white20  text-white rounded-[50%]  px-[20px] py-[22px] ${className}`}
     >
       {children}
     </button>

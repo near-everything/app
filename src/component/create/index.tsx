@@ -7,7 +7,7 @@ import Webcam from "react-webcam";
 import Header from "./header";
 import Body from "./body";
 import Logout from "./logout";
-import { Info } from "./animations";
+import { Info, Uploadpart, Bulkpart } from "./animations";
 type Props = {};
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -18,6 +18,9 @@ function Index({}: Props) {
   const [list, setList] = useState<string[]>([]);
   const [bulk, setBulk] = useState<boolean>(false);
   const [close, setClose] = useState<boolean>(false);
+  const [brightnes, setBrightnes] = useState<number>(1);
+  const [upload, setUpload] = useState<boolean>(false);
+
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     setPhoto(true);
@@ -41,8 +44,9 @@ function Index({}: Props) {
       ? (60 * windowSize.current[1]) / 100
       : (75 * windowSize.current[1]) / 100,
   };
-
-  const [brightnes, setBrightnes] = useState(1);
+  const handleUpload = () => {
+    setUpload(true);
+  };
   return (
     <div
       className={
@@ -87,24 +91,56 @@ function Index({}: Props) {
           />
         )}
       </div>
-      {bulk && <Body list={list} />}
-      <div className=" absolute bottom-[30px] left-0 right-[-16px]  flex items-center justify-between w-[85%] mx-auto">
-        <div className=" p-[15px] rounded-[50%] bg-white20 text-white flex items-center justify-center cursor-pointer">
-          <Gallery />
-        </div>
-        <div
-          className=" w-[64px] h-[64px] rounded-[50%] bg-white cursor-pointer"
-          onClick={capture}
-        />
-        <Secondarywhite
-          size="L"
-          type="button"
-          disabled={false}
-          className="py-[16px] px-[24px]"
-        >
-          <p className="text-Button16">upload</p>
-        </Secondarywhite>
-      </div>
+      {upload ? (
+        <>
+          <Bulkpart>
+            <>{bulk && <Body list={list} />}</>
+          </Bulkpart>
+          <Uploadpart>
+            <div className=" absolute bottom-[30px] left-0 right-[-16px]  flex items-center justify-between w-[85%] mx-auto">
+              <div className=" p-[15px] rounded-[50%] bg-white20 text-white flex items-center justify-center cursor-pointer">
+                <Gallery />
+              </div>
+              <div
+                className=" w-[64px] h-[64px] rounded-[50%] bg-white cursor-pointer"
+                onClick={capture}
+              />
+              <Secondarywhite
+                size="L"
+                type="button"
+                disabled={false}
+                className="py-[16px] px-[24px]"
+                onClick={handleUpload}
+              >
+                <p className="text-Button16">upload</p>
+              </Secondarywhite>
+            </div>
+          </Uploadpart>
+        </>
+      ) : (
+        <>
+          {bulk && <Body list={list} />}
+          <div className=" absolute bottom-[30px] left-0 right-[-16px]  flex items-center justify-between w-[85%] mx-auto">
+            <div className=" p-[15px] rounded-[50%] bg-white20 text-white flex items-center justify-center cursor-pointer">
+              <Gallery />
+            </div>
+            <div
+              className=" w-[64px] h-[64px] rounded-[50%] bg-white cursor-pointer"
+              onClick={capture}
+            />
+            <Secondarywhite
+              size="L"
+              type="button"
+              disabled={false}
+              className="py-[16px] px-[24px]"
+              onClick={handleUpload}
+            >
+              <p className="text-Button16">upload</p>
+            </Secondarywhite>
+          </div>
+        </>
+      )}
+
       {close ? (
         <Info>
           <Logout setClose={setClose} />
