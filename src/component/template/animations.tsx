@@ -4,23 +4,24 @@ interface IInfoItem {
   children: JSX.Element;
 }
 
-export const Bodyanimation: React.FC<IInfoItem> = ({ children }) => {
+export const ImageStart: React.FC<IInfoItem> = ({ children }) => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
+  const location = (40 * windowSize.current[1]) / 100;
 
   return (
     <motion.div
       animate={{
-        y: [windowSize.current[1], 0],
-        width: "100%",
-        height: "100%",
-        position: "absolute",
-        top: ["100px", 0],
+        y: [location, 0],
+        width: ["72px", "182px"],
+        height: ["92px", "241px"],
+        borderRadius: "22px",
+        overflow:'hidden'
       }}
       transition={{
         type: "tween",
         ease: "easeInOut",
-        repeatDelay: 1,
-        duration: 2,
+        repeatDelay: 0,
+        duration: 1,
       }}
     >
       {children}

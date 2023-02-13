@@ -77,21 +77,21 @@ export const Bulkpart: React.FC<IInfoItem> = ({ children }) => {
 };
 export const Bodyanimation: React.FC<IInfoItem> = ({ children }) => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
-
+  const location = (40 * windowSize.current[1]) / 100;
   return (
     <motion.div
       animate={{
-        y: ['60%', 0],
+        y: [location, 0],
         width: "100%",
         height: "100%",
         position: "absolute",
-        top: [60, 0],
+        top: [location, 0],
       }}
       transition={{
         type: "tween",
         ease: "easeInOut",
-        repeatDelay: 1,
-        duration: 2,
+        repeatDelay: 0,
+        duration: 1,
       }}
     >
       {children}

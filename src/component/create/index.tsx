@@ -8,7 +8,7 @@ import Header from "./header";
 import Body from "./body";
 import Logout from "./logout";
 import Template from "component/template";
-import { Info, Uploadpart, Bulkpart,Bodyanimation } from "./animations";
+import { Info, Uploadpart, Bulkpart, Bodyanimation } from "./animations";
 
 type Props = {};
 const FACING_MODE_USER = "user";
@@ -49,6 +49,8 @@ function Index({}: Props) {
   const handleUpload = () => {
     setUpload(true);
   };
+
+  
   return (
     <div
       className={
@@ -95,7 +97,7 @@ function Index({}: Props) {
       </div>
       {upload && (
         <Bodyanimation>
-          <Template list={list} />
+          <Template url={url} list={list} bulk={bulk} setClose={setUpload} setUrl={setUrl}/>
         </Bodyanimation>
       )}
       {upload ? (
