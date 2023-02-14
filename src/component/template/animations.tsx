@@ -39,9 +39,10 @@ export const Apply: React.FC<IInfoItem> = ({ children }) => {
     <motion.div
       animate={{
         y: [windowSize.current[1], 0],
-        width: "100%",
+        width: "98%",
         height: "100%",
         position: "absolute",
+        overflow: "hidden",
         top: [windowSize.current[1], 0],
       }}
       transition={{

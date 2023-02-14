@@ -17,7 +17,7 @@ function Index({ list, url, bulk, setClose, setUrl }: Props) {
   return (
     <div className=" bg-black h-full  relative z-10 px-[4px]">
       <Applydata state={apply}>
-        <div className=" bg-black h-full w-full relative z-10 ">
+        <>
           <div className=" flex items-center justify-between pt-[6px] px-[16px]">
             <div
               className=" bg-white20 rounded-[50%] p-[14px]  cursor-pointer"
@@ -67,7 +67,7 @@ function Index({ list, url, bulk, setClose, setUrl }: Props) {
               <p>save thing</p>
             </MainBtn>
           </div>
-        </div>
+        </>
       </Applydata>
 
       {apply && (
