@@ -41,15 +41,30 @@ function Selectedtemplate({ setClose, temp, setSelected }: Props) {
         </div>
       </div>
       <div className=" mt-[24px] px-[4px]">
-        {list.map((item, id) => (
+        {list.map((item, id, arr) => (
           <div
             key={id}
             className="bg-gray-90 rounded-[16px] flex items-start justify-between mb-[8px] px-[8px] py-[16px]"
           >
-            <div className="flex items-start justify-start ">
+            <div className="flex items-start justify-start w-[90%]">
               <Menue />
-              <div className=" flex flex-col items-start justify-start ml-[12px]">
-                <p className=" text-Body16">{item?.name}</p>
+              <div
+                className={
+                  " flex flex-col items-start justify-start ml-[12px]  w-full"
+                }
+              >
+                <p
+                  className={
+                    arr?.length - 1 === id
+                      ? " text-Body16 pb-[16px] border-b border-solid border-b-gray-80 w-full  text-center"
+                      : " text-Body16 pb-[16px] border-b border-solid border-b-gray-80 w-full "
+                  }
+                >
+                  {item?.name}
+                </p>
+                <p className=" mt-[16px] text-gray-40 text-Body16 text-left">
+                  Default value (optional)
+                </p>
               </div>
             </div>
 
