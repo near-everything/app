@@ -56,6 +56,56 @@ export const Apply: React.FC<IInfoItem> = ({ children }) => {
     </motion.div>
   );
 };
+export const Select: React.FC<IInfoItem> = ({ children }) => {
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
+  return (
+    <motion.div
+      animate={{
+        x: [windowSize.current[0], 0],
+        y: [0, 0],
+        width: "98%",
+        height: "100%",
+        position: "absolute",
+        overflow: "hidden",
+        top: [0, 0],
+      }}
+      transition={{
+        type: "tween",
+        ease: "easeInOut",
+        repeatDelay: 0,
+        duration: 1,
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+export const TemplateSelect: React.FC<IInfoItem> = ({ children }) => {
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
+  return (
+    <motion.div
+      animate={{
+        x: [0, -windowSize.current[0]],
+        y: [0, 0],
+        width: "98%",
+        height: "100%",
+        position: "absolute",
+        overflow: "hidden",
+        top: [0, 0],
+      }}
+      transition={{
+        type: "tween",
+        ease: "easeInOut",
+        repeatDelay: 0,
+        duration: 1,
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 export const Applytemplate: React.FC<IInfoItem> = ({ children }) => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
