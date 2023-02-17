@@ -19,9 +19,10 @@ type Props = {
 
 function Applytemplate({ setClose }: Props) {
   const [temp, setTemp] = useState<string>();
+  const [selected, setSelected] = useState<boolean>(false);
   return (
     <div className="bg-gray-95 h-full px-[16px] backdrop-blur-[10px] relative z-20">
-      <TemplateSelect>
+      <TemplateSelect state={selected}>
         <>
           <div className=" flex items-center justify-between pt-[16px]  relative">
             <div
@@ -53,7 +54,10 @@ function Applytemplate({ setClose }: Props) {
               <div
                 key={id}
                 className="flex items-center justify-start mb-[8px]"
-                onClick={() => setTemp(item.title)}
+                onClick={() => {
+                  setTemp(item.title);
+                  setSelected(true);
+                }}
               >
                 <div className=" bg-gray-90 rounded-[18px] w-[48px] h-[48px] flex items-center justify-center">
                   {item?.ico}
@@ -72,7 +76,7 @@ function Applytemplate({ setClose }: Props) {
 
       {temp && (
         <Select>
-          <Selectedtemplate setClose={setTemp} temp={temp} />
+          <Selectedtemplate setClose={setTemp} temp={temp} setSelected={setSelected} />
         </Select>
       )}
     </div>

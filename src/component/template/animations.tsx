@@ -64,11 +64,13 @@ export const Select: React.FC<IInfoItem> = ({ children }) => {
       animate={{
         x: [windowSize.current[0], 0],
         y: [0, 0],
-        width: "98%",
+        width: "100%",
         height: "100%",
         position: "absolute",
         overflow: "hidden",
         top: [0, 0],
+        left: [0, 0],
+        right: [0, 0],
       }}
       transition={{
         type: "tween",
@@ -81,13 +83,16 @@ export const Select: React.FC<IInfoItem> = ({ children }) => {
     </motion.div>
   );
 };
-export const TemplateSelect: React.FC<IInfoItem> = ({ children }) => {
+export const TemplateSelect: React.FC<IInfoItemstate> = ({
+  children,
+  state,
+}) => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
   return (
     <motion.div
       animate={{
-        x: [0, -windowSize.current[0]],
+        x: state ? [0, -windowSize.current[0]] : [0, 0],
         y: [0, 0],
         width: "98%",
         height: "100%",
