@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { AnimateSharedLayout, motion, Transition } from "framer-motion";
-import { ReactComponent as Everything } from "assets/icon/enerythingicon.svg";
 import {
   Connectcircle,
   Connectemptycircle,
@@ -23,7 +22,6 @@ function Index({ url }: Props) {
   useEffect(() => {
     function pollDOM() {
       navigate("/finish", { replace: true, state: { data: url } });
-    //   <Link to="/finish" state={{ data: url }} className="link" />;
     }
 
     const interval = setInterval(pollDOM, 6000);
