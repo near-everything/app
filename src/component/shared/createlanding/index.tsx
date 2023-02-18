@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AnimateSharedLayout, motion, Transition } from "framer-motion";
 import { ReactComponent as Everything } from "assets/icon/enerythingicon.svg";
 import {
@@ -6,7 +6,10 @@ import {
   Connectemptycircle,
   Connectmulticircle,
 } from "component/login/animations";
-type Props = {};
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+type Props = { url: string | null };
 const transition: Transition = {
   type: "spring",
   stiffness: 500,
@@ -14,7 +17,19 @@ const transition: Transition = {
   duration: 1,
 };
 
-function Index({}: Props) {
+function Index({ url }: Props) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    function pollDOM() {
+      navigate("/finish", { replace: true, state: { data: url } });
+    //   <Link to="/finish" state={{ data: url }} className="link" />;
+    }
+
+    const interval = setInterval(pollDOM, 6000);
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <div className=" flex flex-col">

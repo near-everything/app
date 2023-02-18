@@ -46,7 +46,7 @@ function Index({ list, url, bulk, setClose, setUrl }: Props) {
           </div>
           {save ? (
             <Createlandinganimation>
-              <Createlanding />
+              <Createlanding url={url} />
             </Createlandinganimation>
           ) : (
             <SaveData state={save}>
