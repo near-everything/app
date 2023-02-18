@@ -156,3 +156,49 @@ export const Applydata: React.FC<IInfoItemstate> = ({ children, state }) => {
     <> {children}</>
   );
 };
+export const SaveData: React.FC<IInfoItemstate> = ({ children, state }) => {
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
+  return state ? (
+    <motion.div
+      animate={{
+        y: [0, windowSize.current[1]],
+        width: "100%",
+        height: "100%",
+        opacity: [1, 0],
+      }}
+      transition={{
+        type: "tween",
+        ease: "easeInOut",
+        repeatDelay: 0,
+        duration: 1.5,
+      }}
+    >
+      {children}
+    </motion.div>
+  ) : (
+    <> {children}</>
+  );
+};
+export const Createlandinganimation: React.FC<IInfoItem> = ({ children }) => {
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
+  return (
+    <motion.div
+      animate={{
+        y: [-windowSize.current[1], 0],
+        width: "100%",
+        height: "100%",
+        opacity: [0, 1],
+      }}
+      transition={{
+        type: "tween",
+        ease: "easeInOut",
+        repeatDelay: 0.5,
+        duration: 1.5,
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
