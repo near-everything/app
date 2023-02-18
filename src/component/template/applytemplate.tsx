@@ -15,9 +15,10 @@ import Selectedtemplate from "./selectedtemplate";
 import { Select, TemplateSelect } from "./animations";
 type Props = {
   setClose: (close: boolean) => void;
+  setTemplate: (close: string) => void;
 };
 
-function Applytemplate({ setClose }: Props) {
+function Applytemplate({ setClose, setTemplate }: Props) {
   const [temp, setTemp] = useState<string>();
   const [selected, setSelected] = useState<boolean>(false);
   return (
@@ -57,6 +58,7 @@ function Applytemplate({ setClose }: Props) {
                 onClick={() => {
                   setTemp(item.title);
                   setSelected(true);
+                  
                 }}
               >
                 <div className=" bg-gray-90 rounded-[18px] w-[48px] h-[48px] flex items-center justify-center">
@@ -76,7 +78,13 @@ function Applytemplate({ setClose }: Props) {
 
       {temp && (
         <Select>
-          <Selectedtemplate setClose={setTemp} temp={temp} setSelected={setSelected} />
+          <Selectedtemplate
+            setClose={setTemp}
+            temp={temp}
+            setSelected={setSelected}
+            setTemplate={setTemplate}
+            apply={setClose}
+          />
         </Select>
       )}
     </div>
