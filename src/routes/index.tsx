@@ -3,6 +3,7 @@ import Create from "component/create";
 import App from "../App";
 import Explore from "component/explore";
 import Finishtemplate from "component/template/finishtemplate";
+import Profile from "component/profile";
 
 export const router = createBrowserRouter([
   {
@@ -20,5 +21,9 @@ export const router = createBrowserRouter([
   {
     path: "/finish",
     element: <Finishtemplate />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
