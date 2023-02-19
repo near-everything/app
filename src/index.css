@@ -107,7 +107,7 @@ input:checked ~ .dot {
   transform: translateX(100%);
 }
 input:checked ~ .block {
-  background-color: #27AE60;
+  background-color: #27ae60;
 }
 
 /* Toggle B */
@@ -115,5 +115,12 @@ input:checked ~ .dot {
   transform: translateX(100%);
 }
 input:checked ~ .block {
-  background-color: #27AE60;
+  background-color: #27ae60;
+}
+input:focus {
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
 }

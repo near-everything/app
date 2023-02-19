@@ -47,10 +47,12 @@ function Index({}: Props) {
       : (75 * windowSize.current[1]) / 100,
   };
   const handleUpload = () => {
-    setUpload(true);
+    if (bulk === false && url !== "" && url !== null) setUpload(true);
+    else if (bulk === true && list.length !== 0) {
+      setUpload(true);
+    }
   };
-
-  
+  console.log("url", url);
   return (
     <div
       className={
@@ -97,7 +99,13 @@ function Index({}: Props) {
       </div>
       {upload && (
         <Bodyanimation>
-          <Template url={url} list={list} bulk={bulk} setClose={setUpload} setUrl={setUrl}/>
+          <Template
+            url={url}
+            list={list}
+            bulk={bulk}
+            setClose={setUpload}
+            setUrl={setUrl}
+          />
         </Bodyanimation>
       )}
       {upload ? (

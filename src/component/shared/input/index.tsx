@@ -32,7 +32,7 @@ const Index: FC<InputProps> = ({
         aria-invalid={error ? "true" : "false"}
         {...register(name)}
         {...rest}
-        className={`bg-input rounded-[100px] border-none w-full focus:outline-none ${className}`}
+        className={` border-none w-full focus:outline-none outline-none focus:border-none focus:shadow-none shadow-none ${className}`}
       />
       {error && (
         <span
