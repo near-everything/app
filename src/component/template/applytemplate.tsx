@@ -11,6 +11,12 @@ import { ReactComponent as Bag } from "assets/icon/templates/bag.svg";
 import { ReactComponent as Book } from "assets/icon/templates/book.svg";
 import { ReactComponent as Videogame } from "assets/icon/templates/videogame.svg";
 import { ReactComponent as Postcards } from "assets/icon/templates/postcards.svg";
+import { ReactComponent as Collectibles } from "assets/icon/templates/collectibles.svg";
+import { ReactComponent as Art } from "assets/icon/templates/art.svg";
+import { ReactComponent as Furniture } from "assets/icon/templates/furniture.svg";
+import { ReactComponent as Technology } from "assets/icon/templates/technology.svg";
+import { ReactComponent as Tableware } from "assets/icon/templates/tableware.svg";
+import { ReactComponent as Tools } from "assets/icon/templates/tools.svg";
 import Selectedtemplate from "./selectedtemplate";
 import { Select, TemplateSelect } from "./animations";
 type Props = {
@@ -58,7 +64,6 @@ function Applytemplate({ setClose, setTemplate }: Props) {
                 onClick={() => {
                   setTemp(item.title);
                   setSelected(true);
-                  
                 }}
               >
                 <div className=" bg-gray-90 rounded-[18px] w-[48px] h-[48px] flex items-center justify-center">
@@ -107,7 +112,7 @@ const temps = [
   {
     ico: <Dress />,
     title: "dress",
-    description: "color, brand, size, price, material",
+    description: "color, brand, size, price, material, length, occasion",
   },
   {
     ico: <Shoes />,
@@ -117,36 +122,61 @@ const temps = [
   {
     ico: <Glasess />,
     title: "glasses",
-    description: "color, brand, size, price, material",
+    description: "color, brand, price, type",
   },
   {
     ico: <Jewellery />,
     title: "jewellery",
-    description: "color, brand, size, price, material",
+    description: "color, metal, gem, brand, price, size",
   },
   {
     ico: <Bag />,
     title: "bag",
-    description: "color, brand, size, price, material",
+    description: "color, brand, price, material, occasion",
   },
   {
     ico: <Book />,
     title: "book",
-    description: "color, brand, size, price, material",
+    description: "title, author, genre, price",
   },
   {
     ico: <Videogame />,
     title: "videogame",
-    description: "color, brand, size, price, material",
+    description: "title, developer, platform, genre, price",
   },
   {
     ico: <Postcards />,
-    title: "videogame",
-    description: "color, brand, size, price, material",
+    title: "music album",
+    description: "title, artist, genre, type, price",
   },
   {
-    ico: <Postcards />,
-    title: "videogame",
-    description: "color, brand, size, price, material",
+    ico: <Collectibles />,
+    title: "collectibles",
+    description: "title, color, type, collection, price",
+  },
+  {
+    ico: <Art />,
+    title: "art",
+    description: "title, color, artist, price, size",
+  },
+  {
+    ico: <Furniture />,
+    title: "furniture",
+    description: "color, brand, model, type, price, room, material",
+  },
+  {
+    ico: <Technology />,
+    title: "technology",
+    description: "color, brand, model, type, price, room, material",
+  },
+  {
+    ico: <Tableware />,
+    title: "tableware",
+    description: "color, brand, type, material, price",
+  },
+  {
+    ico: <Tools />,
+    title: "tools",
+    description: "color, type, brand, price",
   },
 ];
