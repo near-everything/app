@@ -7,6 +7,11 @@ interface IInfoItemstate {
   children: JSX.Element;
   state: boolean;
 }
+interface IInfoItemstate1 {
+  children: JSX.Element;
+  state: boolean;
+  state1: boolean;
+}
 
 export const ImageStart: React.FC<IInfoItem> = ({ children }) => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
@@ -83,13 +88,34 @@ export const Select: React.FC<IInfoItem> = ({ children }) => {
     </motion.div>
   );
 };
-export const TemplateSelect: React.FC<IInfoItemstate> = ({
+export const TemplateSelect: React.FC<IInfoItemstate1> = ({
   children,
   state,
+  state1,
 }) => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
-  return (
+  return state1 ? (
+    <motion.div
+      animate={{
+        x: [0, 0],
+        y: [0, -windowSize.current[1]],
+        width: "98%",
+        height: "100%",
+        position: "absolute",
+        overflow: "hidden",
+        top: [0, -windowSize.current[0]],
+      }}
+      transition={{
+        type: "tween",
+        ease: "easeInOut",
+        repeatDelay: 0,
+        duration: 1,
+      }}
+    >
+      {children}
+    </motion.div>
+  ) : (
     <motion.div
       animate={{
         x: state ? [0, -windowSize.current[0]] : [0, 0],
@@ -187,6 +213,28 @@ export const Createlandinganimation: React.FC<IInfoItem> = ({ children }) => {
     <motion.div
       animate={{
         y: [-windowSize.current[1], 0],
+        width: "100%",
+        height: "100%",
+        opacity: [0, 1],
+      }}
+      transition={{
+        type: "tween",
+        ease: "easeInOut",
+        repeatDelay: 0.5,
+        duration: 1.5,
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+export const Newtemplateanimation: React.FC<IInfoItem> = ({ children }) => {
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
+  return (
+    <motion.div
+      animate={{
+        y: [windowSize.current[1], 0],
         width: "100%",
         height: "100%",
         opacity: [0, 1],
