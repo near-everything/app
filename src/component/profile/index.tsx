@@ -2,14 +2,20 @@ import React, { useState } from "react";
 import { ReactComponent as User } from "assets/icon/profile/user.svg";
 import { ReactComponent as Setting } from "assets/icon/profile/setting.svg";
 import Footer from "./footer";
+import Invite from "./invite";
+import { Info } from "component/create/animations";
 type Props = {};
 
 const Index = (props: Props) => {
   const [data, setData] = useState([]);
+  const [action, setAction] = useState<string>("");
   return (
     <div className=" w-full h-full relative">
       <div className=" flex items-center justify-between px-[16px] py-[4px]">
-        <div className=" bg-gray-10 p-[14px] rounded-[50%]">
+        <div
+          className=" bg-gray-10 p-[14px] rounded-[50%] cursor-pointer"
+          onClick={() => setAction("user")}
+        >
           <User />
         </div>
         <div className=" border-gray-20 border-solid w-[48px] h-[48px] border rounded-[50%]"></div>
@@ -42,6 +48,11 @@ const Index = (props: Props) => {
         )}
       </div>
       <Footer />
+      {action === "user" && (
+        <Info>
+          <Invite setClose={setAction} />
+        </Info>
+      )}
     </div>
   );
 };

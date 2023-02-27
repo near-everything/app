@@ -31,6 +31,7 @@ module.exports = {
         },
         boxShadow: {
           header: " 0px 0.480769px 0px rgba(0, 0, 0, 0.3)",
+          box: " 0px 0px 5.76923px rgba(0, 0, 0, 0.05)",
         },
         backdropBlur: {
           header: "9.61538px",
