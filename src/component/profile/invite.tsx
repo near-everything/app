@@ -13,7 +13,7 @@ const Invite = ({ setClose }: Props) => {
   return (
     <div className=" bg-[#0D0D0D99] backdrop-blur-[10px] h-full w-full relative z-10 overflow-hidden">
       {share ? (
-        <div className="bg-gray-95 absolute bottom-0 right-0 left-0 h-[50%] rounded-t-[24px] border-solid border border-gray-90 flex flex-col items-start justify-start">
+        <div className="bg-gray-95 absolute bottom-0 right-0 left-0 h-[60%] rounded-t-[24px] border-solid border border-gray-90 flex flex-col items-start justify-start">
           <Sharepart setShare={setShare} />
         </div>
       ) : (
