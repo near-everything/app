@@ -4,10 +4,12 @@ import { ReactComponent as Setting } from "assets/icon/profile/setting.svg";
 import Footer from "./footer";
 import Invite from "./invite";
 import { Info } from "component/create/animations";
+import { photos } from "component/explore/photos";
+import Collectiongallery from "./collectiongallery";
 type Props = {};
 
 const Index = (props: Props) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(photos);
   const [action, setAction] = useState<string>("");
   return (
     <div className=" w-full h-full relative">
@@ -44,7 +46,7 @@ const Index = (props: Props) => {
             </div>
           </div>
         ) : (
-          <></>
+          <Collectiongallery />
         )}
       </div>
       <Footer />
