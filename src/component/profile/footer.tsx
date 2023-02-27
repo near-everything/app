@@ -6,7 +6,7 @@ type Props = {};
 
 const Footer = (props: Props) => {
   return (
-    <div className="px-[54px] py-[24px] absolute bottom-[16px] right-[8px] left-[8px] bg-black80 backdrop-blur-[12px] rounded-[24px] flex items-center justify-between">
+    <div className="px-[54px] py-[24px] z-40 absolute bottom-[16px] right-[8px] left-[8px] bg-black80 backdrop-blur-[12px] rounded-[24px] flex items-center justify-between">
       <div>
         <Circle />
       </div>
