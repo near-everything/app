@@ -30,7 +30,7 @@ function Index({ list, url, bulk, setClose, setUrl }: Props) {
     setSave(true);
   };
   return (
-    <div className=" bg-black h-full  relative z-10 px-[4px]">
+    <div className=" bg-black h-full relative z-10 px-[4px]">
       <Applydata state={apply}>
         <>
           <div className=" flex items-center justify-between pt-[6px] px-[16px]">

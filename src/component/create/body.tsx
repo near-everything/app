@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import { ReactComponent as Close } from "assets/icon/close.svg";
 
 type Props = {
   list: string[];
   bulk: boolean;
+  setList: (list: string[]) => void;
 };
 
-function Body({ list, bulk }: Props) {
+function Body({ list, bulk, setList }: Props) {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
   const [minWidth, setMinWidth] = useState(0);
@@ -19,6 +21,10 @@ function Body({ list, bulk }: Props) {
       setMinWidth(wi);
     }
   }, [list]);
+
+  const removeImage = (id: number) => {
+    setList(list.filter((value: string, i: number) => i !== id));
+  };
 
   return (
     <div className="mb-[12px]  w-full overflow-auto">
@@ -34,7 +40,18 @@ function Body({ list, bulk }: Props) {
         <div className=" flex items-center justify-start pl-[4px] gap-2">
           {list.length !== 0 ? (
             list.map((item, id) => (
-              <div className="w-[72px] h-[92px] rounded-[12px]" key={id}>
+              <div
+                className="w-[72px] h-[92px] rounded-[12px] relative"
+                key={id}
+              >
+                <div className="absolute top-1 right-1">
+                  <div
+                    className="bg-white rounded-full h-[20px] w-[20px] cursor-pointer justify-center items-center flex"
+                    onClick={() => removeImage(id)}
+                  >
+                    <Close className="text-red" />
+                  </div>
+                </div>
                 <img
                   src={item}
                   alt="Screenshot"

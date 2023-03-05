@@ -1,6 +1,6 @@
 import React from "react";
 import Toggel from "component/shared/toggel";
-import { ReactComponent as Arrow } from "assets/icon/close.svg";
+import { ReactComponent as Close } from "assets/icon/close.svg";
 
 type Props = {
   bulk: boolean;
@@ -16,7 +16,7 @@ function Header({ setBulk, bulk, setClose }: Props) {
           className="bg-white20 rounded-[50%] p-[14px] cursor-pointer"
           onClick={() => setClose(true)}
         >
-          <Arrow className="text-white" />
+          <Close className="text-white" />
         </div>
         <Toggel text="bulk upload" setBulk={setBulk} bulk={bulk} />
       </div>

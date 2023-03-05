@@ -71,7 +71,7 @@ function Index({}: Props) {
           mirrored
         />
       </div>
-      <Body list={list} bulk={bulk} />
+      <Body list={list} bulk={bulk} setList={setList} />
       <Footer capture={capture} handleUpload={handleUpload} />
       {upload && (
         <Bodyanimation>
