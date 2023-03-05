@@ -1,11 +1,9 @@
-import React, { useState } from "react";
 import { ReactComponent as ArrowDown } from "assets/icon/arrowdown.svg";
 import { ReactComponent as Arrowupright } from "assets/icon/arrowupright.svg";
-import { ReactComponent as Smile } from "assets/icon/smile.svg";
 import { ReactComponent as Iconc } from "assets/icon/iconc.svg";
-import Circles from "component/shared/circles";
+import { ReactComponent as Smile } from "assets/icon/smile.svg";
 import { InteractionSecondarywhite } from "component/shared/btn";
-import Header from "component/shared/header";
+import Circles from "component/shared/circles";
 type Props = {};
 function Index({}: Props) {
   return (
@@ -62,9 +60,6 @@ function Index({}: Props) {
                 {"share ideas &" + "\n" + "feedback"}
               </pre>
             </div>
-          </div>
-          <div className=" h-[80px]">
-            <Header />
           </div>
         </div>
       </div>
