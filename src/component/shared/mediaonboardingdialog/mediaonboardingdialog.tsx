@@ -126,6 +126,7 @@ const MediaOnboardingDialog: React.FC = () => {
 
   const _renderExplanationDialog = () => {
     return (
+      // He made it absolute rather than conditional... so it just overlays the webcam
       <div className=" absolute top-[50%] left-[50%] -translate-x-center -translate-y-center text-center">
         <pre className=" text-Body16 ">
           {" We don’t have access to your camera " +

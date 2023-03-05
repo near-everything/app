@@ -1,4 +1,4 @@
-import Create from "component/create";
+import Create from "component/create/index";
 import Explore from "component/explore";
 import Profile from "component/profile";
 import Finishtemplate from "component/template/finishtemplate";

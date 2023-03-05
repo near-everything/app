@@ -10,15 +10,17 @@ type Props = {
 
 function Header({ setBulk, bulk, setClose }: Props) {
   return (
-    <div className=" flex items-center justify-between pt-[6px] px-[16px]">
-      <div
-        className=" bg-white20 rounded-[50%] p-[14px]  cursor-pointer"
-        onClick={()=>setClose(true)}
-      >
-        <Arrow className="text-white" />
+    // <div className="absolute top-0 z-40 w-full bg-[#0D0D0D80] backdrop-blur-[12px]">
+      <div className="flex items-center justify-between pt-[6px] px-[16px]">
+        <div
+          className="bg-white20 rounded-[50%] p-[14px] cursor-pointer"
+          onClick={() => setClose(true)}
+        >
+          <Arrow className="text-white" />
+        </div>
+        <Toggel text="bulk upload" setBulk={setBulk} bulk={bulk} />
       </div>
-      <Toggel text="bulk upload" setBulk={setBulk} bulk={bulk} />
-    </div>
+    // </div>
   );
 }
 

@@ -1,10 +1,11 @@
-import React, { useCallback, useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   list: string[];
+  bulk: boolean;
 };
 
-function Body({ list }: Props) {
+function Body({ list, bulk }: Props) {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
   const [minWidth, setMinWidth] = useState(0);
@@ -22,29 +23,29 @@ function Body({ list }: Props) {
   return (
     <div className="mb-[12px]  w-full overflow-auto">
       <p className=" text-Body14  mt-[8px] text-center mb-[4px]">
-        take as many photos of one thing as you wish
+        {bulk
+          ? "take one photo for each thing"
+          : "take multiple photos of one thing"}
       </p>
       <div
         className="  "
         style={{ minWidth: windowSize.current[0] + minWidth }}
       >
-        <div className=" flex items-center justify-start pl-[4px] ">
+        <div className=" flex items-center justify-start pl-[4px] gap-2">
           {list.length !== 0 ? (
             list.map((item, id) => (
-              <div
-                className=" border border-gray-30 border-dashed w-[72px] h-[92px] rounded-[12px] mr-[4px] "
-                key={id}
-              >
+              <div className="w-[72px] h-[92px] rounded-[12px]" key={id}>
                 <img
                   src={item}
                   alt="Screenshot"
                   className=" w-full h-full rounded-[12px]"
-                  // style={{ filter: `brightness(${brightnes})` }}
                 />
               </div>
             ))
           ) : (
-            <div className=" border border-gray-30 border-dashed w-[72px] h-[92px] rounded-[12px]"></div>
+            <>
+              <div className=" border border-gray-30 border-dashed w-[72px] h-[92px] rounded-[12px]"></div>
+            </>
           )}
         </div>
       </div>
