@@ -17,7 +17,6 @@ function Index({}: Props) {
   const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
 
   const [url, setUrl] = useState<string | null>(null);
-  const [photo, setPhoto] = useState<boolean>(false);
   const [list, setList] = useState<string[]>([]);
   const [bulk, setBulk] = useState<boolean>(false);
   const [close, setClose] = useState<boolean>(false);
@@ -25,18 +24,10 @@ function Index({}: Props) {
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
-    setPhoto(true);
     if (imageSrc) {
-      setUrl(imageSrc);
+      setList((prev) => [...prev, imageSrc]);
     }
   }, [webcamRef]);
-
-  useEffect(() => {
-    if (photo && url) {
-      setList((perv) => [...perv, url]);
-      setPhoto(false);
-    }
-  }, [photo]);
 
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
   let videoConstraints: MediaTrackConstraints = {
@@ -51,46 +42,53 @@ function Index({}: Props) {
     }
   };
 
+  const removeImage = (id: number) => {
+    setList(list.filter((value: string, i: number) => i !== id));
+  };
+
   return (
-    <div className={"bg-black h-full flex flex-col justify-between"}>
-      <Header setBulk={setBulk} bulk={bulk} setClose={setClose} />
-      <div
-        className={
-          "bg-white20 w-[97%] flex grow rounded-[24px] mx-auto overflow-hidden relative"
-        }
-      >
-        <MediaOnboardingDialog />
-        <div className="absolute">
-          <Webcam
-            audio={false}
-            width={"100%"}
-            height={"100%"}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            videoConstraints={videoConstraints}
-            mirrored
-          />
+    <>
+      {upload ? (
+        <Template
+          url={url}
+          list={list}
+          bulk={bulk}
+          setClose={setUpload}
+          setUrl={setUrl}
+          removeImage={removeImage}
+        />
+      ) : (
+        <div className={"bg-black h-full flex flex-col justify-between"}>
+          <Header setBulk={setBulk} bulk={bulk} setClose={setClose} />
+          <div
+            className={
+              "bg-white20 w-[97%] flex grow rounded-[24px] mx-auto overflow-hidden relative"
+            }
+          >
+            <MediaOnboardingDialog />
+            <div className="absolute">
+              <Webcam
+                audio={false}
+                width={"100%"}
+                height={"100%"}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+                videoConstraints={videoConstraints}
+                mirrored
+              />
+            </div>
+          </div>
+          <Body list={list} bulk={bulk} removeImage={removeImage} />
+          <Footer capture={capture} handleUpload={handleUpload} />
+
+          {close ? (
+            <Info>
+              <Logout setClose={setClose} />
+            </Info>
+          ) : null}
         </div>
-      </div>
-      <Body list={list} bulk={bulk} setList={setList} />
-      <Footer capture={capture} handleUpload={handleUpload} />
-      {upload && (
-        <Bodyanimation>
-          <Template
-            url={url}
-            list={list}
-            bulk={bulk}
-            setClose={setUpload}
-            setUrl={setUrl}
-          />
-        </Bodyanimation>
       )}
-      {close ? (
-        <Info>
-          <Logout setClose={setClose} />
-        </Info>
-      ) : null}
-    </div>
+    </>
   );
 }
 

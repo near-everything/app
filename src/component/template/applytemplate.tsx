@@ -39,60 +39,58 @@ function Applytemplate({ setClose, setTemplate }: Props) {
           <Newtemplate setClose={setNewtemp} />
         </Newtemplateanimation>
       ) : (
-        <TemplateSelect state={selected} state1={newtemp}>
-          <>
-            <div className=" flex items-center justify-between pt-[16px]  relative">
-              <div
-                className=" bg-white20 rounded-[50%] p-[14px]  cursor-pointer "
-                onClick={() => setClose(false)}
-              >
-                <Arrow className="text-white" />
-              </div>
-              <p className="text-title18">apply template</p>
-              <div className=" bg-white20 rounded-[50%] p-[14px]  opacity-0 ">
-                <Arrow className="text-white" />
-              </div>
-            </div>
-            <div className=" mt-[16px]">
-              <p className=" text-Body14 text-gray-40">
-                templates add pre-made set of properties to your things and help
-                you structure data in the most efficient way.
-              </p>
-            </div>
+        <>
+          <div className=" flex items-center justify-between pt-[16px]  relative">
             <div
-              className=" mt-[17px] flex items-center justify-start"
-              onClick={handleClick}
+              className=" bg-white20 rounded-[50%] p-[14px]  cursor-pointer "
+              onClick={() => setClose(false)}
             >
-              <div className=" bg-white rounded-[50%] p-[10px]">
-                <Add className=" text-black w-[20px] h-[20px]" />
-              </div>
-              <p className=" text-Button16 ml-[8px]">new template</p>
+              <Arrow className="text-white" />
             </div>
-            <p className=" mt-[24px] text-Body16 mb-[16px]">our collection</p>
-            <div className=" overflow-auto h-[60%]">
-              {temps.map((item, id) => (
-                <div
-                  key={id}
-                  className="flex items-center justify-start mb-[8px]"
-                  onClick={() => {
-                    setTemp(item.title);
-                    setSelected(true);
-                  }}
-                >
-                  <div className=" bg-gray-90 rounded-[18px] w-[48px] h-[48px] flex items-center justify-center">
-                    {item?.ico}
-                  </div>
-                  <div className=" ml-[10px] flex flex-col items-start justify-start">
-                    <p className="text-Button16 mb-[2px]">{item.title}</p>
-                    <p className="text-caption12 mb-[2px] text-gray-30">
-                      {item.description}
-                    </p>
-                  </div>
+            <p className="text-title18">apply template</p>
+            <div className=" bg-white20 rounded-[50%] p-[14px]  opacity-0 ">
+              <Arrow className="text-white" />
+            </div>
+          </div>
+          <div className=" mt-[16px]">
+            <p className=" text-Body14 text-gray-40">
+              templates add pre-made set of properties to your things and help
+              you structure data in the most efficient way.
+            </p>
+          </div>
+          <div
+            className=" mt-[17px] flex items-center justify-start"
+            onClick={handleClick}
+          >
+            <div className=" bg-white rounded-[50%] p-[10px]">
+              <Add className=" text-black w-[20px] h-[20px]" />
+            </div>
+            <p className=" text-Button16 ml-[8px]">new template</p>
+          </div>
+          <p className=" mt-[24px] text-Body16 mb-[16px]">our collection</p>
+          <div className=" overflow-auto h-[60%]">
+            {temps.map((item, id) => (
+              <div
+                key={id}
+                className="flex items-center justify-start mb-[8px]"
+                onClick={() => {
+                  setTemp(item.title);
+                  setSelected(true);
+                }}
+              >
+                <div className=" bg-gray-90 rounded-[18px] w-[48px] h-[48px] flex items-center justify-center">
+                  {item?.ico}
                 </div>
-              ))}
-            </div>
-          </>
-        </TemplateSelect>
+                <div className=" ml-[10px] flex flex-col items-start justify-start">
+                  <p className="text-Button16 mb-[2px]">{item.title}</p>
+                  <p className="text-caption12 mb-[2px] text-gray-30">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {temp && (

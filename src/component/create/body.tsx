@@ -4,10 +4,10 @@ import { ReactComponent as Close } from "assets/icon/close.svg";
 type Props = {
   list: string[];
   bulk: boolean;
-  setList: (list: string[]) => void;
+  removeImage: (id: number) => void;
 };
 
-function Body({ list, bulk, setList }: Props) {
+function Body({ list, bulk, removeImage }: Props) {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
   const [minWidth, setMinWidth] = useState(0);
@@ -21,10 +21,6 @@ function Body({ list, bulk, setList }: Props) {
       setMinWidth(wi);
     }
   }, [list]);
-
-  const removeImage = (id: number) => {
-    setList(list.filter((value: string, i: number) => i !== id));
-  };
 
   return (
     <>
