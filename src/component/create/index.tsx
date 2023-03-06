@@ -41,35 +41,36 @@ function Index({}: Props) {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
   let videoConstraints: MediaTrackConstraints = {
     facingMode: facingMode,
-    width: (97 * windowSize.current[0]) / 100,
-    height: bulk // This doesn't need to change 
-      ? (60 * windowSize.current[1]) / 100
-      : (75 * windowSize.current[1]) / 100,
+    width: windowSize.current[0],
+    height: (75 * windowSize.current[1]) / 100,
   };
+
   const handleUpload = () => {
     if (list.length !== 0) {
       setUpload(true);
     }
   };
-  console.log("url", url);
+
   return (
-    <div className={"bg-black h-full relative"}>
+    <div className={"bg-black h-full flex flex-col justify-between"}>
       <Header setBulk={setBulk} bulk={bulk} setClose={setClose} />
       <div
         className={
-          "mt-[16px] bg-white20 w-[97%] h-[60%] rounded-[24px] mx-auto overflow-hidden relative"
+          "bg-white20 w-[97%] flex grow rounded-[24px] mx-auto overflow-hidden relative"
         }
       >
         <MediaOnboardingDialog />
-        <Webcam
-          audio={false}
-          width={"100%"}
-          height={"100%"}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          videoConstraints={videoConstraints}
-          mirrored
-        />
+        <div className="absolute">
+          <Webcam
+            audio={false}
+            width={"100%"}
+            height={"100%"}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            videoConstraints={videoConstraints}
+            mirrored
+          />
+        </div>
       </div>
       <Body list={list} bulk={bulk} setList={setList} />
       <Footer capture={capture} handleUpload={handleUpload} />

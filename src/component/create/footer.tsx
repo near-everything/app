@@ -8,7 +8,7 @@ type Props = {
 
 function Footer({ capture, handleUpload }: Props) {
   return (
-    <div className="absolute bottom-[30px] left-0 w-full">
+    <div className="w-full my-[8px]">
       <div className="flex items-center justify-between mx-auto">
         <div className="grow basis-0 flex items-center justify-center">
           <div className="p-[15px] rounded-[50%] bg-white20 text-white flex items-center justify-center cursor-pointer">

@@ -1,19 +1,16 @@
-import React, { useState } from "react";
-import {
-  ImageStart,
-  Apply,
-  Applydata,
-  SaveData,
-  Createlandinganimation,
-} from "./animations";
-import { ReactComponent as Arrow } from "assets/icon/close.svg";
 import { ReactComponent as Clipboard } from "assets/icon/clipboard.svg";
-import { MainBtn } from "component/shared/btn";
-import Applytemplate from "./applytemplate";
+import { ReactComponent as Arrow } from "assets/icon/close.svg";
+import { ReactComponent as Edit } from "assets/icon/edit.svg";
 import { ReactComponent as Shirt } from "assets/icon/templates/shirt.svg";
 import { ReactComponent as Trash } from "assets/icon/trash.svg";
-import { ReactComponent as Edit } from "assets/icon/edit.svg";
+import { MainBtn } from "component/shared/btn";
 import Createlanding from "component/shared/createlanding";
+import { useState } from "react";
+import {
+  Apply,
+  Applydata, Createlandinganimation, SaveData
+} from "./animations";
+import Applytemplate from "./applytemplate";
 type Props = {
   list: string[];
   url: string | null;
@@ -91,17 +88,13 @@ function Index({ list, url, bulk, setClose, setUrl }: Props) {
                     </p>
                   </div>
                 )}
-                <ImageStart>
-                  <>
-                    {url && (
-                      <img
-                        src={url}
-                        alt="Screenshot"
-                        className="max-w-[182px] max-h-[241px]  rounded-[22px]"
-                      />
-                    )}
-                  </>
-                </ImageStart>
+                {url && (
+                  <img
+                    src={url}
+                    alt="Screenshot"
+                    className="max-w-[182px] max-h-[241px]  rounded-[22px]"
+                  />
+                )}
                 <div className=" absolute bottom-[14px] left-0 right-0 w-full flex items-center justify-center">
                   <MainBtn
                     type="button"
