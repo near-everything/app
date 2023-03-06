@@ -1,14 +1,20 @@
-import React from "react";
-import { ReactComponent as People } from "assets/icon/people.svg";
-import { ReactComponent as Add } from "assets/icon/add.svg";
-type Props = {};
+import { ReactElement } from "react";
+type Props = {
+  elementLeft?: ReactElement;
+  elementCenter?: ReactElement;
+  elementRight?: ReactElement;
+};
 
-function Index({}: Props) {
+function Index({ elementLeft, elementCenter, elementRight }: Props) {
   return (
-    <div className="absolute bottom-[4px] right-[8px] left-[8px] flex items-center justify-between px-[55px] py-[26px] bg-black80 rounded-[24px] backdrop-blur-[12px]">
-      <div className=" bg-white w-[20px] h-[20px] rounded-[50%]" />
-      <Add className=" text-gray-30 w-[33px] h-[32px]"  />
-      <People />
+    <div className="flex items-center justify-between px-[16px] py-[4px] pb-[8px]">
+      <div className="grow basis-0 flex justify-start">
+        {elementLeft}
+      </div>
+      {elementCenter}
+      <div className="grow basis-0 flex justify-end">
+        {elementRight}
+      </div>
     </div>
   );
 }

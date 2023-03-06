@@ -1,194 +1,243 @@
-import React, { useState } from "react";
-import { ReactComponent as Arrow } from "assets/icon/close.svg";
 import { ReactComponent as Add } from "assets/icon/add.svg";
-import { ReactComponent as Shirt } from "assets/icon/templates/shirt.svg";
-import { ReactComponent as Pants } from "assets/icon/templates/pants.svg";
-import { ReactComponent as Dress } from "assets/icon/templates/dress.svg";
-import { ReactComponent as Shoes } from "assets/icon/templates/shoes.svg";
-import { ReactComponent as Glasess } from "assets/icon/templates/glasess.svg";
-import { ReactComponent as Jewellery } from "assets/icon/templates/jewellery.svg";
+import { ReactComponent as Close } from "assets/icon/close.svg";
+import { ReactComponent as Art } from "assets/icon/templates/art.svg";
 import { ReactComponent as Bag } from "assets/icon/templates/bag.svg";
 import { ReactComponent as Book } from "assets/icon/templates/book.svg";
-import { ReactComponent as Videogame } from "assets/icon/templates/videogame.svg";
-import { ReactComponent as Postcards } from "assets/icon/templates/postcards.svg";
 import { ReactComponent as Collectibles } from "assets/icon/templates/collectibles.svg";
-import { ReactComponent as Art } from "assets/icon/templates/art.svg";
+import { ReactComponent as Dress } from "assets/icon/templates/dress.svg";
 import { ReactComponent as Furniture } from "assets/icon/templates/furniture.svg";
-import { ReactComponent as Technology } from "assets/icon/templates/technology.svg";
+import { ReactComponent as Glasess } from "assets/icon/templates/glasess.svg";
+import { ReactComponent as Jewellery } from "assets/icon/templates/jewellery.svg";
+import { ReactComponent as Pants } from "assets/icon/templates/pants.svg";
+import { ReactComponent as Postcards } from "assets/icon/templates/postcards.svg";
+import { ReactComponent as Shirt } from "assets/icon/templates/shirt.svg";
+import { ReactComponent as Shoes } from "assets/icon/templates/shoes.svg";
 import { ReactComponent as Tableware } from "assets/icon/templates/tableware.svg";
+import { ReactComponent as Technology } from "assets/icon/templates/technology.svg";
 import { ReactComponent as Tools } from "assets/icon/templates/tools.svg";
-import Selectedtemplate from "./selectedtemplate";
-import { Select, TemplateSelect, Newtemplateanimation } from "./animations";
-import Newtemplate from "./newtemplate";
+import { ReactComponent as Videogame } from "assets/icon/templates/videogame.svg";
+import RoundedBtn from "component/shared/btn/RoundedBtn";
+import { ReactElement, useState } from "react";
+import Header from "../shared/header";
+import TemplateEditor from "./TemplateEditor";
 type Props = {
-  setClose: (close: boolean) => void;
-  setTemplate: (close: string) => void;
+  hideApplyTemplate: () => void;
+  setTemplate: (template: Template | null) => void;
 };
 
-function Applytemplate({ setClose, setTemplate }: Props) {
-  const [temp, setTemp] = useState<string>();
-  const [selected, setSelected] = useState<boolean>(false);
-  const [newtemp, setNewtemp] = useState<boolean>(false);
-  const handleClick = () => {
-    setNewtemp(true);
+function ApplyTemplate({ hideApplyTemplate, setTemplate }: Props) {
+  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
+    null
+  );
+  const [isTemplateEditorVisible, setTemplateEditorVisible] =
+    useState<boolean>(false);
+
+  const showTemplateEditor = () => {
+    setTemplateEditorVisible(true);
   };
+
+  const hideTemplateEditor = () => {
+    setTemplateEditorVisible(false);
+  };
+
   return (
-    <div className="bg-gray-95 h-full px-[16px] backdrop-blur-[10px] relative z-20">
-      {newtemp ? (
-        <Newtemplateanimation>
-          <Newtemplate setClose={setNewtemp} />
-        </Newtemplateanimation>
+    <div className="bg-gray-95 h-full backdrop-blur-[10px] relative z-20">
+      {isTemplateEditorVisible ? (
+        <TemplateEditor
+          template={selectedTemplate}
+          setTemplate={setTemplate}
+          hideTemplateEditor={hideTemplateEditor}
+          hideApplyTemplate={hideApplyTemplate}
+        />
       ) : (
         <>
-          <div className=" flex items-center justify-between pt-[16px]  relative">
-            <div
-              className=" bg-white20 rounded-[50%] p-[14px]  cursor-pointer "
-              onClick={() => setClose(false)}
-            >
-              <Arrow className="text-white" />
-            </div>
-            <p className="text-title18">apply template</p>
-            <div className=" bg-white20 rounded-[50%] p-[14px]  opacity-0 ">
-              <Arrow className="text-white" />
-            </div>
-          </div>
-          <div className=" mt-[16px]">
-            <p className=" text-Body14 text-gray-40">
-              templates add pre-made set of properties to your things and help
-              you structure data in the most efficient way.
-            </p>
-          </div>
-          <div
-            className=" mt-[17px] flex items-center justify-start"
-            onClick={handleClick}
-          >
-            <div className=" bg-white rounded-[50%] p-[10px]">
-              <Add className=" text-black w-[20px] h-[20px]" />
-            </div>
-            <p className=" text-Button16 ml-[8px]">new template</p>
-          </div>
-          <p className=" mt-[24px] text-Body16 mb-[16px]">our collection</p>
-          <div className=" overflow-auto h-[60%]">
-            {temps.map((item, id) => (
-              <div
-                key={id}
-                className="flex items-center justify-start mb-[8px]"
+          {/* Header */}
+          <Header
+            elementLeft={
+              <RoundedBtn
+                icon={<Close className="text-white" />}
                 onClick={() => {
-                  setTemp(item.title);
-                  setSelected(true);
+                  hideApplyTemplate();
                 }}
-              >
-                <div className=" bg-gray-90 rounded-[18px] w-[48px] h-[48px] flex items-center justify-center">
-                  {item?.ico}
-                </div>
-                <div className=" ml-[10px] flex flex-col items-start justify-start">
-                  <p className="text-Button16 mb-[2px]">{item.title}</p>
-                  <p className="text-caption12 mb-[2px] text-gray-30">
-                    {item.description}
-                  </p>
-                </div>
+              />
+            }
+            elementCenter={<p className="text-title18">apply template</p>}
+          />
+          {/* Header end */}
+          {/* Description */}
+          <div className=" px-[16px]">
+            <div className=" mt-[16px]">
+              <p className=" text-Body14 text-gray-40">
+                templates add pre-made set of properties to your things and help
+                you structure data in the most efficient way.
+              </p>
+            </div>
+            {/* End Description */}
+            {/* New Template Button */}
+            <div
+              className=" mt-[17px] flex items-center justify-start"
+              onClick={() => {
+                setSelectedTemplate(null);
+                showTemplateEditor();
+              }}
+            >
+              <div className=" bg-white rounded-[50%] p-[10px]">
+                <Add className=" text-black w-[20px] h-[20px]" />
               </div>
-            ))}
+              <p className=" text-Button16 ml-[8px]">new template</p>
+            </div>
+            {/* End New Template Button */}
+            <p className=" mt-[24px] text-Body16 mb-[16px]">our collection</p>
+            {/* Template Buttons */}
+            <div className=" overflow-auto h-[60%]">
+              {templates.map((temp, id) => (
+                <div
+                  key={id}
+                  className="flex items-center justify-start mb-[8px]"
+                  onClick={() => {
+                    setSelectedTemplate(temp);
+                    showTemplateEditor();
+                  }}
+                >
+                  <div className=" bg-gray-90 rounded-[18px] w-[48px] h-[48px] flex items-center justify-center">
+                    {temp.icon}
+                  </div>
+                  <div className=" ml-[10px] flex flex-col items-start justify-start">
+                    <p className="text-Button16 mb-[2px]">{temp.title}</p>
+                    <p className="text-caption12 mb-[2px] text-gray-30">
+                      {temp.attributes.join(", ")}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </>
       )}
-
-      {temp && (
-        <Select>
-          <Selectedtemplate
-            setClose={setTemp}
-            temp={temp}
-            setSelected={setSelected}
-            setTemplate={setTemplate}
-            apply={setClose}
-          />
-        </Select>
-      )}
+      {/* {temp && (
+        <Selectedtemplate
+          setClose={setTemp}
+          temp={temp}
+          setSelected={setSelected}
+          setTemplate={setTemplate}
+          apply={setClose}
+        />
+      )} */}
     </div>
   );
 }
 
-export default Applytemplate;
+export default ApplyTemplate;
 
-const temps = [
+export type Template = {
+  icon: ReactElement;
+  title: string;
+  attributes: string[];
+};
+
+const templates: Template[] = [
   {
-    ico: <Shirt />,
+    icon: <Shirt />,
     title: "shirt",
-    description: "color, brand, size, price, material",
+    attributes: ["color", "brand", "size", "price", "material"],
   },
   {
-    ico: <Pants />,
+    icon: <Pants />,
     title: "pants",
-    description: "color, brand, size, price, material",
+    attributes: ["color", "brand", "size", "price", "material"],
   },
   {
-    ico: <Dress />,
+    icon: <Dress />,
     title: "dress",
-    description: "color, brand, size, price, material, length, occasion",
+    attributes: [
+      "color",
+      "brand",
+      "size",
+      "price",
+      "material",
+      "length",
+      "occasion",
+    ],
   },
   {
-    ico: <Shoes />,
+    icon: <Shoes />,
     title: "shoes",
-    description: "color, brand, size, price, material",
+    attributes: ["color", "brand", "size", "price", "material"],
   },
   {
-    ico: <Glasess />,
+    icon: <Glasess />,
     title: "glasses",
-    description: "color, brand, price, type",
+    attributes: ["color", "brand", "price", "type"],
   },
   {
-    ico: <Jewellery />,
+    icon: <Jewellery />,
     title: "jewellery",
-    description: "color, metal, gem, brand, price, size",
+    attributes: ["color", "metal", "gem", "brand", "price", "size"],
   },
   {
-    ico: <Bag />,
+    icon: <Bag />,
     title: "bag",
-    description: "color, brand, price, material, occasion",
+    attributes: ["color", "brand", "price", "material", "occasion"],
   },
   {
-    ico: <Book />,
+    icon: <Book />,
     title: "book",
-    description: "title, author, genre, price",
+    attributes: ["title", "author", "genre", "price"],
   },
   {
-    ico: <Videogame />,
+    icon: <Videogame />,
     title: "videogame",
-    description: "title, developer, platform, genre, price",
+    attributes: ["title", "developer", "platform", "genre", "price"],
   },
   {
-    ico: <Postcards />,
+    icon: <Postcards />,
     title: "music album",
-    description: "title, artist, genre, type, price",
+    attributes: ["title", "artist", "genre", "type", "price"],
   },
   {
-    ico: <Collectibles />,
+    icon: <Collectibles />,
     title: "collectibles",
-    description: "title, color, type, collection, price",
+    attributes: ["title", "color", "type", "collection", "price"],
   },
   {
-    ico: <Art />,
+    icon: <Art />,
     title: "art",
-    description: "title, color, artist, price, size",
+    attributes: ["title", "color", "artist", "price", "size"],
   },
   {
-    ico: <Furniture />,
+    icon: <Furniture />,
     title: "furniture",
-    description: "color, brand, model, type, price, room, material",
+    attributes: [
+      "color",
+      "brand",
+      "model",
+      "type",
+      "price",
+      "room",
+      "material",
+    ],
   },
   {
-    ico: <Technology />,
+    icon: <Technology />,
     title: "technology",
-    description: "color, brand, model, type, price, room, material",
+    attributes: [
+      "color",
+      "brand",
+      "model",
+      "type",
+      "price",
+      "room",
+      "material",
+    ],
   },
   {
-    ico: <Tableware />,
+    icon: <Tableware />,
     title: "tableware",
-    description: "color, brand, type, material, price",
+    attributes: ["color", "brand", "type", "material", "price"],
   },
   {
-    ico: <Tools />,
+    icon: <Tools />,
     title: "tools",
-    description: "color, type, brand, price",
+    attributes: ["color", "type", "brand", "price"],
   },
 ];
