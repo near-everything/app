@@ -34,7 +34,7 @@ function Body({ list, bulk, removeImage }: Props) {
           className="  "
           style={{ minWidth: windowSize.current[0] + minWidth }}
         >
-          <div className=" flex items-center justify-start pl-[4px] gap-2">
+          <div className=" flex items-center justify-start pl-[4px] gap-1">
             {list.length !== 0 ? (
               list.map((item, id) => (
                 <div

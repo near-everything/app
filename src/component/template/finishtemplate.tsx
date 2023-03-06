@@ -18,6 +18,9 @@ type Inputs = {
 const schema = yup.object({
   search: yup.string(),
 });
+
+// This is the "Thing" page
+
 function Finishtemplate({}: Props) {
   const location = useLocation();
   const data = location.state?.data;
