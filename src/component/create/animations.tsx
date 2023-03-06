@@ -30,6 +30,29 @@ export const Info: React.FC<IInfoItem> = ({ children }) => {
     </motion.div>
   );
 };
+export const Searchpart: React.FC<IInfoItemstate> = ({ children,state }) => {
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
+  return (
+    <motion.div
+      animate={{
+        y: [windowSize.current[1], 0],
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        top: [windowSize.current[1], 0],
+      }}
+      transition={{
+        type: "tween",
+        ease: "easeInOut",
+        repeatDelay: 1,
+        duration: 2,
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 export const Uploadpart: React.FC<IInfoItem> = ({ children }) => {
   return (
     <motion.div

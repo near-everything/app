@@ -11,6 +11,7 @@ type Props = {};
 const Index = (props: Props) => {
   const [data, setData] = useState(photos);
   const [action, setAction] = useState<string>("");
+  const [search, setSearch] = useState<boolean>(false);
   return (
     <div className=" w-full h-full relative">
       <div className=" flex items-center justify-between px-[16px] py-[4px]">
