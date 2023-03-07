@@ -100,7 +100,7 @@ export const Bulkpart: React.FC<IInfoItem> = ({ children }) => {
 };
 export const Bodyanimation: React.FC<IInfoItem> = ({ children }) => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
-  const location = (40 * windowSize.current[1]) / 100;
+  const location = windowSize.current[1];
   return (
     <motion.div
       animate={{

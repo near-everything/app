@@ -1,18 +1,24 @@
-import { createBrowserRouter } from "react-router-dom";
-import Create from "component/create";
-import App from "../App";
+import Create from "component/create/index";
 import Explore from "component/explore";
-import Finishtemplate from "component/template/finishtemplate";
 import Profile from "component/profile";
+import Finishtemplate from "component/template/finishtemplate";
+import { createBrowserRouter } from "react-router-dom";
+import App from "../App";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-  },
-  {
-    path: "/explore",
-    element: <Explore />,
+    children: [
+      {
+        index: true,
+        element: <Explore />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+    ],
   },
   {
     path: "/create",
