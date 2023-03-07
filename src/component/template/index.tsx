@@ -24,7 +24,7 @@ function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [template, setTemplate] = useState<Template | null>(null);
 
-  const handlesave = () => {
+  const handleSave = () => {
     // this will need to know about bulk
     setLoading(true);
   };
@@ -47,6 +47,7 @@ function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
 
   return (
     <div className="bg-black h-full relative justify-between flex flex-col">
+      {/* Header */}
       <Header
         elementLeft={
           <RoundedBtn
@@ -58,6 +59,7 @@ function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
           />
         }
       />
+      {/* Body */}
       <div className="mx-1 flex grow flex-col">
         <div className=" px-[12px]">
           <p className=" mt-[16px] text-title28">what is this thing?</p>
@@ -75,18 +77,20 @@ function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
         />
         <ImageGrid list={list} removeImage={removeImage} />
       </div>
+      {/* Save Thing */}
       <div className="w-full flex items-center justify-center my-[14px]">
         <MainBtn
           type="button"
           disabled={false}
           size="L"
           className="px-[24px] w-full"
-          onClick={handlesave}
+          onClick={handleSave}
         >
           <p>save thing</p>
         </MainBtn>
       </div>
-      {isApplyTemplateVisible && ( // apply template screen -- comes in from the bottom
+      {/* Apply Template Screen -- comes up from the bottom */}
+      {isApplyTemplateVisible && (
         <Apply>
           <ApplyTemplate
             hideApplyTemplate={hideApplyTemplate}

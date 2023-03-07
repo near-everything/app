@@ -35,6 +35,7 @@ function ImageGrid({ list, removeImage }: Props) {
             />
           </div>
         ))}
+        {/* TODO: What happens when all the images have been deleted? */}
       </div>
     </>
   );

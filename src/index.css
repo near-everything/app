@@ -6,6 +6,20 @@ body {
   color: white;
 }
 
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh; /* fallback for Js load */
+  height: var(--doc-height);
+  background-color: black;
+
+  /* TODO: Test, do the two below look good on iOS notch? */
+  min-height: calc(100% + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
 code,
 kbd,
 samp,
@@ -16,9 +30,9 @@ pre {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 #root {
-  width: 100%;
-  height: 100%;
+  height: var(--doc-height);
 }
 
 @font-face {
@@ -70,7 +84,8 @@ pre {
 }
 
 .headergradient {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), #ffffff;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    #ffffff;
 }
 
 .floating-label-group {
