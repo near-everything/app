@@ -27,7 +27,7 @@ function TemplateEditor({ template, setTemplate, hideTemplateEditor, hideApplyTe
   };
 
   return (
-    <div className="bg-gray-95 h-full backdrop-blur-[10px] relative z-20">
+    <div className="bg-gray-95 h-full overflow-auto backdrop-blur-[10px] relative z-20">
       <Header
         elementLeft={
           <RoundedBtn
