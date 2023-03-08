@@ -45,9 +45,10 @@ export const Apply: React.FC<IInfoItem> = ({ children }) => {
       animate={{
         y: [windowSize.current[1], 0],
         width: "100%",
-        height: "100%",
+        height: "auto",
+        minHeight: "100%",
         position: "absolute",
-        overflow: "hidden",
+        overflow: "auto",
         top: [windowSize.current[1], 0],
       }}
       transition={{

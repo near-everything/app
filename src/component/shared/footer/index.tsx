@@ -10,7 +10,7 @@ const Footer = (props: Props) => {
   const location = useLocation();
 
   return (
-    <div className="absolute bottom-[16px] right-[8px] left-[8px] z-40 ">
+    <div className="fixed bottom-[16px] right-[8px] left-[8px] z-40 ">
       <div className="px-[54px] py-[24px] bg-black80 backdrop-blur-[12px] rounded-[24px] flex items-center justify-between">
         <FooterItem linkPath="/" locationPath={location.pathname}>
           <Circle />
