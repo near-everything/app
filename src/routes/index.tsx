@@ -1,7 +1,8 @@
 import Create from "component/create/index";
 import Explore from "component/explore";
 import Profile from "component/profile";
-import Finishtemplate from "component/thing";
+import Thing from "component/thing";
+import { ApplyTemplateProvider } from "contexts/ApplyTemplateContext";
 import { createBrowserRouter } from "react-router-dom";
 import { dbPromise } from "services/db";
 import App from "../App";
@@ -23,16 +24,21 @@ export const router = createBrowserRouter([
   },
   {
     path: "/create",
-    element: <Create />,
+    element: (
+      <ApplyTemplateProvider>
+        <Create />
+      </ApplyTemplateProvider>
+    ),
   },
   {
     path: "/thing/:thingId",
-    element: <Finishtemplate />,
+    element: <ApplyTemplateProvider><Thing /></ApplyTemplateProvider>,
     loader: async ({ params }) => {
-      const thing = await (await dbPromise).get("things", parseInt(params.thingId!))
+      const thing = await (
+        await dbPromise
+      ).get("things", parseInt(params.thingId!));
       return thing;
-      
-    }
+    },
   },
   {
     path: "/profile",

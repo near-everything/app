@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { AnimateSharedLayout, motion, Transition } from "framer-motion";
 import {
   Connectcircle,
   Connectemptycircle,
-  Connectmulticircle,
+  Connectmulticircle
 } from "component/login/animations";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { AnimateSharedLayout, motion, Transition } from "framer-motion";
 
-type Props = { url: string | null; template: string };
+type Props = {};
 const transition: Transition = {
   type: "spring",
   stiffness: 500,
@@ -16,21 +13,16 @@ const transition: Transition = {
   duration: 1,
 };
 
-function Index({ url, template }: Props) {
-  const navigate = useNavigate();
-  const [data, setData] = useState({
-    url: url,
-    temp: template,
-  });
-  useEffect(() => {
-    function pollDOM() {
-       navigate("/finish", { replace: true, state: { data: data } });
-    }
+function Index(props: Props) {
+  // useEffect(() => {
+  //   function pollDOM() {
+  //      navigate("/finish", { replace: true, state: { data: data } });
+  //   }
 
-    const interval = setInterval(pollDOM, 6000);
+  //   const interval = setInterval(pollDOM, 6000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
   return (
     <>
       <div className=" flex flex-col">

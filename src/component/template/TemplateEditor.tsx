@@ -11,15 +11,15 @@ import { useState } from "react";
 import { Template } from "./ApplyTemplate";
 
 type Props = {
-  template: Template | null;
+  selectedTemplate: Template | null;
   setTemplate: (template: Template | null) => void;
   hideTemplateEditor: () => void;
   hideApplyTemplate: () => void;
 };
 
-function TemplateEditor({ template, setTemplate, hideTemplateEditor, hideApplyTemplate }: Props) {
+function TemplateEditor({ selectedTemplate, setTemplate, hideTemplateEditor, hideApplyTemplate }: Props) {
   const [list, setList] = useState<string[] | null>(
-    template?.attributes || null
+    selectedTemplate?.attributes || null
   );
 
   const handleRemove = (id: number) => {
@@ -36,7 +36,7 @@ function TemplateEditor({ template, setTemplate, hideTemplateEditor, hideApplyTe
           />
         }
         elementCenter={
-          <p className="text-title18">{template?.title || "new template"}</p>
+          <p className="text-title18">{selectedTemplate?.title || "new template"}</p>
         }
         elementRight={
           <MainBtn
@@ -45,7 +45,7 @@ function TemplateEditor({ template, setTemplate, hideTemplateEditor, hideApplyTe
             size="M"
             className=" px-[24px]"
             onClick={() => {
-              setTemplate(template);
+              setTemplate(selectedTemplate);
               hideApplyTemplate();
             }}
           >

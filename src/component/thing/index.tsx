@@ -1,10 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ReactComponent as Arrowupright } from "assets/icon/arrowupright.svg";
 import { ReactComponent as Edit } from "assets/icon/edit.svg";
-import { ReactComponent as Shirt } from "assets/icon/templates/shirt.svg";
-import { ReactComponent as Trash } from "assets/icon/trash.svg";
 import Input from "component/shared/input";
 import Snackbar from "component/shared/snackbar";
+import ApplyTemplateBtn from "component/template/ApplyTemplateBtn";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoaderData } from "react-router-dom";
 import * as yup from "yup";
@@ -64,18 +63,7 @@ function Index({}: Props) {
         </form>
       </div>
       {/* This should be the generic TemplateSelectBtn, which means the template editor should be pulled out so it can be used in both places... maybe a context? */}
-      <div className=" bg-gray-95 w-[98%] mx-auto rounded-[20px] p-[4px] mt-[24px] flex items-center justify-between">
-        <div className=" flex items-center justify-start text-Button16 text-gray-30">
-          <div className=" bg-gray-90 rounded-[18px] w-[48px] h-[48px] flex items-center justify-center mr-[10px]">
-            <Shirt />
-          </div>
-          {thing.template}
-        </div>
-        <div className="flex items-center justify-start">
-          <Trash className=" text-red" />
-          <Edit className=" ml-[8px] mr-[4px]" />
-        </div>
-      </div>
+      <ApplyTemplateBtn template={thing.template} />
       {/* This should represent the pile it exists in... defaults to "everything" */}
       <div className=" w-[98%] mx-auto bg-gray-95 p-[16px]  rounded-[20px] mt-[8px] flex items-center justify-between">
         <p>Everything</p>

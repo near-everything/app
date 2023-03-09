@@ -1,20 +1,16 @@
 import { ReactComponent as Clipboard } from "assets/icon/clipboard.svg";
 import { ReactComponent as Edit } from "assets/icon/edit.svg";
-import { ReactComponent as Shirt } from "assets/icon/templates/shirt.svg";
 import { ReactComponent as Trash } from "assets/icon/trash.svg";
-import { Template } from "./ApplyTemplate";
+import { useApplyTemplate } from "contexts/ApplyTemplateContext";
+import { Template } from "./TemplateSelect";
 
 type Props = {
   template: Template | null;
-  setTemplate: (template: Template | null) => void;
-  setShowApplyTemplate: (showApply: boolean) => void;
 };
 
-function TemplateSelectBtn({
-  template,
-  setTemplate,
-  setShowApplyTemplate,
-}: Props) {
+function ApplyTemplateBtn({ template }: Props) {
+  const { resetTemplate, showApplyTemplate }: any = useApplyTemplate();
+
   return (
     <>
       <div className="w-full h-[56px] mb-[16px]">
@@ -27,17 +23,17 @@ function TemplateSelectBtn({
               <div className="ml-[10px]">{template?.title}</div>
             </div>
             <div className="flex items-center justify-start">
-              <Trash className=" text-red" onClick={() => setTemplate(null)} />
+              <Trash className=" text-red" onClick={resetTemplate} />
               <Edit
                 className=" ml-[8px] mr-[4px]"
-                onClick={() => setShowApplyTemplate(true)}
+                onClick={showApplyTemplate}
               />
             </div>
           </div>
         ) : (
           <div
             className="h-full border border-gray-80 border-dashed rounded-[20px] flex items-center justify-center"
-            onClick={() => setShowApplyTemplate(true)}
+            onClick={showApplyTemplate}
           >
             <p className="text-gray-30 text-Button16">apply template</p>
             <Clipboard className="text-gray-30 ml-[10px]" />
@@ -49,4 +45,4 @@ function TemplateSelectBtn({
   );
 }
 
-export default TemplateSelectBtn;
+export default ApplyTemplateBtn;

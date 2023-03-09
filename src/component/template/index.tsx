@@ -6,10 +6,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { dbPromise } from "services/db";
 import Header from "../shared/header";
-import { Apply } from "./animations";
-import ApplyTemplate, { Template } from "./ApplyTemplate";
 import ImageGrid from "./ImageGrid";
-import TemplateSelectBtn from "./TemplateSelectBtn";
+import TemplateSelectBtn from "./ApplyTemplateBtn";
+import { useApplyTemplate } from "contexts/ApplyTemplateContext";
 
 type Props = {
   list: string[];
@@ -20,20 +19,20 @@ type Props = {
   removeImage: (id: number) => void;
 };
 
+// This shouldn't be the "template" screen, this should just be an extension of create
 function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
-  const [isApplyTemplateVisible, setApplyTemplateVisible] =
-    useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [template, setTemplate] = useState<Template | null>(null);
+  const { template }: any = useApplyTemplate();
   const navigate = useNavigate();
 
   const handlesave = async () => {
-    
     // this will need to know about bulk
     setLoading(true);
-    const thingId = await (await dbPromise).add("things", {
+    const thingId = await (
+      await dbPromise
+    ).add("things", {
       name: "test",
-      template: "test",
+      template: template?.title,
       attributes: [
         {
           label: "test",
@@ -46,18 +45,10 @@ function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
     navigate(`/thing/${thingId}`, { replace: true });
   };
 
-  const showApplyTemplate = () => {
-    setApplyTemplateVisible(true);
-  };
-
-  const hideApplyTemplate = () => {
-    setApplyTemplateVisible(false);
-  };
-
   if (loading) {
     return (
       <div className="bg-black h-full relative">
-        <Createlanding url={url} template={template?.title || ""} />
+        <Createlanding/>
       </div>
     );
   }
@@ -85,11 +76,7 @@ function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
             what are templates?
           </p>
         </div>
-        <TemplateSelectBtn
-          template={template}
-          setTemplate={setTemplate}
-          setShowApplyTemplate={showApplyTemplate}
-        />
+        <TemplateSelectBtn template={template} />
         <ImageGrid list={list} removeImage={removeImage} />
       </div>
       <div className="w-full flex items-center justify-center my-[14px]">
@@ -103,14 +90,6 @@ function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
           <p>save thing</p>
         </MainBtn>
       </div>
-      {isApplyTemplateVisible && ( // apply template screen -- comes in from the bottom
-        <Apply>
-          <ApplyTemplate
-            hideApplyTemplate={hideApplyTemplate}
-            setTemplate={setTemplate}
-          />
-        </Apply>
-      )}
     </div>
   );
 }
