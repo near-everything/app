@@ -3,6 +3,8 @@ import { MainBtn } from "component/shared/btn";
 import RoundedBtn from "component/shared/btn/RoundedBtn";
 import Createlanding from "component/shared/createlanding";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { dbPromise } from "services/db";
 import Header from "../shared/header";
 import { Apply } from "./animations";
 import ApplyTemplate, { Template } from "./ApplyTemplate";
@@ -23,10 +25,25 @@ function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
     useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [template, setTemplate] = useState<Template | null>(null);
+  const navigate = useNavigate();
 
-  const handlesave = () => {
+  const handlesave = async () => {
+    
     // this will need to know about bulk
     setLoading(true);
+    (await dbPromise).add("things", {
+      name: "test",
+      template: "test",
+      attributes: [
+        {
+          label: "test",
+          value: "test",
+          hidden: false,
+        },
+      ],
+      media: list,
+    });
+    navigate("/finish", { replace: true });
   };
 
   const showApplyTemplate = () => {

@@ -24,7 +24,7 @@ function Index({ url, template }: Props) {
   });
   useEffect(() => {
     function pollDOM() {
-      navigate("/finish", { replace: true, state: { data: data } });
+       navigate("/finish", { replace: true, state: { data: data } });
     }
 
     const interval = setInterval(pollDOM, 6000);
