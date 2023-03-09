@@ -31,7 +31,7 @@ function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
     
     // this will need to know about bulk
     setLoading(true);
-    (await dbPromise).add("things", {
+    const thingId = await (await dbPromise).add("things", {
       name: "test",
       template: "test",
       attributes: [
@@ -43,7 +43,7 @@ function Index({ list, url, bulk, setClose, setUrl, removeImage }: Props) {
       ],
       media: list,
     });
-    navigate("/finish", { replace: true });
+    navigate(`/thing/${thingId}`, { replace: true });
   };
 
   const showApplyTemplate = () => {

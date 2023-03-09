@@ -11,7 +11,7 @@ type Attribute = {
 
 interface everythingDB extends DBSchema {
   things: {
-    key: string;
+    key: number;
     value: {
       name: string;
       template: string;
