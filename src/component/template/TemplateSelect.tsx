@@ -21,12 +21,14 @@ import { ReactElement } from "react";
 import Header from "../shared/header";
 
 type Props = {
+  setTemplate: (template: Template | null) => void;
   setSelectedTemplate: (template: Template | null) => void;
   hideApplyTemplate: () => void;
   showTemplateEditor: () => void;
 };
 
 function TemplateSelect({
+  setTemplate,
   setSelectedTemplate,
   hideApplyTemplate,
   showTemplateEditor,
@@ -56,7 +58,7 @@ function TemplateSelect({
         </div>
         {/* End Description */}
         {/* New Template Button */}
-        <div
+        {/* <div
           className=" mt-[17px] flex items-center justify-start"
           onClick={() => {
             setSelectedTemplate(null);
@@ -67,7 +69,7 @@ function TemplateSelect({
             <Add className=" text-black w-[20px] h-[20px]" />
           </div>
           <p className=" text-Button16 ml-[8px]">new template</p>
-        </div>
+        </div> */}
         {/* End New Template Button */}
         <p className=" mt-[24px] text-Body16 mb-[16px]">our collection</p>
         {/* Template Buttons */}
@@ -77,8 +79,8 @@ function TemplateSelect({
               key={id}
               className="flex items-center justify-start mb-[8px]"
               onClick={() => {
-                setSelectedTemplate(temp);
-                showTemplateEditor();
+                setTemplate(temp);
+                hideApplyTemplate();
               }}
             >
               <div className=" bg-gray-90 rounded-[18px] w-[48px] h-[48px] flex items-center justify-center">

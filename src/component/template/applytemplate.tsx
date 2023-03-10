@@ -9,7 +9,9 @@ type Props = {
 };
 
 function ApplyTemplate({ template, setTemplate, hideApplyTemplate }: Props) {
-  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
+  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
+    null
+  );
   const [isTemplateEditorVisible, setTemplateEditorVisible] =
     useState<boolean>(false);
 
@@ -23,20 +25,21 @@ function ApplyTemplate({ template, setTemplate, hideApplyTemplate }: Props) {
 
   return (
     <div className="bg-gray-95 h-full backdrop-blur-[10px] relative z-20">
-      {isTemplateEditorVisible ? (
+      {/* {isTemplateEditorVisible ? (
         <TemplateEditor
-        selectedTemplate={selectedTemplate}
+          selectedTemplate={selectedTemplate}
           setTemplate={setTemplate}
           hideTemplateEditor={hideTemplateEditor}
           hideApplyTemplate={hideApplyTemplate}
         />
-      ) : (
-        <TemplateSelect
-          setSelectedTemplate={setSelectedTemplate}
-          showTemplateEditor={showTemplateEditor}
-          hideApplyTemplate={hideApplyTemplate}
-        />
-      )}
+      ) : ( */}
+      <TemplateSelect
+        setTemplate={setTemplate}
+        setSelectedTemplate={setSelectedTemplate}
+        showTemplateEditor={showTemplateEditor}
+        hideApplyTemplate={hideApplyTemplate}
+      />
+      {/* )} */}
     </div>
   );
 }
