@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ReactComponent as User } from "assets/icon/profile/user.svg";
 import { ReactComponent as Setting } from "assets/icon/profile/setting.svg";
-import Footer from "./footer";
 import Invite from "./invite";
 import { Info } from "component/create/animations";
 import { photos } from "component/explore/photos";
@@ -50,7 +49,6 @@ const Index = (props: Props) => {
           <Collectiongallery />
         )}
       </div>
-      <Footer />
       {action === "user" && (
         <Info>
           <Invite setClose={setAction} />
