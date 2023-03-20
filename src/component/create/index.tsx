@@ -52,7 +52,6 @@ function Index({}: Props) {
       setUpload(true);
     }
   };
-  console.log("url", url);
   return (
     <div
       className={

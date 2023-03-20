@@ -7,6 +7,7 @@ import {
   Createlandinganimation,
 } from "./animations";
 import { ReactComponent as Arrow } from "assets/icon/close.svg";
+import { ReactComponent as More } from "assets/icon/templates/more.svg";
 import { ReactComponent as Clipboard } from "assets/icon/clipboard.svg";
 import { MainBtn } from "component/shared/btn";
 import Applytemplate from "./applytemplate";
@@ -42,6 +43,9 @@ function Index({ list, url, bulk, setClose, setUrl }: Props) {
               }}
             >
               <Arrow className="text-white" />
+            </div>
+            <div>
+              <More/>
             </div>
           </div>
           {save ? (
