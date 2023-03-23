@@ -4,6 +4,7 @@ import App from "../App";
 import Explore from "component/explore";
 import Finishtemplate from "component/template/finishtemplate";
 import Profile from "component/profile";
+import Setting from "component/setting";
 
 export const router = createBrowserRouter([
   {
@@ -25,5 +26,9 @@ export const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/setting",
+    element: <Setting />,
   },
 ]);

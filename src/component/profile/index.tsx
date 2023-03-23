@@ -6,12 +6,16 @@ import Invite from "./invite";
 import { Info } from "component/create/animations";
 import { photos } from "component/explore/photos";
 import Collectiongallery from "./collectiongallery";
+import { useNavigate } from "react-router-dom";
+
 type Props = {};
 
 const Index = (props: Props) => {
   const [data, setData] = useState(photos);
   const [action, setAction] = useState<string>("");
   const [search, setSearch] = useState<boolean>(false);
+  const navigate = useNavigate();
+
   return (
     <div className=" w-full h-full relative">
       <div className=" flex items-center justify-between px-[16px] py-[4px]">
@@ -22,7 +26,12 @@ const Index = (props: Props) => {
           <User />
         </div>
         <div className=" border-gray-20 border-solid w-[48px] h-[48px] border rounded-[50%]"></div>
-        <div className=" bg-gray-10 p-[14px] rounded-[50%]">
+        <div
+          className=" bg-gray-10 p-[14px] rounded-[50%]"
+          onClick={() =>
+            navigate("/setting", { replace: true, state: { data: data } })
+          }
+        >
           <Setting />
         </div>
       </div>

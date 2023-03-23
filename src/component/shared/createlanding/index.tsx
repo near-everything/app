@@ -6,7 +6,6 @@ import {
   Connectmulticircle,
 } from "component/login/animations";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 type Props = { url: string | null; template: string };
 const transition: Transition = {
