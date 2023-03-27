@@ -25,6 +25,11 @@ const sizes = {
   M: "max-w-[261px]",
   S: "max-w-[241px]",
 };
+const sizess = {
+  L: "max-w-[343px]",
+  M: "max-w-[261px]",
+  S: "max-w-[81px]",
+};
 
 function MainBtn({
   type,
