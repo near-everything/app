@@ -26,8 +26,6 @@ yarn-error.log*
 /out/
 
 # local env files
-.env
-.env.*
 
 # vercel
 .vercel
@@ -38,3 +36,4 @@ yarn-error.log*
 **/public/worker-*.js
 **/public/sw.js
 **/public/sw.js.map
+config.bat
