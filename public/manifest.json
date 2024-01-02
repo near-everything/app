@@ -1,6 +1,6 @@
 {
-  "short_name": "everything",
-  "name": "everything",
+  "short_name": "PWASimple",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,25 +8,18 @@
       "type": "image/x-icon"
     },
     {
-      "src": "/icons/android-chrome-192x192.png",
+      "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "any maskable"
+      "sizes": "192x192"
     },
     {
-      "src": "/icons/android-chrome-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#000000",
-  "orientation": "portrait"
+  "background_color": "#ffffff"
 }
